@@ -7,13 +7,14 @@ import CreateGame from './CreateGame/CreateGame.svelte'
 import RelogTo from './PopUp/RelogTo.svelte'
 import WantToTakeCards from './PopUp/WantToTakeCards.svelte'
 import PopUp from './PopUp/PopUp.svelte'
+import LandingPage from './LandingPage/LandingPage.svelte'
 
 
 export const toggleMachine = createMachine({
     id: 'toggle',
     type: 'parallel',
     context: {
-        component: Login,
+        component: LandingPage,
         popUp: null,
         props: {},
         errors: [],
@@ -21,8 +22,20 @@ export const toggleMachine = createMachine({
     },
     states: {
         Screens: {
-            initial: "Login",
+            initial: "LandingPage",
             states: {
+                LandingPage: {
+                    on: { Login: "Login", LoginAccountSuccess: "Lobby" },
+                    entry: assign(
+                        {
+                            component: (ctx) => ctx.component = LandingPage,
+                            popUp: (ctx) => ctx.popUp = null,
+                            props: (ctx) => ctx.props = {},
+                            errors: (ctx) => ctx.errors = [],
+                            popUpProps: (ctx) => ctx.popUpProps = {}
+                        }
+                    ),
+                },
                 Login: {
                     on: {
                         Lobby: "Lobby",
