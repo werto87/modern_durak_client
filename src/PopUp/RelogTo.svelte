@@ -7,7 +7,7 @@
         sendMessageToWebsocket(
             "RelogTo|" + JSON.stringify({ wantsToRelog: false })
         );
-        dispatch("stateMachineEvent", "Lobby");
+        dispatch("stateMachineEvent", "LoginSuccess");
     };
     const backToCreateGameLobby = () => {
         sendMessageToWebsocket(
@@ -17,9 +17,10 @@
 </script>
 
 <main>
-    <h1>Relog To</h1>
-    <button on:click={lobby}>Lobby</button>
-    <button on:click={backToCreateGameLobby}>{destination}</button>
+    <h1>Do You Want Relog To {destination}?</h1>
+    <button on:click={lobby}>No</button>
+    <button on:click={backToCreateGameLobby}>Yes! Relog to {destination}</button
+    >
 </main>
 
 <style>

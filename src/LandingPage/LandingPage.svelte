@@ -1,6 +1,6 @@
 <script lang="ts">
     import { createEventDispatcher } from "svelte";
-
+    export let isLoggedIn: boolean = false;
     let dispatch = createEventDispatcher();
     const quickPressed = () => {
         dispatch("stateMachineEvent", "Quick");
@@ -12,7 +12,12 @@
         dispatch("stateMachineEvent", "Puzzle");
     };
     const customPressed = () => {
-        dispatch("stateMachineEvent", "Custom");
+        console.log(isLoggedIn);
+        if (isLoggedIn) {
+            dispatch("stateMachineEvent", "Custom");
+        } else {
+            dispatch("stateMachineEvent", "CustomLogin");
+        }
     };
 </script>
 

@@ -9,6 +9,55 @@ import WantToTakeCards from './PopUp/WantToTakeCards.svelte'
 import PopUp from './PopUp/PopUp.svelte'
 import LandingPage from './LandingPage/LandingPage.svelte'
 
+const loginStates = {
+    id: "LoginMachine",
+    initial: "Login",
+    states: {
+        Login: {
+            on: {
+                RelogToCreateGameLobbySuccess: "#toggle.Screens.CreateGame",
+                RelogToGameSuccess: "#toggle.Screens.Game",
+                CreateAccount: "CreateAccount",
+                WantToRelog: {
+                    actions: [
+                        (context, event) => {
+                            context.popUpProps = { destination: event.destination };
+                            context.popUp = RelogTo;
+                            context.errors = [];
+                            context.accountName = event.accountName;
+                        }
+                    ],
+                },
+
+            },
+            entry: assign(
+                {
+                    component: (ctx) => ctx.component = Login,
+                    popUp: (ctx) => ctx.popUp = null,
+                    props: (ctx) => ctx.props = {},
+                    errors: (ctx) => ctx.errors = [],
+                    popUpProps: (ctx) => ctx.popUpProps = {}
+
+                }
+            ),
+        },
+        CreateAccount: {
+            on: {
+                Login: "Login",
+            },
+            entry: assign(
+                {
+                    component: (ctx) => ctx.component = CreateAccount,
+                    popUp: (ctx) => ctx.popUp = null,
+                    props: (ctx) => ctx.props = {},
+                    errors: (ctx) => ctx.errors = [],
+                    popUpProps: (ctx) => ctx.popUpProps = {}
+                }
+            ),
+        },
+
+    },
+};
 
 export const toggleMachine = createMachine({
     id: 'toggle',
@@ -18,27 +67,29 @@ export const toggleMachine = createMachine({
         popUp: null,
         props: {},
         errors: [],
-        accountName: null
+        accountName: null,
     },
     states: {
         Screens: {
             initial: "LandingPage",
             states: {
                 LandingPage: {
-                    on: { Login: "Login", LoginAccountSuccess: "Lobby" },
+                    on: {
+                        CustomLogin: "CustomLogin", Custom: "Lobby",
+                    },
                     entry: assign(
                         {
                             component: (ctx) => ctx.component = LandingPage,
                             popUp: (ctx) => ctx.popUp = null,
-                            props: (ctx) => ctx.props = {},
+                            props: (ctx) => ctx.props = { isLoggedIn: ctx.accountName != null },
                             errors: (ctx) => ctx.errors = [],
                             popUpProps: (ctx) => ctx.popUpProps = {}
                         }
                     ),
                 },
-                Login: {
+                CustomLogin: {
                     on: {
-                        Lobby: "Lobby",
+                        LoginSuccess: "Lobby",
                         LoginAccountSuccess: {
                             actions: [
                                 (context, event) => {
@@ -47,50 +98,26 @@ export const toggleMachine = createMachine({
                             ],
                             target: "Lobby"
                         },
-                        RelogToCreateGameLobbySuccess: "CreateGame",
-                        RelogToGameSuccess: "Game",
-                        CreateAccount: "CreateAccount",
-                        WantToRelog: {
-                            actions: [
-                                (context, event) => {
-                                    context.popUpProps = { destination: event.destination };
-                                    context.popUp = RelogTo;
-                                    context.errors = [];
-                                    context.accountName = event.accountName;
-                                }
-                            ],
-                        }
-                    },
-                    entry: assign(
-                        {
-                            component: (ctx) => ctx.component = Login,
-                            popUp: (ctx) => ctx.popUp = null,
-                            props: (ctx) => ctx.props = {},
-                            errors: (ctx) => ctx.errors = [],
-                            popUpProps: (ctx) => ctx.popUpProps = {}
 
-                        }
-                    ),
+                        Cancel: "LandingPage"
+                    },
+                    ...loginStates,
                 },
-                CreateAccount: {
-                    on: { Login: "Login", LoginAccountSuccess: "Lobby" },
-                    entry: assign(
-                        {
-                            component: (ctx) => ctx.component = CreateAccount,
-                            popUp: (ctx) => ctx.popUp = null,
-                            props: (ctx) => ctx.props = {},
-                            errors: (ctx) => ctx.errors = [],
-                            popUpProps: (ctx) => ctx.popUpProps = {}
-                        }
-                    ),
-                },
+                // TODO Ranked Login
+                // RankedLogin: {
+                //     on: { LoginSuccess: "../Lobby", Cancel: "../LandingPage" },
+                //     ...loginStates,
+
                 Lobby: {
                     on: {
                         LogoutAccountSuccess: {
-                            target: "Login",
+                            target: "LandingPage",
                             actions: [
                                 (context) => {
                                     context.accountName = null;
+                                    //I do not know why I have to reset this here
+                                    context.component = LandingPage
+                                    context.props = { isLoggedIn: context.accountName != null }
                                 }
                             ],
                         },
@@ -263,4 +290,8 @@ export const toggleMachine = createMachine({
         }
     }
 
+}, {
+    guards: {
+        loggedIn: context => context.accountName != null
+    }
 });

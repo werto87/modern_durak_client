@@ -15,6 +15,9 @@
     const backToLogin = () => {
         dispatch("stateMachineEvent", "Login");
     };
+    const cancel = () => {
+        dispatch("stateMachineEvent", "Cancel");
+    };
     import { sendMessageToWebsocket } from "../Webservice/store.js";
     const formProps = {
         initialValues: {
@@ -29,7 +32,6 @@
             sendMessageToWebsocket(
                 "CreateAccount|" + JSON.stringify(createAccount)
             );
-            // CreateAccount|{"accountName":"aa","password":"aa"}
         },
     };
 </script>
@@ -53,13 +55,14 @@
             />
             <ErrorMessage name="repeatPassword" />
         </div>
-        <div>
-            <button
-                on:click={() => {
-                    backToLogin();
-                }}>Back</button
-            >
-            <button type="submit">Create Account and Login</button>
-        </div>
+        <button
+            on:click={() => {
+                backToLogin();
+            }}>Back</button
+        >
+        <button type="submit">Create Account and Login</button>
     </Form>
+    <div>
+        <button on:click={cancel}>Cancel</button>
+    </div>
 </div>

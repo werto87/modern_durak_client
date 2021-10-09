@@ -11,6 +11,9 @@
     const createNewAccount = () => {
         dispatch("stateMachineEvent", "CreateAccount");
     };
+    const cancel = () => {
+        dispatch("stateMachineEvent", "Cancel");
+    };
     import { sendMessageToWebsocket } from "../Webservice/store.js";
     const formProps = {
         initialValues: {
@@ -49,8 +52,11 @@
         <div>
             <button type="submit">Sign in</button>
         </div>
-        <div>
-            <button on:click={createNewAccount}>Create new Account</button>
-        </div>
     </Form>
+    <div>
+        <button on:click={createNewAccount}>Create new Account</button>
+    </div>
+    <div>
+        <button on:click={cancel}>Cancel</button>
+    </div>
 </div>
