@@ -145,9 +145,3 @@
 <div>
     <button on:click={leaveGameLobby}>Leave Game Lobby</button>
 </div>
-
-<style>
-    input[type="number"]:disabled {
-        background: red;
-    }
-</style>

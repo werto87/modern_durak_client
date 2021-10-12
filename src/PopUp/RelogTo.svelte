@@ -23,5 +23,3 @@
     >
 </main>
 
-<style>
-</style>

@@ -51,6 +51,7 @@
 	{#if $toggleService.context.popUp}
 		<svelte:component
 			this={$toggleService.context.popUp}
+			class="mainScreen"
 			{...$toggleService.context.popUpProps}
 			on:stateMachineEvent={stateMachineEvent}
 		/>
@@ -69,23 +70,39 @@
 </main>
 
 <style>
-	/* main {
+	:global(input[type="number"]:disabled) {
+		background: red;
+	}
+	:global(main) {
+		/* background: #0f292f; */
 		text-align: center;
-		padding: 1em;
-		max-width: 240px;
-		margin: 0 auto;
-	} */
+		color: white;
+		font-family: Open Sans;
+		font-size: 30px;
+	}
+	:global(body) {
+		padding: 0;
+		background-color: #0f292f;
+		/* #501f3a #cb2d6f #cccccc #14a098 #0f292f */
+	}
 
-	/* h1 {
-		color: #ff3e00;
-		text-transform: uppercase;
-		font-size: 4em;
-		font-weight: 100;
-	} */
-
-	@media (min-width: 640px) {
-		main {
-			max-width: none;
-		}
+	:global(.mainScreen) {
+		padding: 0;
+	}
+	:global(h1) {
+		font-size: 40px;
+	}
+	:global(button) {
+		background: #0e3b93;
+		color: #4ed93f;
+		/* color: #cb2d6f; DO NOT DELETE THIS: SECOND BUTTON TEXT COLOR */
+		height: 100%;
+		width: 100%;
+		border-width: 3px;
+		border-color: #cccccc;
+		/* border-color: #ffaa00; DO NOT DELETE THIS: SECOND BORDER COLOR  */
+		font-size: 30px;
+		border-radius: 5%;
+		word-break: break-word;
 	}
 </style>

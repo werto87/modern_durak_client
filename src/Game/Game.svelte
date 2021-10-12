@@ -187,6 +187,3 @@
         ><br />
     </main>
 {/if}
-
-<style>
-</style>

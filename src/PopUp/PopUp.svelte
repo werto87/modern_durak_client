@@ -12,5 +12,3 @@
     <button on:click={close}>Close</button>
 </main>
 
-<style>
-</style>

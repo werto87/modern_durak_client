@@ -21,6 +21,3 @@
     <button on:click={lobby}>Discard Cards from Table</button>
     <button on:click={backToCreateGameLobby}>Take Cards from Table</button>
 </main>
-
-<style>
-</style>

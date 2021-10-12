@@ -72,6 +72,8 @@ export const toggleMachine = createMachine({
     states: {
         Screens: {
             initial: "LandingPage",
+
+
             states: {
                 LandingPage: {
                     on: {
