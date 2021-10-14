@@ -21,14 +21,15 @@ const loginStates = {
                 WantToRelog: {
                     actions: [
                         (context, event) => {
+                            console.log(context.popUpProps)
                             context.popUpProps = { destination: event.destination };
                             context.popUp = RelogTo;
                             context.errors = [];
                             context.accountName = event.accountName;
+                            console.log(context.popUpProps)
                         }
                     ],
                 },
-
             },
             entry: assign(
                 {
@@ -72,8 +73,6 @@ export const toggleMachine = createMachine({
     states: {
         Screens: {
             initial: "LandingPage",
-
-
             states: {
                 LandingPage: {
                     on: {

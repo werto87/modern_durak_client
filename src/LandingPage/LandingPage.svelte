@@ -43,9 +43,6 @@
 
 <style>
     .grid-container {
-        padding-left: 15%;
-        padding-right: 15%;
-        padding-bottom: 15%;
         box-sizing: border-box;
         display: grid;
         grid-template-rows: 28fr 72fr;

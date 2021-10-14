@@ -42,22 +42,26 @@
     <Form {...createGameLobbyProps} autoComplete="false">
         <h1>Create Game Lobby</h1>
         <div>
+            <label for="name">Create Game Lobby Name</label>
             <Field
+                class="form-field"
                 type="text"
                 name="name"
                 placeholder="Create Game Lobby Name"
                 autoComplete="false"
             />
-            <ErrorMessage name="name" />
+            <ErrorMessage name="name" class="form-error" />
         </div>
         <div>
+            <label for="password">Account Name</label>
             <Field
+                class="form-field"
                 type="password"
                 name="password"
                 placeholder="Create Game Lobby Password"
                 autoComplete="false"
             />
-            <ErrorMessage name="gameLobbyPassword" />
+            <ErrorMessage name="gameLobbyPassword" class="form-error" />
         </div>
         <div>
             <button type="submit">Create Game Lobby</button>
@@ -66,22 +70,26 @@
     <Form {...joinGameLobbyProps} autoComplete="false">
         <h1>Join Game Lobby</h1>
         <div>
+            <label for="name">Join Game Lobby Name</label>
             <Field
+                class="form-field"
                 type="text"
                 name="name"
                 placeholder="Join Game Lobby Name"
                 autoComplete="false"
             />
-            <ErrorMessage name="name" />
+            <ErrorMessage name="name" class="form-error" />
         </div>
         <div>
+            <label for="password">Join Game Lobby Password</label>
             <Field
+                class="form-field"
                 type="password"
                 name="password"
                 placeholder="Join Game Lobby Password"
                 autoComplete="false"
             />
-            <ErrorMessage name="password" />
+            <ErrorMessage name="password" class="form-error" />
         </div>
         <div>
             <button type="submit">Join Game Lobby</button>

@@ -40,20 +40,34 @@
     <h1>Sign in to Modern Durak</h1>
     <Form {...formProps}>
         <div>
-            <Field type="text" name="accountName" placeholder="Account Name" />
-            <ErrorMessage name="accountName" />
-        </div>
-        <div>
-            <Field type="password" name="password" placeholder="Password" />
-            <ErrorMessage name="password" />
-        </div>
-        <div>
+            <label for="accountName">Account Name</label>
             <Field
+                class="form-field"
+                type="text"
+                name="accountName"
+                placeholder="Account Name"
+            />
+            <ErrorMessage name="accountName" class="form-error" />
+        </div>
+        <div>
+            <label for="password">Password</label>
+            <Field
+                type="password"
+                name="password"
+                placeholder="Password"
+                class="form-field"
+            />
+            <ErrorMessage name="password" class="form-error" />
+        </div>
+        <div>
+            <label for="repeatPassword">Repeat Password</label>
+            <Field
+                class="form-field"
                 type="password"
                 name="repeatPassword"
                 placeholder="Repeat Password"
             />
-            <ErrorMessage name="repeatPassword" />
+            <ErrorMessage name="repeatPassword" class="form-error" />
         </div>
         <button
             on:click={() => {

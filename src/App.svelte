@@ -3,6 +3,16 @@
 	import { toggleMachine } from "./machine";
 	import Error from "./PopUp/Error.svelte";
 
+	import Grid from "svelte-grid";
+	import gridHelp from "svelte-grid/build/helper/index.mjs";
+
+	const id = () => "_" + Math.random().toString(36).substr(2, 9);
+
+	let items = [
+		gridHelp.item({ x: 0, y: 0, w: 2, h: 2, id: id() }),
+		gridHelp.item({ x: 2, y: 0, w: 2, h: 2, id: id() }),
+	];
+
 	const toggleService = interpret(toggleMachine)
 		.onTransition((state) => {
 			console.log("Screen: " + state.value.Screens);
@@ -45,34 +55,61 @@
 	// }
 
 	//TODO fix problems with autofill passwords
+	let selectedCards = [];
 </script>
 
 <main>
-	{#if $toggleService.context.popUp}
-		<svelte:component
-			this={$toggleService.context.popUp}
-			class="mainScreen"
-			{...$toggleService.context.popUpProps}
-			on:stateMachineEvent={stateMachineEvent}
-		/>
-	{:else}
-		<svelte:component
-			this={$toggleService.context.component}
-			{...$toggleService.context.props}
-			on:stateMachineEvent={stateMachineEvent}
-		/>
-	{/if}
-	<Error errors={$toggleService.context.errors} />
+	<div class="my-container">
+		{#if $toggleService.context.popUp}
+			<svelte:component
+				this={$toggleService.context.popUp}
+				class="mainScreen"
+				{...$toggleService.context.popUpProps}
+				on:stateMachineEvent={stateMachineEvent}
+			/>
+		{:else}
+			<svelte:component
+				this={$toggleService.context.component}
+				{...$toggleService.context.props}
+				on:stateMachineEvent={stateMachineEvent}
+			/>
+		{/if}
+		<Error errors={$toggleService.context.errors} />
 
-	<!-- {#if $toggleService.context.accountName}
+		<!-- {#if $toggleService.context.accountName}
 		<p>{$toggleService.context.accountName}</p>
-	{/if} -->
+		{/if} -->
+	</div>
 </main>
 
 <style>
-	:global(input[type="number"]:disabled) {
-		background: red;
+	:global(.my-container) {
+		width: 75%;
+		display: inline-block;
+		box-sizing: border-box;
 	}
+
+	:global(input[type="number"]:enabled) {
+		background: #0e3b93;
+		color: #4ed93f;
+		width: 100%;
+	}
+	:global(input[type="number"]:disabled) {
+		background: #cccccc;
+		color: #cb2d6f;
+		width: 100%;
+	}
+	:global(select:enabled) {
+		background: #0e3b93;
+		color: #4ed93f;
+		width: 100%;
+	}
+	:global(select:disabled) {
+		background: #cccccc;
+		color: #cb2d6f;
+		width: 100%;
+	}
+
 	:global(main) {
 		/* background: #0f292f; */
 		text-align: center;
@@ -104,5 +141,26 @@
 		font-size: 30px;
 		border-radius: 5%;
 		word-break: break-word;
+	}
+	:global(.form-field:focus) {
+		width: 100%;
+		border-width: 3px;
+		border-radius: 5%;
+		border-color: #cccccc;
+	}
+	:global(.form-error) {
+		width: 100%;
+		color: #ff3e00;
+	}
+	:global(.form-field) {
+		width: 100%;
+		background: #0e3b93;
+		color: #4ed93f;
+		border-radius: 5%;
+		border-width: 3px;
+		border-color: #cccccc;
+	}
+	:global(label) {
+		text-align: left;
 	}
 </style>

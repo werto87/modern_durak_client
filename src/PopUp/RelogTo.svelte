@@ -22,4 +22,3 @@
     <button on:click={backToCreateGameLobby}>Yes! Relog to {destination}</button
     >
 </main>
-

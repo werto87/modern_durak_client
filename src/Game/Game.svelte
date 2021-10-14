@@ -81,6 +81,19 @@
         });
         return unknowenCardCount;
     };
+    const printCard = (card) => {
+        let result = card.value;
+        if (card.type == "hearts") {
+            result += "♥";
+        } else if (card.type == "diamonds") {
+            result += "♦";
+        } else if (card.type == "spades") {
+            result += "♤";
+        } else if (card.type == "clubs") {
+            result += "♧";
+        }
+        return result;
+    };
 </script>
 
 {#if GameData}
@@ -88,22 +101,43 @@
         <h1>Game</h1>
         <h3>Table:</h3>
         {#each GameData.table as card}
-            <p>
-                Card: {card[0].Card.value}
-                {card[0].Card.type}
-                {#if card[1]}
-                    {card[1].Card.value}
-                    {card[1].Card.type}
-                {:else if playerRole == "defend"}
-                    <input
-                        type="radio"
-                        bind:group={selectedCardToBeat}
-                        name="selectedCardToBeat"
-                        value={card[0]}
-                        on:change={selectedCardToBeat}
-                    />
-                {/if}
-            </p>
+            <div class="grid-container">
+                <div class="grid-header" id="grid-item0">
+                    <h1>Table</h1>
+                </div>
+                <div class="grid-item">
+                    <button on:click={quickPressed} id="grid-item1"
+                        >{printCard(card[0].Card)}</button
+                    >
+                </div>
+                <div class="grid-item">
+                    <button on:click={rankedPressed} id="grid-item2"
+                        >Ranked</button
+                    >
+                </div>
+                <div class="grid-item">
+                    <button on:click={puzzlePressed} id="grid-item3"
+                        >Puzzle</button
+                    >
+                </div>
+                <div class="grid-item">
+                    <button on:click={customPressed} id="grid-item4"
+                        >Custom</button
+                    >
+                </div>
+            </div>
+            <button class="card">{printCard(card[0].Card)}</button
+            >{#if card[1]}<button class="card">{printCard(card[1].Card)}</button
+                >
+            {:else if playerRole == "defend"}
+                <input
+                    type="radio"
+                    bind:group={selectedCardToBeat}
+                    name="selectedCardToBeat"
+                    value={card[0]}
+                    on:change={selectedCardToBeat}
+                />
+            {/if}
         {/each}
         <p>Cards in Deck {GameData.cardsInDeck}</p>
         <p>
@@ -187,3 +221,9 @@
         ><br />
     </main>
 {/if}
+
+<style>
+    .card {
+        width: 12.5%;
+    }
+</style>
