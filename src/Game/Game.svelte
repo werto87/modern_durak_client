@@ -90,7 +90,6 @@
     <main>
         <h1>Game</h1>
         <h3>Table:</h3>
-        <!-- pass allowed moves to board if for example defend is not allowed to play that card do not allow to play it-->
         <Board
             bind:playerRole
             bind:playerCards
@@ -98,6 +97,7 @@
             bind:trump={GameData.trump}
             {cardBeatenCallback}
             {cardDroppedToAttackCallback}
+            bind:allowedMoves={DurakAllowedMoves}
         />
         <p>Cards in Deck {GameData.cardsInDeck}</p>
         <p>

@@ -13,6 +13,7 @@
     export let trump;
     export let cardBeatenCallback;
     export let cardDroppedToAttackCallback;
+    export let allowedMoves;
     const calcCardsOnTable = (table) => {
         let result = [];
         table.forEach((cardToBeatAndCard, i) => {
@@ -122,20 +123,29 @@
         playerRole,
         playerCardsWithId,
         cardsToBeat,
-        trump
+        trump,
+        allowedMoves
     ) => {
         if (playerRole == "defend") {
-            return calcCardsAllowedToPlayDefend(
-                playerCardsWithId,
-                cardsToBeat,
-                trump
-            );
+            if (allowedMoves != null && allowedMoves.allowedMoves.length != 0) {
+                return calcCardsAllowedToPlayDefend(
+                    playerCardsWithId,
+                    cardsToBeat,
+                    trump
+                );
+            } else {
+                return [];
+            }
         } else if (playerRole == "attack" || playerRole == "assist") {
-            return calcCardsAllowedToPlayAttackOrAssist(
-                playerCardsWithId,
-                cardsOnTable,
-                playerRole
-            );
+            if (allowedMoves != null && allowedMoves.allowedMoves.length != 0) {
+                return calcCardsAllowedToPlayAttackOrAssist(
+                    playerCardsWithId,
+                    cardsOnTable,
+                    playerRole
+                );
+            } else {
+                return [];
+            }
         }
         return result;
     };
@@ -147,7 +157,8 @@
         playerRole,
         playerCardsWithId,
         cardsToBeat,
-        trump
+        trump,
+        allowedMoves
     );
 
     $: beatenCardsWithCards = calcBeatenCardsWithCards(cardsOnTable);
