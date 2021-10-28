@@ -1,49 +1,31 @@
 <script>
-    import { afterUpdate } from "svelte";
-    afterUpdate(() => {
-        if (GameData && playerRole == "defend") {
-            if (
-                GameData.table.length > 0 &&
-                (selectedCardToBeat == null ||
-                    !GameData.table.includes((cardToBeatAndCardPair) => {
-                        return cardToBeatAndCardPair[0] == selectedCardToBeat;
-                    }))
-            ) {
-                GameData.table.some((cardToBeatAndCardPair) => {
-                    if (cardToBeatAndCardPair[1] == null) {
-                        selectedCardToBeat = cardToBeatAndCardPair[0];
-                        return true;
-                    } else {
-                        return false;
-                    }
-                });
-            }
-        }
-    });
+    import Board from "./Board/Board.svelte";
+    import { onMount } from "svelte";
 
-    let selectedCards = [];
-    let selectedCardToBeat = null;
+    onMount(() => {
+        console.log(playerCards);
+    });
 
     export let defenderWantsToTakeCards = false;
     export let DurakAllowedMoves = null;
     export let GameData = null;
     export let playerRole = "";
+    export let playerCards = [];
     import { sendMessageToWebsocket } from "../Webservice/store.js";
 
-    const placeSelectedCardsOnTableToAttack = () => {
+    const placeSelectedCardsOnTableToAttack = (card) => {
+        let mycard = { Card: { value: card.value, type: card.type } };
         sendMessageToWebsocket(
-            "DurakAttack|" + '{"cards":' + JSON.stringify(selectedCards) + "}"
+            "DurakAttack|" + '{"cards":' + JSON.stringify([mycard]) + "}"
         );
-        selectedCards = [];
     };
-    const placeSelectedCardOnTableToDefend = () => {
+    const placeSelectedCardOnTableToDefend = (cardToBeat, card) => {
         let cardToBeatAndCard = {};
-        cardToBeatAndCard["cardToBeat"] = selectedCardToBeat["Card"];
-        cardToBeatAndCard["card"] = selectedCards["Card"];
+        cardToBeatAndCard["cardToBeat"] = cardToBeat;
+        cardToBeatAndCard["card"] = card;
         sendMessageToWebsocket(
             "DurakDefend|" + JSON.stringify(cardToBeatAndCard)
         );
-        selectedCards = [];
     };
     const drawCardsFromTable = () => {
         sendMessageToWebsocket("DurakDefendPass|{}");
@@ -94,51 +76,29 @@
         }
         return result;
     };
+
+    let cardBeatenCallback = (cardToBeat, card) => {
+        placeSelectedCardOnTableToDefend(cardToBeat, card);
+    };
+
+    let cardDroppedToAttackCallback = (card) => {
+        placeSelectedCardsOnTableToAttack(card);
+    };
 </script>
 
 {#if GameData}
     <main>
         <h1>Game</h1>
         <h3>Table:</h3>
-        {#each GameData.table as card}
-            <div class="grid-container">
-                <div class="grid-header" id="grid-item0">
-                    <h1>Table</h1>
-                </div>
-                <div class="grid-item">
-                    <button on:click={quickPressed} id="grid-item1"
-                        >{printCard(card[0].Card)}</button
-                    >
-                </div>
-                <div class="grid-item">
-                    <button on:click={rankedPressed} id="grid-item2"
-                        >Ranked</button
-                    >
-                </div>
-                <div class="grid-item">
-                    <button on:click={puzzlePressed} id="grid-item3"
-                        >Puzzle</button
-                    >
-                </div>
-                <div class="grid-item">
-                    <button on:click={customPressed} id="grid-item4"
-                        >Custom</button
-                    >
-                </div>
-            </div>
-            <button class="card">{printCard(card[0].Card)}</button
-            >{#if card[1]}<button class="card">{printCard(card[1].Card)}</button
-                >
-            {:else if playerRole == "defend"}
-                <input
-                    type="radio"
-                    bind:group={selectedCardToBeat}
-                    name="selectedCardToBeat"
-                    value={card[0]}
-                    on:change={selectedCardToBeat}
-                />
-            {/if}
-        {/each}
+        <!-- pass allowed moves to board if for example defend is not allowed to play that card do not allow to play it-->
+        <Board
+            bind:playerRole
+            bind:playerCards
+            bind:table={GameData.table}
+            bind:trump={GameData.trump}
+            {cardBeatenCallback}
+            {cardDroppedToAttackCallback}
+        />
         <p>Cards in Deck {GameData.cardsInDeck}</p>
         <p>
             {#if GameData.lastCardInDeck}
@@ -156,38 +116,10 @@
                     )}
                 </p>
             {/if}
-            {#each player.PlayerData.cards as card}
-                {#if card}
-                    <label for="selectedCards">
-                        {#if player.PlayerData.playerRole === "defend"}
-                            <input
-                                type="radio"
-                                bind:group={selectedCards}
-                                name="selectedCards"
-                                value={card}
-                            />
-                        {:else if player.PlayerData.playerRole === "attack" || player.PlayerData.playerRole === "assist"}
-                            <input
-                                type="checkbox"
-                                bind:group={selectedCards}
-                                name="selectedCards"
-                                value={card}
-                            />
-                        {/if}
-                        card: value {card.Card.value}, type {card.Card.type}
-                    </label>
-                {/if}
-            {/each}
         {/each}
 
         {#if playerRole == "defend"}
-            <button
-                disabled={!isAllowedMove(DurakAllowedMoves, "defend") ||
-                    undefined}
-                on:click={() => {
-                    placeSelectedCardOnTableToDefend();
-                }}>Place selected Card on Table to Defend</button
-            ><br />
+            <!--TODO REPLACE THIS BUTTON WITH A DRAG AND DROP ACTION for example drag table inside cards :) -->
             <button
                 disabled={!isAllowedMove(DurakAllowedMoves, "takeCards") ||
                     undefined}
@@ -196,15 +128,6 @@
                 }}>Draw Cards from Table</button
             ><br />
         {:else if playerRole == "attack" || playerRole == "assist"}
-            <button
-                disabled={!(
-                    isAllowedMove(DurakAllowedMoves, "startAttack") ||
-                    isAllowedMove(DurakAllowedMoves, "addCard")
-                ) || undefined}
-                on:click={() => {
-                    placeSelectedCardsOnTableToAttack();
-                }}>Place selected Cards on Table</button
-            > <br />
             <button
                 disabled={!isAllowedMove(DurakAllowedMoves, "pass") ||
                     undefined}
@@ -223,7 +146,5 @@
 {/if}
 
 <style>
-    .card {
-        width: 12.5%;
-    }
+    /*  */
 </style>

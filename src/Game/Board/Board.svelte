@@ -1,0 +1,286 @@
+<script>
+    import CardToBeat from "./CardToBeat.svelte";
+    import { Item, Row } from "svelte-layouts";
+    import PlayerCards from "./PlayerCards.svelte";
+    import PlayCard from "./PlayCard.svelte";
+    import { allowedToPlayDefend } from "./helper.js";
+
+    // TODO do not allow to defend if defender selected take cards from table and attack adds cards
+
+    export let playerRole;
+    export let playerCards;
+    export let table;
+    export let trump;
+    export let cardBeatenCallback;
+    export let cardDroppedToAttackCallback;
+    const calcCardsOnTable = (table) => {
+        let result = [];
+        table.forEach((cardToBeatAndCard, i) => {
+            let object = { id: i, cardToBeatAndCard };
+            result.push(object);
+        });
+        return result;
+    };
+    const calcPlayerCardsWithId = (playerCards) => {
+        let result = [];
+        playerCards.forEach((element) => {
+            let cardWithId = {
+                id: element.Card.value + element.Card.type,
+                ...element.Card,
+            };
+            result.push(cardWithId);
+        });
+        return result;
+    };
+
+    const calcCardsToBeat = (cardsOnTable) => {
+        let result = [];
+        cardsOnTable
+            .filter((element) => element.cardToBeatAndCard[1] == null)
+            .forEach((element) => {
+                let cardWithId = {
+                    id:
+                        element.cardToBeatAndCard[0].Card.value +
+                        element.cardToBeatAndCard[0].Card.type,
+                    ...element.cardToBeatAndCard[0].Card,
+                };
+                result.push(cardWithId);
+            });
+
+        return result;
+    };
+    const calcBeatenCardsWithCards = (cardsOnTable) => {
+        let result = [];
+        cardsOnTable
+            .filter((element) => element.cardToBeatAndCard[1] != null)
+            .forEach((element, i) => {
+                let beatenCard = {
+                    id:
+                        element.cardToBeatAndCard[0].Card.value +
+                        element.cardToBeatAndCard[0].Card.type,
+                    ...element.cardToBeatAndCard[0].Card,
+                };
+                let card = {
+                    id:
+                        element.cardToBeatAndCard[1].Card.value +
+                        element.cardToBeatAndCard[1].Card.type,
+                    ...element.cardToBeatAndCard[1].Card,
+                };
+                result.push({ id: i, beatenCard, card });
+            });
+        return result;
+    };
+    const shouldDragBeDisabled = (
+        id,
+        playerCardsWithId,
+        cardsAllowedToPlay
+    ) => {
+        const item = playerCardsWithId.find((element) => element.id == id);
+        return (
+            cardsAllowedToPlay.find((element) => {
+                return element.id == item.id;
+            }) == undefined
+        );
+    };
+    const calcCardsAllowedToPlayDefend = (playerCards, cardsToBeat, trump) => {
+        let result;
+        result = playerCards.filter((card) => {
+            let allowed = false;
+            cardsToBeat.some((cardToBeat) => {
+                allowed = allowedToPlayDefend(cardToBeat, card, trump);
+                return allowed;
+            });
+            return allowed;
+        });
+        return result;
+    };
+    const calcCardsAllowedToPlayAttackOrAssist = (
+        playerCardsWithId,
+        cardsOnTable,
+        playerRole
+    ) => {
+        return playerCardsWithId.filter((playerCard) => {
+            let cardPlayable = false;
+            if (cardsOnTable.length == 0 && playerRole == "attack") return true;
+            cardsOnTable.some((element) => {
+                cardPlayable =
+                    element.cardToBeatAndCard[0].Card.value == playerCard.value;
+
+                if (cardPlayable) {
+                    return true;
+                } else if (element.cardToBeatAndCard[1] != null) {
+                    cardPlayable =
+                        element.cardToBeatAndCard[1].Card.value ==
+                        playerCard.value;
+                }
+                return cardPlayable;
+            });
+            return cardPlayable;
+        });
+    };
+    const calcCardsAllowedToPlay = (
+        playerRole,
+        playerCardsWithId,
+        cardsToBeat,
+        trump
+    ) => {
+        if (playerRole == "defend") {
+            return calcCardsAllowedToPlayDefend(
+                playerCardsWithId,
+                cardsToBeat,
+                trump
+            );
+        } else if (playerRole == "attack" || playerRole == "assist") {
+            return calcCardsAllowedToPlayAttackOrAssist(
+                playerCardsWithId,
+                cardsOnTable,
+                playerRole
+            );
+        }
+        return result;
+    };
+
+    $: cardsOnTable = calcCardsOnTable(table);
+    $: cardsToBeat = calcCardsToBeat(cardsOnTable);
+    $: playerCardsWithId = calcPlayerCardsWithId(playerCards);
+    $: cardsAllowedToPlay = calcCardsAllowedToPlay(
+        playerRole,
+        playerCardsWithId,
+        cardsToBeat,
+        trump
+    );
+
+    $: beatenCardsWithCards = calcBeatenCardsWithCards(cardsOnTable);
+    $: dropFromOthersDisabled = Array(42).fill(true);
+</script>
+
+<!-- Player Cards -->
+<Row>
+    {#if playerCardsWithId.length != 0}
+        {#each playerCardsWithId as card (card.id)}
+            <Item
+                ><PlayerCards
+                    item={card}
+                    {cardsToBeat}
+                    bind:dropFromOthersDisabled
+                    dragDisabled={shouldDragBeDisabled(
+                        card.id,
+                        playerCardsWithId,
+                        cardsAllowedToPlay
+                    )}
+                    {trump}
+                /></Item
+            >
+        {/each}
+    {:else}
+        <Item class="fill" />
+    {/if}
+</Row>
+<!-- Table -->
+
+{#if playerRole == "attack"}
+    <Row class="container_row">
+        <div class="layer1">
+            <PlayCard
+                bind:allItems={playerCards}
+                {cardDroppedToAttackCallback}
+            />
+        </div>
+        <Row class="layer2">
+            {#if table.length == 0}
+                <Item class="fill" />
+            {:else}
+                {#each cardsOnTable as cardToBeatAndCard (cardToBeatAndCard.id)}
+                    <Item>
+                        {cardToBeatAndCard.cardToBeatAndCard[0].Card.value}
+                        {cardToBeatAndCard.cardToBeatAndCard[0].Card.type}
+                        {#if cardToBeatAndCard.cardToBeatAndCard[1] != null}
+                            <br />
+                            {cardToBeatAndCard.cardToBeatAndCard[1].Card.value}
+                            {cardToBeatAndCard.cardToBeatAndCard[1].Card.type}
+                        {/if}
+                    </Item>
+                {/each}
+            {/if}
+        </Row>
+    </Row>
+{:else}
+    <Row>
+        {#if table.length == 0}
+            <Item class="fill" />
+        {:else}
+            {#each beatenCardsWithCards as beatenCardWithCard (beatenCardWithCard.id)}
+                <Item>
+                    {beatenCardWithCard.beatenCard.value}
+                    {beatenCardWithCard.beatenCard.type}
+                    <br />
+                    {beatenCardWithCard.card.value}
+                    {beatenCardWithCard.card.type}
+                </Item>
+            {/each}
+            {#each cardsToBeat as cardToBeat, i (cardToBeat.id)}
+                <Item>
+                    <CardToBeat
+                        {cardToBeat}
+                        bind:dropFromOthersDisabled={dropFromOthersDisabled[i]}
+                        {cardBeatenCallback}
+                    />
+                </Item>
+            {/each}
+        {/if}
+    </Row>
+{/if}
+
+<style>
+    :global(:root) {
+        --itemWidth: 10em;
+        --itemHeight: 10em;
+    }
+    :global(.item) {
+        height: var(--itemHeight);
+        width: var(--itemWidth);
+        text-align: center;
+        border-width: 3px;
+        border-color: black;
+        border-style: solid;
+        flex-shrink: 0;
+    }
+
+    :global(.row) {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 5px;
+        flex-shrink: 0;
+        gap: 5px;
+        border-style: solid;
+        padding: 5px;
+    }
+
+    :global(.drop) {
+        background-color: yellow;
+        border-color: lightcoral;
+    }
+
+    :global(.fill) {
+        flex-grow: 1;
+        background-color: transparent;
+        border-color: transparent;
+    }
+
+    :global(.container_row) {
+        display: flex;
+        padding: 0px;
+        align-items: stretch;
+    }
+
+    :global(.layer1) {
+        width: 100%;
+        border-width: 5px;
+    }
+
+    :global(.layer2) {
+        margin-left: -100%;
+        padding: 0;
+        border-width: 0;
+    }
+</style>

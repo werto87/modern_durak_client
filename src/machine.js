@@ -9,6 +9,7 @@ import WantToTakeCards from './PopUp/WantToTakeCards.svelte'
 import PopUp from './PopUp/PopUp.svelte'
 import LandingPage from './LandingPage/LandingPage.svelte'
 
+
 const loginStates = {
     id: "LoginMachine",
     initial: "Login",
@@ -74,6 +75,7 @@ export const toggleMachine = createMachine({
         Screens: {
             initial: "LandingPage",
             states: {
+
                 LandingPage: {
                     on: {
                         CustomLogin: "CustomLogin", Custom: "Lobby",
@@ -225,6 +227,7 @@ export const toggleMachine = createMachine({
                                     const currentPlayer = event.players.filter(player => player.PlayerData.name == context.accountName);
                                     if (currentPlayer?.length) {
                                         context.props["playerRole"] = currentPlayer[0].PlayerData.playerRole;
+                                        context.props["playerCards"] = currentPlayer[0].PlayerData.cards;
                                     }
                                 }
                             ],

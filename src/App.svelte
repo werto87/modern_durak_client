@@ -3,16 +3,6 @@
 	import { toggleMachine } from "./machine";
 	import Error from "./PopUp/Error.svelte";
 
-	import Grid from "svelte-grid";
-	import gridHelp from "svelte-grid/build/helper/index.mjs";
-
-	const id = () => "_" + Math.random().toString(36).substr(2, 9);
-
-	let items = [
-		gridHelp.item({ x: 0, y: 0, w: 2, h: 2, id: id() }),
-		gridHelp.item({ x: 2, y: 0, w: 2, h: 2, id: id() }),
-	];
-
 	const toggleService = interpret(toggleMachine)
 		.onTransition((state) => {
 			console.log("Screen: " + state.value.Screens);
@@ -55,7 +45,6 @@
 	// }
 
 	//TODO fix problems with autofill passwords
-	let selectedCards = [];
 </script>
 
 <main>
