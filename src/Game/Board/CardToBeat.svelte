@@ -1,8 +1,6 @@
 <script>
     import { dndzone } from "svelte-dnd-action";
-    import { flip } from "svelte/animate";
     import { printCard } from "./helper.js";
-    const flipDurationMs = 200;
 
     export let dropFromOthersDisabled;
     export let cardToBeat;
@@ -32,7 +30,6 @@
         class:selected={beaten === true}
         use:dndzone={{
             items,
-            flipDurationMs,
             dropFromOthersDisabled: dropNotAllowed,
             dropTargetClasses: ["drop"],
             dragDisabled: true,
@@ -41,7 +38,7 @@
         on:finalize={handleFinalize}
     >
         {#each items as item (item.id)}
-            <div animate:flip={{ duration: flipDurationMs }}>
+            <div>
                 {item.value}
                 {item.type}
             </div>
