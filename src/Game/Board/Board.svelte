@@ -4,7 +4,7 @@
     import PlayerCards from "./PlayerCards.svelte";
     import PlayCard from "./PlayCard.svelte";
     import { allowedToPlayDefend } from "./helper.js";
-
+    import { printCard } from "./helper.js";
     // TODO do not allow to defend if defender selected take cards from table and attack adds cards
 
     export let playerRole;
@@ -166,6 +166,7 @@
 </script>
 
 <!-- Player Cards -->
+
 <Row>
     {#if playerCardsWithId.length != 0}
         {#each playerCardsWithId as card (card.id)}
@@ -192,10 +193,7 @@
 {#if playerRole == "attack"}
     <Row class="container_row">
         <div class="layer1">
-            <PlayCard
-                bind:allItems={playerCards}
-                {cardDroppedToAttackCallback}
-            />
+            <PlayCard {cardDroppedToAttackCallback} />
         </div>
         <Row class="layer2">
             {#if table.length == 0}
@@ -203,12 +201,12 @@
             {:else}
                 {#each cardsOnTable as cardToBeatAndCard (cardToBeatAndCard.id)}
                     <Item>
-                        {cardToBeatAndCard.cardToBeatAndCard[0].Card.value}
-                        {cardToBeatAndCard.cardToBeatAndCard[0].Card.type}
+                        {printCard(cardToBeatAndCard.cardToBeatAndCard[0].Card)}
                         {#if cardToBeatAndCard.cardToBeatAndCard[1] != null}
                             <br />
-                            {cardToBeatAndCard.cardToBeatAndCard[1].Card.value}
-                            {cardToBeatAndCard.cardToBeatAndCard[1].Card.type}
+                            {printCard(
+                                cardToBeatAndCard.cardToBeatAndCard[1].Card
+                            )}
                         {/if}
                     </Item>
                 {/each}
@@ -222,11 +220,9 @@
         {:else}
             {#each beatenCardsWithCards as beatenCardWithCard (beatenCardWithCard.id)}
                 <Item>
-                    {beatenCardWithCard.beatenCard.value}
-                    {beatenCardWithCard.beatenCard.type}
+                    {printCard(beatenCardWithCard.beatenCard)}
                     <br />
-                    {beatenCardWithCard.card.value}
-                    {beatenCardWithCard.card.type}
+                    {printCard(beatenCardWithCard.card)}
                 </Item>
             {/each}
             {#each cardsToBeat as cardToBeat, i (cardToBeat.id)}
@@ -244,7 +240,7 @@
 
 <style>
     :global(:root) {
-        --itemWidth: 5em;
+        --itemWidth: 7em;
         --itemHeight: 10em;
     }
     :global(.item) {
@@ -254,19 +250,22 @@
         border-width: 3px;
         border-color: black;
         border-style: solid;
-        flex-shrink: 1;
+        flex-grow: 1;
+        flex-shrink: 0;
+        flex-basis: 25%;
     }
 
     :global(.row) {
         display: flex;
-        /* flex-wrap: wrap; */
+        flex-wrap: wrap;
         margin: 5px;
         flex-shrink: 1;
         gap: 5px;
         border-style: solid;
         padding: 5px;
         min-width: 15em;
-        align-items: stretch;
+        flex-flow: row wrap;
+        display: flex;
     }
 
     :global(.drop) {
@@ -281,19 +280,23 @@
     }
 
     :global(.container_row) {
-        display: flex;
         padding: 0px;
-        align-items: stretch;
     }
 
     :global(.layer1) {
         width: 100%;
         border-width: 5px;
+        flex-grow: 1;
+        flex-shrink: 0;
+        flex-basis: 25%;
     }
 
     :global(.layer2) {
         margin-left: -100%;
         padding: 0;
         border-width: 0;
+        flex-grow: 1;
+        flex-shrink: 0;
+        flex-basis: 25%;
     }
 </style>
