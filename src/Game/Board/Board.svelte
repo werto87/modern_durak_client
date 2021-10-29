@@ -244,7 +244,7 @@
 
 <style>
     :global(:root) {
-        --itemWidth: 10em;
+        --itemWidth: 5em;
         --itemHeight: 10em;
     }
     :global(.item) {
@@ -254,17 +254,19 @@
         border-width: 3px;
         border-color: black;
         border-style: solid;
-        flex-shrink: 0;
+        flex-shrink: 1;
     }
 
     :global(.row) {
         display: flex;
-        flex-wrap: wrap;
+        /* flex-wrap: wrap; */
         margin: 5px;
-        flex-shrink: 0;
+        flex-shrink: 1;
         gap: 5px;
         border-style: solid;
         padding: 5px;
+        min-width: 15em;
+        align-items: stretch;
     }
 
     :global(.drop) {

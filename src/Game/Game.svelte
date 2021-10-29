@@ -63,19 +63,7 @@
         });
         return unknowenCardCount;
     };
-    const printCard = (card) => {
-        let result = card.value;
-        if (card.type == "hearts") {
-            result += "♥";
-        } else if (card.type == "diamonds") {
-            result += "♦";
-        } else if (card.type == "spades") {
-            result += "♤";
-        } else if (card.type == "clubs") {
-            result += "♧";
-        }
-        return result;
-    };
+
 
     let cardBeatenCallback = (cardToBeat, card) => {
         placeSelectedCardOnTableToDefend(cardToBeat, card);

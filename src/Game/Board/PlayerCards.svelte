@@ -1,6 +1,7 @@
 <script>
     import { dndzone } from "svelte-dnd-action";
     import { allowedToPlayDefend } from "./helper.js";
+    import { printCard } from "./helper.js";
     export let item;
     let items = [item];
     export let cardsToBeat;
@@ -40,8 +41,7 @@
 >
     {#each items as item (item.id)}
         <div class:dragable={dragDisabled === false}>
-            {item.value}
-            {item.type}
+            {printCard(item)}
         </div>
     {/each}
 </section>

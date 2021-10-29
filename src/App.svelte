@@ -105,6 +105,7 @@
 		color: white;
 		font-family: Open Sans;
 		font-size: 30px;
+		
 	}
 	:global(body) {
 		padding: 0;

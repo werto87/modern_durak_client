@@ -1,6 +1,7 @@
 <script>
     import { dndzone } from "svelte-dnd-action";
     import { flip } from "svelte/animate";
+    import { printCard } from "./helper.js";
     const flipDurationMs = 200;
 
     export let dropFromOthersDisabled;
@@ -25,8 +26,7 @@
 
 <div class="container">
     <div>
-        {cardToBeat.value}
-        {cardToBeat.type}
+        {printCard(cardToBeat)}
     </div>
     <section
         class:selected={beaten === true}
