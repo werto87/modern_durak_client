@@ -167,10 +167,10 @@
 
 <!-- Player Cards -->
 
-<Row>
+<Row class="boardRow">
     {#if playerCardsWithId.length != 0}
         {#each playerCardsWithId as card (card.id)}
-            <Item
+            <Item class="cardItem"
                 ><PlayerCards
                     item={card}
                     {cardsToBeat}
@@ -200,7 +200,7 @@
                 <Item class="fill" />
             {:else}
                 {#each cardsOnTable as cardToBeatAndCard (cardToBeatAndCard.id)}
-                    <Item>
+                    <Item class="cardItem">
                         {printCard(cardToBeatAndCard.cardToBeatAndCard[0].Card)}
                         {#if cardToBeatAndCard.cardToBeatAndCard[1] != null}
                             <br />
@@ -214,19 +214,19 @@
         </Row>
     </Row>
 {:else}
-    <Row>
+    <Row class="boardRow">
         {#if table.length == 0}
             <Item class="fill" />
         {:else}
             {#each beatenCardsWithCards as beatenCardWithCard (beatenCardWithCard.id)}
-                <Item>
+                <Item class="cardItem">
                     {printCard(beatenCardWithCard.beatenCard)}
                     <br />
                     {printCard(beatenCardWithCard.card)}
                 </Item>
             {/each}
             {#each cardsToBeat as cardToBeat, i (cardToBeat.id)}
-                <Item>
+                <Item class="cardItem">
                     <CardToBeat
                         {cardToBeat}
                         bind:dropFromOthersDisabled={dropFromOthersDisabled[i]}
@@ -243,7 +243,7 @@
         --itemWidth: 7em;
         --itemHeight: 10em;
     }
-    :global(.item) {
+    :global(.cardItem) {
         height: var(--itemHeight);
         width: var(--itemWidth);
         text-align: center;
@@ -255,7 +255,7 @@
         flex-basis: 25%;
     }
 
-    :global(.row) {
+    :global(.boardRow) {
         display: flex;
         flex-wrap: wrap;
         margin: 5px;
@@ -274,13 +274,26 @@
     }
 
     :global(.fill) {
+        height: var(--itemHeight);
         flex-grow: 1;
         background-color: transparent;
         border-color: transparent;
     }
 
     :global(.container_row) {
+        /* TODO find out how to inherit from another class for example ".boardRow" 
+        so we do not have to copy all of it here*/
         padding: 0px;
+        display: flex;
+        flex-wrap: wrap;
+        margin: 5px;
+        flex-shrink: 1;
+        gap: 5px;
+        border-style: solid;
+        padding: 5px;
+        min-width: 15em;
+        flex-flow: row wrap;
+        display: flex;
     }
 
     :global(.layer1) {

@@ -81,11 +81,17 @@
 	:global(input[type="number"]:enabled) {
 		background: #0e3b93;
 		color: #4ed93f;
-		width: 100%;
+		/* width: 100%; */
+		display: flex;
 	}
 	:global(input[type="number"]:disabled) {
 		background: #cccccc;
 		color: #cb2d6f;
+		/* width: 100%; */
+		display: flex;
+	}
+	:global(.numberInputItem) {
+		height: 10px;
 		width: 100%;
 	}
 	:global(select:enabled) {
@@ -105,7 +111,6 @@
 		color: white;
 		font-family: Open Sans;
 		font-size: 30px;
-		
 	}
 	:global(body) {
 		padding: 0;

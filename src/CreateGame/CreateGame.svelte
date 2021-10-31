@@ -1,4 +1,5 @@
 <script>
+    import { Item, Row } from "svelte-layouts";
     export let UsersInGameLobby = null;
     export let SetTimerOption = null;
     export let selected = 0;
@@ -81,14 +82,30 @@
     <h1>Create Game</h1>
     <div>
         <label for="maxUserCount">Max User Count</label>
-        <input
-            disabled={!isCreateGameLobbyAdmin || undefined}
-            type="number"
-            min="1"
-            name="maxUserCount"
-            bind:value={UsersInGameLobby.maxUserSize}
-            on:change={maxUserCountChanged}
-        />
+        <Row>
+            <!-- <input
+                disabled={!isCreateGameLobbyAdmin || undefined}
+                type="number"
+                min="1"
+                max="10"
+                name="maxUserCount"
+                bind:value={UsersInGameLobby.maxUserSize}
+                on:change={maxUserCountChanged}
+            /> -->
+            <Item class="numberInputItem">
+                {UsersInGameLobby.maxUserSize}
+            </Item>
+            <input
+                disabled={!isCreateGameLobbyAdmin || undefined}
+                type="range"
+                min="1"
+                max="10"
+                name="maxUserCount"
+                bind:value={UsersInGameLobby.maxUserSize}
+                on:change={maxUserCountChanged}
+            />
+        </Row>
+
         <label for="maxCardValue">Max Card Value</label>
         <input
             disabled={!isCreateGameLobbyAdmin || undefined}
@@ -139,9 +156,12 @@
     </div>
 {/if}
 
-<div>
-    <button on:click={startGame}>Start Game</button>
-</div>
+{#if isCreateGameLobbyAdmin}
+    <div>
+        <button on:click={startGame}>Start Game</button>
+    </div>
+{/if}
+
 <div>
     <button on:click={leaveGameLobby}>Leave Game Lobby</button>
 </div>
