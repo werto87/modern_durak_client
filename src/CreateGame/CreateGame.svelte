@@ -1,5 +1,6 @@
 <script>
-    import { Item, Row } from "svelte-layouts";
+    import RangeSlider from "svelte-range-slider-pips";
+
     export let UsersInGameLobby = null;
     export let SetTimerOption = null;
     export let selected = 0;
@@ -17,17 +18,24 @@
             label: "Add Time on new Round",
         },
     ];
+    // framework "svelte-range-slider-pips" requires this to be array so this is a workaround
+    $: maxUserSizeArray = [UsersInGameLobby?.maxUserSize];
+    $: maxCardValueArray = [UsersInGameLobby?.durakGameOption.maxCardValue];
+    $: timeAtStartInSecondsArray = [SetTimerOption?.timeAtStartInSeconds];
+    $: timeForEachRoundInSecondsArray = [
+        SetTimerOption?.timeForEachRoundInSeconds,
+    ];
 
     import { sendMessageToWebsocket } from "../Webservice/store.js";
     const maxUserCountChanged = () => {
-        const maxUserObject = { maxUserSize: UsersInGameLobby.maxUserSize };
+        const maxUserObject = { maxUserSize: maxUserSizeArray[0] };
         sendMessageToWebsocket(
             "SetMaxUserSizeInCreateGameLobby|" + JSON.stringify(maxUserObject)
         );
     };
     const maxCardValueChanged = () => {
         const maxCardValueObject = {
-            maxCardValue: UsersInGameLobby.durakGameOption.maxCardValue,
+            maxCardValue: maxCardValueArray[0],
         };
         sendMessageToWebsocket(
             "SetMaxCardValueInCreateGameLobby|" +
@@ -40,9 +48,9 @@
             "SetTimerOption|" +
                 JSON.stringify({
                     timerType: options[selected].value,
-                    timeAtStartInSeconds: SetTimerOption.timeAtStartInSeconds,
+                    timeAtStartInSeconds: timeAtStartInSecondsArray[0],
                     timeForEachRoundInSeconds:
-                        SetTimerOption.timeForEachRoundInSeconds,
+                        timeForEachRoundInSecondsArray[0],
                 })
         );
     };
@@ -52,9 +60,9 @@
             "SetTimerOption|" +
                 JSON.stringify({
                     timerType: options[selected].value,
-                    timeAtStartInSeconds: SetTimerOption.timeAtStartInSeconds,
+                    timeAtStartInSeconds: timeAtStartInSecondsArray[0],
                     timeForEachRoundInSeconds:
-                        SetTimerOption.timeForEachRoundInSeconds,
+                        timeForEachRoundInSecondsArray[0],
                 })
         );
     };
@@ -63,9 +71,9 @@
             "SetTimerOption|" +
                 JSON.stringify({
                     timerType: options[selected].value,
-                    timeAtStartInSeconds: SetTimerOption.timeAtStartInSeconds,
+                    timeAtStartInSeconds: timeAtStartInSecondsArray[0],
                     timeForEachRoundInSeconds:
-                        SetTimerOption.timeForEachRoundInSeconds,
+                        timeForEachRoundInSecondsArray[0],
                 })
         );
     };
@@ -75,44 +83,39 @@
     const leaveGameLobby = () => {
         sendMessageToWebsocket("LeaveGameLobby|{}");
     };
+    let values = [1];
 </script>
 
 {#if UsersInGameLobby}
     <div class="container" />
+
     <h1>Create Game</h1>
     <div>
+        <!-- TODO find out how to make this a bit smaller -->
         <label for="maxUserCount">Max User Count</label>
-        <Row>
-            <!-- <input
-                disabled={!isCreateGameLobbyAdmin || undefined}
-                type="number"
-                min="1"
-                max="10"
-                name="maxUserCount"
-                bind:value={UsersInGameLobby.maxUserSize}
-                on:change={maxUserCountChanged}
-            /> -->
-            <Item class="numberInputItem">
-                {UsersInGameLobby.maxUserSize}
-            </Item>
-            <input
-                disabled={!isCreateGameLobbyAdmin || undefined}
-                type="range"
-                min="1"
-                max="10"
-                name="maxUserCount"
-                bind:value={UsersInGameLobby.maxUserSize}
-                on:change={maxUserCountChanged}
-            />
-        </Row>
-
-        <label for="maxCardValue">Max Card Value</label>
-        <input
+        <RangeSlider
+            id="slider"
             disabled={!isCreateGameLobbyAdmin || undefined}
-            type="number"
-            min="1"
-            name="maxCardValue"
-            bind:value={UsersInGameLobby.durakGameOption.maxCardValue}
+            bind:values={maxUserSizeArray}
+            pips
+            step={1}
+            all="label"
+            pipstep={1}
+            min={1}
+            max={10}
+            on:change={maxUserCountChanged}
+        />
+        <label for="maxCardValue">Max Card Value</label>
+        <RangeSlider
+            id="slider"
+            disabled={!isCreateGameLobbyAdmin || undefined}
+            bind:values={maxCardValueArray}
+            pips
+            step={1}
+            all="label"
+            pipstep={1}
+            min={1}
+            max={10}
             on:change={maxCardValueChanged}
         />
     </div>
@@ -129,21 +132,27 @@
         </select>
         {#if selected > 0}
             <label for="timeAtStartInSeconds">Time at Start in Seconds</label>
-            <input
+            <RangeSlider
+                id="slider"
                 disabled={!isCreateGameLobbyAdmin || undefined}
-                type="number"
-                min="0"
-                name="timeAtStartInSeconds"
-                bind:value={SetTimerOption.timeAtStartInSeconds}
+                bind:values={timeAtStartInSecondsArray}
+                pips
+                step={25}
+                all="label"
+                min={0}
+                max={200}
                 on:change={timeAtStartInSecondsChanged}
             />
             <label for="timeForEachRound">Time for each Round</label>
-            <input
+            <RangeSlider
+                id="slider"
                 disabled={!isCreateGameLobbyAdmin || undefined}
-                type="number"
-                min="0"
-                name="timeForEachRound"
-                bind:value={SetTimerOption.timeForEachRoundInSeconds}
+                bind:values={timeForEachRoundInSecondsArray}
+                pips
+                step={5}
+                all="label"
+                min={0}
+                max={50}
                 on:change={timeForEachRoundChanged}
             />
         {/if}

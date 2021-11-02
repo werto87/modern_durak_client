@@ -1,6 +1,7 @@
 <script>
 	import { interpret } from "xstate";
 	import { toggleMachine } from "./machine";
+
 	import Error from "./PopUp/Error.svelte";
 
 	const toggleService = interpret(toggleMachine)
@@ -78,28 +79,14 @@
 		box-sizing: border-box;
 	}
 
-	:global(input[type="number"]:enabled) {
-		background: #0e3b93;
-		color: #4ed93f;
-		/* width: 100%; */
-		display: flex;
-	}
-	:global(input[type="number"]:disabled) {
-		background: #cccccc;
-		color: #cb2d6f;
-		/* width: 100%; */
-		display: flex;
-	}
-	:global(.numberInputItem) {
-		height: 10px;
-		width: 100%;
-	}
 	:global(select:enabled) {
+		margin-top: 10px;
 		background: #0e3b93;
 		color: #4ed93f;
 		width: 100%;
 	}
 	:global(select:disabled) {
+		margin-top: 10px;
 		background: #cccccc;
 		color: #cb2d6f;
 		width: 100%;
@@ -109,6 +96,7 @@
 		/* background: #0f292f; */
 		text-align: center;
 		color: white;
+		/* color: #4ed93f; */
 		font-family: Open Sans;
 		font-size: 30px;
 	}
@@ -127,6 +115,7 @@
 	:global(button) {
 		background: #0e3b93;
 		color: #4ed93f;
+		/* color: white; */
 		/* color: #cb2d6f; DO NOT DELETE THIS: SECOND BUTTON TEXT COLOR */
 		height: 100%;
 		width: 100%;
@@ -157,5 +146,28 @@
 	}
 	:global(label) {
 		text-align: left;
+	}
+
+	:global(#slider .pip) {
+		background: white;
+		color: white;
+		width: 2px;
+	}
+	:global(#slider .rangeSlider) {
+		background: #cccccc;
+		color: white;
+	}
+
+	:global(#slider) {
+		font-size: 0.75em;
+	}
+
+	:global(#slider .rangeHandle .rangeNub) {
+		background: #0e3b93;
+		color: white;
+		border-width: 3px;
+		border-color: #cccccc;
+		border-style: solid;
+		border-radius: 5%;
 	}
 </style>
