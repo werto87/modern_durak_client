@@ -80,6 +80,8 @@
         text-align: center;
     }
     .dragable {
+        margin-left: -2%;
+        margin-top: -2%;
         border-color: coral;
         border-width: 3px;
         border-style: solid;

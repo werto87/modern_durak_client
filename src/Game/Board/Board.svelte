@@ -5,8 +5,6 @@
     import PlayCard from "./PlayCard.svelte";
     import { allowedToPlayDefend } from "./helper.js";
     import { printCard } from "./helper.js";
-    // TODO do not allow to defend if defender selected take cards from table and attack adds cards
-
     export let playerRole;
     export let playerCards;
     export let table;
@@ -302,14 +300,20 @@
         flex-grow: 1;
         flex-shrink: 0;
         flex-basis: 25%;
+        padding: 0;
     }
 
     :global(.layer2) {
+        flex-wrap: wrap;
+        /* margin: 5px; */
+        flex-shrink: 1;
+        gap: 5px;
+        border-style: unset;
+        min-width: 15em;
+        display: flex;
         margin-left: -100%;
-        padding: 0;
-        border-width: 0;
+        padding: 0px;
         flex-grow: 1;
-        flex-shrink: 0;
         flex-basis: 25%;
     }
 </style>
