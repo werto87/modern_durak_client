@@ -1,6 +1,6 @@
 <script>
     import Board from "./Board/Board.svelte";
-    import Countdown from "./Countdown.svelte";
+    import Countdown from "../Util/Countdown.svelte";
     export let defenderWantsToTakeCards = false;
     export let DurakAllowedMoves = null;
     export let GameData = null;
