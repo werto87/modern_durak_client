@@ -168,7 +168,14 @@
 <Row class="boardRow">
     {#if playerCardsWithId.length != 0}
         {#each playerCardsWithId as card (card.id)}
-            <Item class="cardItem"
+            <Item
+                class={shouldDragBeDisabled(
+                    card.id,
+                    playerCardsWithId,
+                    cardsAllowedToPlay
+                )
+                    ? "cardItem"
+                    : "dragableCardItem"}
                 ><PlayerCards
                     item={card}
                     {cardsToBeat}
@@ -247,6 +254,18 @@
         text-align: center;
         border-width: 3px;
         border-color: black;
+        border-style: solid;
+        flex-grow: 1;
+        flex-shrink: 0;
+        flex-basis: 25%;
+    }
+
+    :global(.dragableCardItem) {
+        height: var(--itemHeight);
+        width: var(--itemWidth);
+        text-align: center;
+        border-color: coral;
+        border-width: 3px;
         border-style: solid;
         flex-grow: 1;
         flex-shrink: 0;

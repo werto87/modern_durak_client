@@ -85,6 +85,7 @@
 		color: #4ed93f;
 		width: 100%;
 	}
+	
 	:global(select:disabled) {
 		margin-top: 10px;
 		background: #cccccc;

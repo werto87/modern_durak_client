@@ -63,7 +63,7 @@
     on:finalize={handleDndFinalize}
 >
     {#each items as item (item.id)}
-        <div class:dragable={dragDisabled === false}>
+        <div>
             {printCard(item)}
         </div>
     {/each}
@@ -78,12 +78,5 @@
         width: 100%;
         height: 100%;
         text-align: center;
-    }
-    .dragable {
-        margin-left: -2%;
-        margin-top: -2%;
-        border-color: coral;
-        border-width: 3px;
-        border-style: solid;
     }
 </style>
