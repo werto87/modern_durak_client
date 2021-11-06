@@ -1,17 +1,14 @@
 <script>
     import Board from "./Board/Board.svelte";
-    import { onMount } from "svelte";
-
-    onMount(() => {
-        console.log(playerCards);
-    });
-
+    import Countdown from "./Countdown.svelte";
     export let defenderWantsToTakeCards = false;
     export let DurakAllowedMoves = null;
     export let GameData = null;
     export let playerRole = "";
     export let playerCards = [];
+    export let DurakTimers = null;
     import { sendMessageToWebsocket } from "../Webservice/store.js";
+    import { log } from "xstate/lib/actions";
 
     const placeSelectedCardsOnTableToAttack = (card) => {
         let mycard = { Card: { value: card.value, type: card.type } };
@@ -64,13 +61,19 @@
         return unknowenCardCount;
     };
 
-
     let cardBeatenCallback = (cardToBeat, card) => {
         placeSelectedCardOnTableToDefend(cardToBeat, card);
     };
 
     let cardDroppedToAttackCallback = (card) => {
         placeSelectedCardsOnTableToAttack(card);
+    };
+    const calcRunningTimer = (runningTimer) => {
+        if (DurakTimers) {
+            return runningTimer.runningTimeUserTimePointMilliseconds;
+        } else {
+            return null;
+        }
     };
 </script>
 
@@ -105,6 +108,36 @@
                 </p>
             {/if}
         {/each}
+        {#if DurakTimers}
+            {#if DurakTimers.runningTimeUserTimePointMilliseconds}
+                {#each DurakTimers.runningTimeUserTimePointMilliseconds as runningTimer}
+                    <p>
+                        Player Name: {runningTimer[0]}
+                    </p>
+                    <p>
+                        <!-- <Header countdown={runningTimer[1]} /> -->
+                        <Countdown
+                            countdown={Math.floor(
+                                (runningTimer[1] - Date.now()) / 1000
+                            )}
+                            let:countdown
+                        >
+                            Player Time: {countdown}
+                        </Countdown>
+                    </p>
+                {/each}
+            {/if}
+            {#if DurakTimers.pausedTimeUserDurationMilliseconds}
+                {#each DurakTimers.pausedTimeUserDurationMilliseconds as pausedTimer}
+                    <p>
+                        Player Name: {pausedTimer[0]}
+                    </p>
+                    <p>
+                        Player Time: {Math.floor(pausedTimer[1] / 1000)} seconds
+                    </p>
+                {/each}
+            {/if}
+        {/if}
 
         {#if playerRole == "defend"}
             <!--TODO REPLACE THIS BUTTON WITH A DRAG AND DROP ACTION for example drag table inside cards :) -->
@@ -124,7 +157,6 @@
                 }}>Pass</button
             ><br />
         {/if}
-
         <button
             on:click={() => {
                 surrender();

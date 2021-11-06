@@ -36,6 +36,7 @@
     "muuri": "^0.9.5",
     "sirv-cli": "^1.0.0",
     "styled-components": "^5.3.1",
+    "svelte-countdown": "^1.0.0",
     "svelte-forms-lib": "^1.10.6",
     "svelte-layouts": "^0.3.0",
     "svelte-select": "^4.4.1",

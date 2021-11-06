@@ -246,6 +246,13 @@ export const toggleMachine = createMachine({
                                 }
                             ],
                         },
+                        DurakTimers: {
+                            actions: [
+                                (context, event) => {
+                                    context.props[event.type] = event;
+                                }
+                            ],
+                        },
                         DurakDefendWantsToTakeCardsFromTableDoYouWantToAddCards: {
                             actions: [
                                 (context) => {

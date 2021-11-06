@@ -1,9 +1,8 @@
 <script>
 	import { interpret } from "xstate";
 	import { toggleMachine } from "./machine";
-
 	import Error from "./PopUp/Error.svelte";
-
+	
 	const toggleService = interpret(toggleMachine)
 		.onTransition((state) => {
 			console.log("Screen: " + state.value.Screens);
@@ -69,6 +68,7 @@
 		<!-- {#if $toggleService.context.accountName}
 		<p>{$toggleService.context.accountName}</p>
 		{/if} -->
+		
 	</div>
 </main>
 
@@ -85,7 +85,7 @@
 		color: #4ed93f;
 		width: 100%;
 	}
-	
+
 	:global(select:disabled) {
 		margin-top: 10px;
 		background: #cccccc;
