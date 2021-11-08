@@ -2,7 +2,11 @@
     import RangeSlider from "svelte-range-slider-pips";
 
     export let UsersInGameLobby = null;
-    export let SetTimerOption = null;
+    export let SetTimerOption = {
+        timerType: "noTimer",
+        timeAtStartInSeconds: 0,
+        timeForEachRoundInSeconds: 0,
+    };
     export let selected = 0;
     export let isCreateGameLobbyAdmin = true;
     let options = [
