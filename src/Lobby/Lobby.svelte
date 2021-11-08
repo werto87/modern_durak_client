@@ -53,7 +53,7 @@
             <ErrorMessage name="name" class="form-error" />
         </div>
         <div>
-            <label for="password">Account Name</label>
+            <label for="password">Create Game Lobby Password</label>
             <Field
                 class="form-field"
                 type="password"
