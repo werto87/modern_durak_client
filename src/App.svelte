@@ -2,7 +2,7 @@
 	import { interpret } from "xstate";
 	import { toggleMachine } from "./machine";
 	import Error from "./PopUp/Error.svelte";
-	
+
 	const toggleService = interpret(toggleMachine)
 		.onTransition((state) => {
 			console.log("Screen: " + state.value.Screens);
@@ -68,7 +68,6 @@
 		<!-- {#if $toggleService.context.accountName}
 		<p>{$toggleService.context.accountName}</p>
 		{/if} -->
-		
 	</div>
 </main>
 
@@ -124,13 +123,13 @@
 		border-color: #cccccc;
 		/* border-color: #ffaa00; DO NOT DELETE THIS: SECOND BORDER COLOR  */
 		font-size: 30px;
-		border-radius: 5%;
+		border-radius: 5px;
 		word-break: break-word;
 	}
 	:global(.form-field:focus) {
 		width: 100%;
 		border-width: 3px;
-		border-radius: 5%;
+		border-radius: 5px;
 		border-color: #cccccc;
 	}
 	:global(.form-error) {
@@ -141,7 +140,7 @@
 		width: 100%;
 		background: #0e3b93;
 		color: #4ed93f;
-		border-radius: 5%;
+		border-radius: 5px;
 		border-width: 3px;
 		border-color: #cccccc;
 	}
@@ -169,6 +168,6 @@
 		border-width: 3px;
 		border-color: #cccccc;
 		border-style: solid;
-		border-radius: 5%;
+		border-radius: 5px;
 	}
 </style>
