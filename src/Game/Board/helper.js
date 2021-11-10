@@ -17,9 +17,10 @@ export function printCard(card) {
     } else if (card.type == "diamonds") {
         result += "♦";
     } else if (card.type == "spades") {
-        result += "♤";
+        result += "♠";
     } else if (card.type == "clubs") {
-        result += "♧";
+        result += "♣";
     }
+
     return result;
 };

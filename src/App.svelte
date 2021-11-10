@@ -115,8 +115,6 @@
 	:global(button) {
 		background: #0e3b93;
 		color: #4ed93f;
-		/* color: red; */
-		/* color: white; */
 		/* color: #cb2d6f; DO NOT DELETE THIS: SECOND BUTTON TEXT COLOR */
 		height: 100%;
 		width: 100%;

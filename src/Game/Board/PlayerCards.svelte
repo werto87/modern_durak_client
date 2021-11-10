@@ -63,7 +63,11 @@
     on:finalize={handleDndFinalize}
 >
     {#each items as item (item.id)}
-        <div>
+        <div
+            class={item.type === "hearts" || item.type === "diamonds"
+                ? "redText"
+                : "greenText"}
+        >
             {printCard(item)}
         </div>
     {/each}

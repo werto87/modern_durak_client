@@ -206,12 +206,32 @@
             {:else}
                 {#each cardsOnTable as cardToBeatAndCard (cardToBeatAndCard.id)}
                     <Item class="cardItem">
-                        {printCard(cardToBeatAndCard.cardToBeatAndCard[0].Card)}
+                        <span
+                            class={cardToBeatAndCard.cardToBeatAndCard[0].Card
+                                .type === "hearts" ||
+                            cardToBeatAndCard.cardToBeatAndCard[0].Card.type ===
+                                "diamonds"
+                                ? "redText"
+                                : "greenText"}
+                        >
+                            {printCard(
+                                cardToBeatAndCard.cardToBeatAndCard[0].Card
+                            )}
+                        </span>
                         {#if cardToBeatAndCard.cardToBeatAndCard[1] != null}
                             <br />
-                            {printCard(
+                            <span
+                                class={cardToBeatAndCard.cardToBeatAndCard[1]
+                                    .Card.type === "hearts" ||
                                 cardToBeatAndCard.cardToBeatAndCard[1].Card
-                            )}
+                                    .type === "diamonds"
+                                    ? "redText"
+                                    : "greenText"}
+                            >
+                                {printCard(
+                                    cardToBeatAndCard.cardToBeatAndCard[1].Card
+                                )}
+                            </span>
                         {/if}
                     </Item>
                 {/each}
@@ -224,10 +244,31 @@
             <Item class="fill" />
         {:else}
             {#each beatenCardsWithCards as beatenCardWithCard (beatenCardWithCard.id)}
-                <Item class="cardItem">
-                    {printCard(beatenCardWithCard.beatenCard)}
+                <Item
+                    class="cardItem"
+                    id={beatenCardWithCard.beatenCard.type === "hearts" ||
+                    beatenCardWithCard.beatenCard.type === "diamonds"
+                        ? "redText"
+                        : "greenText"}
+                >
+                    <span
+                        class={beatenCardWithCard.beatenCard.type ===
+                            "hearts" ||
+                        beatenCardWithCard.beatenCard.type === "diamonds"
+                            ? "redText"
+                            : "greenText"}
+                    >
+                        {printCard(beatenCardWithCard.beatenCard)}
+                    </span>
                     <br />
-                    {printCard(beatenCardWithCard.card)}
+                    <span
+                        class={beatenCardWithCard.card.type === "hearts" ||
+                        beatenCardWithCard.card.type === "diamonds"
+                            ? "redText"
+                            : "greenText"}
+                    >
+                        {printCard(beatenCardWithCard.card)}
+                    </span>
                 </Item>
             {/each}
             {#each cardsToBeat as cardToBeat, i (cardToBeat.id)}
@@ -253,23 +294,30 @@
         width: var(--itemWidth);
         text-align: center;
         border-width: 3px;
-        border-color: black;
+        border-color: #0f292f;
         border-style: solid;
         flex-grow: 1;
         flex-shrink: 0;
         flex-basis: 25%;
+        background: #0e3b93;
+        /* color: #4ed93f; */
+        /* color: #cb2d6f; DO NOT DELETE THIS: SECOND BUTTON TEXT COLOR */
+        /* #501f3a #cb2d6f #cccccc #14a098 #0f292f */
     }
 
     :global(.dragableCardItem) {
         height: var(--itemHeight);
         width: var(--itemWidth);
         text-align: center;
-        border-color: coral;
+        border-color: #cccccc;
         border-width: 3px;
         border-style: solid;
         flex-grow: 1;
         flex-shrink: 0;
         flex-basis: 25%;
+        background: #0e3b93;
+        /* color: #4ed93f; */
+        /* color: #cb2d6f; DO NOT DELETE THIS: SECOND BUTTON TEXT COLOR  */
     }
 
     :global(.boardRow) {
@@ -279,6 +327,7 @@
         flex-shrink: 1;
         gap: 5px;
         border-style: solid;
+        border-color: #cccccc;
         padding: 5px;
         min-width: 15em;
         flex-flow: row wrap;
@@ -287,7 +336,6 @@
 
     :global(.drop) {
         background-color: yellow;
-        border-color: lightcoral;
     }
 
     :global(.fill) {
@@ -307,6 +355,7 @@
         flex-shrink: 1;
         gap: 5px;
         border-style: solid;
+        border-color: #cccccc;
         padding: 5px;
         min-width: 15em;
         flex-flow: row wrap;
@@ -320,6 +369,7 @@
         flex-shrink: 0;
         flex-basis: 25%;
         padding: 0;
+        z-index: 100;
     }
 
     :global(.layer2) {
@@ -334,5 +384,11 @@
         padding: 0px;
         flex-grow: 1;
         flex-basis: 25%;
+    }
+    :global(.greenText) {
+        color: #4ed93f;
+    }
+    :global(.redText) {
+        color: #cb2d6f;
     }
 </style>

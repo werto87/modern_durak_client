@@ -23,11 +23,14 @@
 </script>
 
 <div class="container">
-    <div>
+    <div
+        class={cardToBeat.type === "hearts" || cardToBeat.type === "diamonds"
+            ? "redText"
+            : "greenText"}
+    >
         {printCard(cardToBeat)}
     </div>
     <section
-        class:selected={beaten === true}
         use:dndzone={{
             items,
             dropFromOthersDisabled: dropNotAllowed,
@@ -38,7 +41,11 @@
         on:finalize={handleFinalize}
     >
         {#each items as item (item.id)}
-            <div>
+            <div
+                class={item.type === "hearts" || item.type === "diamonds"
+                    ? "redText"
+                    : "greenText"}
+            >
                 {item.value}
                 {item.type}
             </div>
@@ -49,9 +56,6 @@
 <style>
     section {
         flex-grow: 1;
-    }
-    .selected {
-        background-color: greenyellow;
     }
     .container {
         width: 100%;
