@@ -80,7 +80,6 @@
 {#if GameData}
     <main>
         <h1>Game</h1>
-        <h3>Table:</h3>
         <Board
             bind:playerRole
             bind:playerCards
