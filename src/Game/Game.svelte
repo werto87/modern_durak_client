@@ -8,7 +8,6 @@
     export let playerCards = [];
     export let DurakTimers = null;
     import { sendMessageToWebsocket } from "../Webservice/store.js";
-    import { log } from "xstate/lib/actions";
 
     const placeSelectedCardsOnTableToAttack = (card) => {
         let mycard = { Card: { value: card.value, type: card.type } };
@@ -67,13 +66,6 @@
 
     let cardDroppedToAttackCallback = (card) => {
         placeSelectedCardsOnTableToAttack(card);
-    };
-    const calcRunningTimer = (runningTimer) => {
-        if (DurakTimers) {
-            return runningTimer.runningTimeUserTimePointMilliseconds;
-        } else {
-            return null;
-        }
     };
 </script>
 
