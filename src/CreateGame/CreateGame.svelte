@@ -171,7 +171,10 @@
 
 {#if isCreateGameLobbyAdmin}
     <div>
-        <button on:click={startGame}>Start Game</button>
+        <button
+            disabled={UsersInGameLobby?.users.length < 2 || undefined}
+            on:click={startGame}>Start Game</button
+        >
     </div>
 {/if}
 

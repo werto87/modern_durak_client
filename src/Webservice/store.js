@@ -2,8 +2,8 @@ import { writable } from 'svelte/store';
 
 export const messageStore = writable('');
 
-export const webSocket = new WebSocket('wss://modern-durak.com/wss');
-// export const webSocket = new WebSocket('wss://localhost:55555');
+// export const webSocket = new WebSocket('wss://modern-durak.com/wss');
+export const webSocket = new WebSocket('wss://localhost:55555');
 
 // Connection opened
 webSocket.addEventListener('open', function (event) {
