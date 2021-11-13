@@ -10,7 +10,7 @@ webSocket.addEventListener('open', function (event) {
 	console.log("It's open");
 });
 webSocket.addEventListener('error', function (event) {
-	alert("Webserver error please check connection to: " + event.target.url);
+	alert("Web Socket error please check connection to: " + event.target.url);
 });
 
 // Listen for messages
