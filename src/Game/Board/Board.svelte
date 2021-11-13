@@ -294,7 +294,7 @@
         width: var(--itemWidth);
         text-align: center;
         border-width: 3px;
-        border-color: #0f292f;
+        border-color: #cccccc;
         border-style: solid;
         flex-grow: 1;
         flex-shrink: 0;
@@ -309,7 +309,7 @@
         height: var(--itemHeight);
         width: var(--itemWidth);
         text-align: center;
-        border-color: #cccccc;
+        border-color: #ffaa00;
         border-width: 3px;
         border-style: solid;
         flex-grow: 1;
@@ -335,7 +335,7 @@
     }
 
     :global(.drop) {
-        background-color: yellow;
+        background-color: #ffaa00;
     }
 
     :global(.fill) {

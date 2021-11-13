@@ -83,6 +83,10 @@
 		background: #0e3b93;
 		color: #4ed93f;
 		width: 100%;
+		border-width: 3px;
+		border-color: #cccccc;
+		font-size: 30px;
+		border-radius: 5px;
 	}
 
 	:global(select:disabled) {
@@ -90,6 +94,11 @@
 		background: #cccccc;
 		color: #cb2d6f;
 		width: 100%;
+		border-width: 3px;
+		border-color: #cccccc;
+		/* border-color: #ffaa00; DO NOT DELETE THIS: SECOND BORDER COLOR  */
+		font-size: 30px;
+		border-radius: 5px;
 	}
 
 	:global(main) {
