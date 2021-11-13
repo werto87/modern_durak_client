@@ -353,7 +353,7 @@
         flex-wrap: wrap;
         margin: 5px;
         flex-shrink: 1;
-        gap: 5px;
+        gap: 0px;
         border-style: solid;
         border-color: #cccccc;
         padding: 5px;
