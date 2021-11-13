@@ -163,36 +163,6 @@
     $: dropFromOthersDisabled = Array(42).fill(true);
 </script>
 
-<!-- Player Cards -->
-
-<Row class="boardRow">
-    {#if playerCardsWithId.length != 0}
-        {#each playerCardsWithId as card (card.id)}
-            <Item
-                class={shouldDragBeDisabled(
-                    card.id,
-                    playerCardsWithId,
-                    cardsAllowedToPlay
-                )
-                    ? "cardItem"
-                    : "dragableCardItem"}
-                ><PlayerCards
-                    item={card}
-                    {cardsToBeat}
-                    bind:dropFromOthersDisabled
-                    dragDisabled={shouldDragBeDisabled(
-                        card.id,
-                        playerCardsWithId,
-                        cardsAllowedToPlay
-                    )}
-                    {trump}
-                /></Item
-            >
-        {/each}
-    {:else}
-        <Item class="fill" />
-    {/if}
-</Row>
 <!-- Table -->
 
 {#if playerRole == "attack"}
@@ -283,6 +253,35 @@
         {/if}
     </Row>
 {/if}
+<!-- Player Cards -->
+<Row class="boardRow">
+    {#if playerCardsWithId.length != 0}
+        {#each playerCardsWithId as card (card.id)}
+            <Item
+                class={shouldDragBeDisabled(
+                    card.id,
+                    playerCardsWithId,
+                    cardsAllowedToPlay
+                )
+                    ? "cardItem"
+                    : "dragableCardItem"}
+                ><PlayerCards
+                    item={card}
+                    {cardsToBeat}
+                    bind:dropFromOthersDisabled
+                    dragDisabled={shouldDragBeDisabled(
+                        card.id,
+                        playerCardsWithId,
+                        cardsAllowedToPlay
+                    )}
+                    {trump}
+                /></Item
+            >
+        {/each}
+    {:else}
+        <Item class="fill" />
+    {/if}
+</Row>
 
 <style>
     :global(:root) {

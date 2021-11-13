@@ -34,12 +34,12 @@
         } else if (playerRole == "assist") {
             sendMessageToWebsocket("DurakAssistPass|{}");
         }
-        defenderWantsToTakeCards = false;
     };
     const surrender = () => {
         sendMessageToWebsocket("DurakLeaveGame|{}");
     };
     const isAllowedMove = (DurakAllowedMoves, moveToCheck) => {
+        console.log(DurakAllowedMoves);
         return (
             (DurakAllowedMoves &&
                 DurakAllowedMoves.allowedMoves.filter(
@@ -131,7 +131,6 @@
         {/if}
 
         {#if playerRole == "defend"}
-            <!--TODO REPLACE THIS BUTTON WITH A DRAG AND DROP ACTION for example drag table inside cards :) -->
             <button
                 disabled={!isAllowedMove(DurakAllowedMoves, "takeCards") ||
                     undefined}

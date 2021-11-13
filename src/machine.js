@@ -262,6 +262,14 @@ export const toggleMachine = createMachine({
                                 }
                             ],
                         },
+                        DurakDefendWantsToTakeCardsFromTableDoneAddingCardsSuccess: {
+                            actions: [
+                                (context) => {
+                                    context.props["defenderWantsToTakeCards"] = false;
+                                }
+                            ],
+                        },
+
                     },
                     entry: assign(
                         {
