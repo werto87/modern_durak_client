@@ -1,5 +1,11 @@
 <script>
-    import { dndzone, TRIGGERS } from "svelte-dnd-action";
+    import {
+        dndzone,
+        TRIGGERS,
+        SHADOW_ITEM_MARKER_PROPERTY_NAME,
+    } from "svelte-dnd-action";
+    import { fade } from "svelte/transition";
+    import { cubicIn } from "svelte/easing";
     export let items = [];
     export let cardDroppedToAttackCallback;
     function handleDndConsider(e) {
@@ -25,17 +31,42 @@
         items,
         dropTargetClasses: ["drop"],
         dragDisabled: true,
+        morphDisabled: true,
     }}
     on:consider={handleDndConsider}
     on:finalize={handleDndFinalize}
 >
     {#each items as item (item.id)}
-        <div />
+        <div
+            class={item.type === "hearts" || item.type === "diamonds"
+                ? "redText"
+                : "greenText"}
+        >
+            {#if item[SHADOW_ITEM_MARKER_PROPERTY_NAME]}
+                <div
+                    in:fade={{ duration: 0, easing: cubicIn }}
+                    class="custom-shadow-item"
+                />
+            {/if}
+        </div>
     {/each}
 </section>
 
 <style>
     section {
         height: 100%;
+    }
+
+    :global(.custom-shadow-item) {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        visibility: visible;
+        border: 1px dashed grey;
+        background-color: #0f292f;
+        opacity: 0.5;
+        margin: 0;
     }
 </style>

@@ -14,10 +14,8 @@
     let items = [item];
     let shouldIgnoreDndEvents = false;
     function handleDndConsider(e) {
-        console.warn(`got consider ${JSON.stringify(e.detail, null, 2)}`);
         const { trigger, id } = e.detail.info;
         if (trigger === TRIGGERS.DRAG_STARTED) {
-            console.warn(`copying ${id}`);
             const idx = items.findIndex((item) => item.id === id);
             const newId = `${id}_copy_${Math.round(Math.random() * 100000)}`;
             e.detail.items = e.detail.items.filter(
@@ -58,6 +56,7 @@
         items,
         dropFromOthersDisabled: true,
         dragDisabled,
+        dropTargetClasses: ["drop"],
     }}
     on:consider={handleDndConsider}
     on:finalize={handleDndFinalize}
@@ -68,7 +67,9 @@
                 ? "redText"
                 : "greenText"}
         >
-            {printCard(item)}
+            <div class="dragItem">
+                {printCard(item)}
+            </div>
         </div>
     {/each}
 </section>
@@ -82,5 +83,6 @@
         width: 100%;
         height: 100%;
         text-align: center;
+        background: #0e3b93;
     }
 </style>
