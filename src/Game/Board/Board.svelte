@@ -134,7 +134,7 @@
             } else {
                 return [];
             }
-        } else if (playerRole == "attack" || playerRole == "assist") {
+        } else if (playerRole == "attack" || playerRole == "assistAttacker") {
             if (allowedMoves != null && allowedMoves.allowedMoves.length != 0) {
                 return calcCardsAllowedToPlayAttackOrAssist(
                     playerCardsWithId,
@@ -165,7 +165,7 @@
 
 <!-- Table -->
 
-{#if playerRole == "attack"}
+{#if playerRole == "attack" || playerRole == "assistAttacker"}
     <Row class="container_row">
         <div class="layer1">
             <PlayCard {cardDroppedToAttackCallback} />
