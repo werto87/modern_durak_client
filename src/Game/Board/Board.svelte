@@ -135,7 +135,14 @@
                 return [];
             }
         } else if (playerRole == "attack" || playerRole == "assistAttacker") {
-            if (allowedMoves != null && allowedMoves.allowedMoves.length != 0) {
+            if (
+                allowedMoves != null &&
+                allowedMoves.allowedMoves.length != 0 &&
+                allowedMoves.allowedMoves.find(
+                    (move) => (move.Move = "addCard") != undefined
+                )
+            ) {
+                console.log(allowedMoves.allowedMoves);
                 return calcCardsAllowedToPlayAttackOrAssist(
                     playerCardsWithId,
                     cardsOnTable,
@@ -317,6 +324,11 @@
         background: #0e3b93;
         /* color: #4ed93f; */
         /* color: #cb2d6f; DO NOT DELETE THIS: SECOND BUTTON TEXT COLOR  */
+    }
+    :global(#dnd-action-dragged-el .dragItem) {
+        border-color: #ffaa00;
+        border-style: solid;
+        border-width: 3px;
     }
 
     :global(.boardRow) {
