@@ -31,7 +31,7 @@
         //the machine and the machine should decide if we send something or not
         if (playerRole == "attack") {
             sendMessageToWebsocket("DurakAttackPass|{}");
-        } else if (playerRole == "assist") {
+        } else if (playerRole == "assistAttacker") {
             sendMessageToWebsocket("DurakAssistPass|{}");
         }
     };
@@ -47,7 +47,7 @@
                 ).length > 0) ||
             (moveToCheck == "pass" &&
                 defenderWantsToTakeCards &&
-                (playerRole == "attack" || playerRole == "assist"))
+                (playerRole == "attack" || playerRole == "assistAttacker"))
         );
     };
     const numberOfUnknowenCards = (cards) => {
@@ -138,7 +138,7 @@
                     drawCardsFromTable();
                 }}>Draw Cards from Table</button
             ><br />
-        {:else if playerRole == "attack" || playerRole == "assist"}
+        {:else if playerRole == "attack" || playerRole == "assistAttacker"}
             <button
                 disabled={!isAllowedMove(DurakAllowedMoves, "pass") ||
                     undefined}
