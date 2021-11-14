@@ -1,5 +1,8 @@
 <script>
-    import { dndzone } from "svelte-dnd-action";
+    import {
+        dndzone,
+        SHADOW_ITEM_MARKER_PROPERTY_NAME,
+    } from "svelte-dnd-action";
     import { printCard } from "./helper.js";
 
     export let dropFromOthersDisabled;
@@ -41,13 +44,18 @@
         on:finalize={handleFinalize}
     >
         {#each items as item (item.id)}
-            <div
-                class={item.type === "hearts" || item.type === "diamonds"
-                    ? "redText"
-                    : "greenText"}
-            >
-                {item.value}
-                {item.type}
+            <div class="fillDiv">
+                <div
+                    class={item.type === "hearts" || item.type === "diamonds"
+                        ? "redText"
+                        : "greenText"}
+                >
+                    {item.value}
+                    {item.type}
+                    {#if item[SHADOW_ITEM_MARKER_PROPERTY_NAME]}
+                        <div class="custom-shadow-item" />
+                    {/if}
+                </div>
             </div>
         {/each}
     </section>
@@ -62,5 +70,9 @@
         height: 100%;
         display: flex;
         flex-direction: column;
+    }
+    .fillDiv {
+        height: var(--itemHeight);
+        width: var(--itemWidth);
     }
 </style>

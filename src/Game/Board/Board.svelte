@@ -397,9 +397,9 @@
         flex-basis: 25%;
     }
     :global(.greenText) {
-        color: #4ed93f;
+        color: #4ed93f !important;
     }
     :global(.redText) {
-        color: #cb2d6f;
+        color: #cb2d6f !important;
     }
 </style>
