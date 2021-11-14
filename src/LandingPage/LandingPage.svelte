@@ -27,13 +27,19 @@
             <h1>Chose Game Mode</h1>
         </div>
         <div class="grid-item">
-            <button on:click={quickPressed} id="grid-item1">Quick</button>
+            <button disabled on:click={quickPressed} id="grid-item1"
+                >Quick</button
+            >
         </div>
         <div class="grid-item">
-            <button on:click={rankedPressed} id="grid-item2">Ranked</button>
+            <button disabled on:click={rankedPressed} id="grid-item2"
+                >Ranked</button
+            >
         </div>
         <div class="grid-item">
-            <button on:click={puzzlePressed} id="grid-item3">Puzzle</button>
+            <button disabled on:click={puzzlePressed} id="grid-item3"
+                >Puzzle</button
+            >
         </div>
         <div class="grid-item">
             <button on:click={customPressed} id="grid-item4">Custom</button>
