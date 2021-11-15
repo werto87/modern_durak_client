@@ -39,23 +39,23 @@
             dropFromOthersDisabled: dropNotAllowed,
             dropTargetClasses: ["drop"],
             dragDisabled: true,
+            morphDisabled: true,
         }}
         on:consider={handleConsider}
         on:finalize={handleFinalize}
     >
         {#each items as item (item.id)}
-            <div class="fillDiv">
-                <div
-                    class={item.type === "hearts" || item.type === "diamonds"
-                        ? "redText"
-                        : "greenText"}
-                >
-                    {item.value}
-                    {item.type}
-                    {#if item[SHADOW_ITEM_MARKER_PROPERTY_NAME]}
-                        <div class="custom-shadow-item" />
-                    {/if}
-                </div>
+            <!-- <div class="fillDiv"> -->
+            <div
+                class={item.type === "hearts" || item.type === "diamonds"
+                    ? "redText"
+                    : "greenText"}
+            >
+                {printCard(item)}
+                {#if item[SHADOW_ITEM_MARKER_PROPERTY_NAME]}
+                    <div class="custom-shadow-item" />
+                {/if}
+                <!-- </div> -->
             </div>
         {/each}
     </section>
