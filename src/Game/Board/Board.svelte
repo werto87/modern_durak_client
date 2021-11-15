@@ -304,7 +304,6 @@
         border-style: solid;
         flex-grow: 1;
         flex-shrink: 0;
-        flex-basis: 25%;
         background: #0e3b93;
         /* color: #4ed93f; */
         /* color: #cb2d6f; DO NOT DELETE THIS: SECOND BUTTON TEXT COLOR */
@@ -320,7 +319,6 @@
         border-style: solid;
         flex-grow: 1;
         flex-shrink: 0;
-        flex-basis: 25%;
         background: #0e3b93;
         /* color: #4ed93f; */
         /* color: #cb2d6f; DO NOT DELETE THIS: SECOND BUTTON TEXT COLOR  */
