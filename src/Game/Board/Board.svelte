@@ -292,12 +292,14 @@
 
 <style>
     :global(:root) {
-        --itemWidth: 7em;
+        --itemWidthMin: 6em;
+        --itemWidthMax: 6em;
         --itemHeight: 10em;
     }
     :global(.cardItem) {
         height: var(--itemHeight);
-        width: var(--itemWidth);
+        min-width: var(--itemWidthMin);
+        max-width: var(--itemWidthMax);
         text-align: center;
         border-width: 3px;
         border-color: #cccccc;
@@ -312,7 +314,8 @@
 
     :global(.dragableCardItem) {
         height: var(--itemHeight);
-        width: var(--itemWidth);
+        min-width: var(--itemWidthMin);
+        max-width: var(--itemWidthMax);
         text-align: center;
         border-color: #ffaa00;
         border-width: 3px;
@@ -330,6 +333,7 @@
     }
 
     :global(.boardRow) {
+        justify-content: space-evenly;
         display: flex;
         flex-wrap: wrap;
         margin: 5px;
@@ -357,6 +361,7 @@
     :global(.container_row) {
         /* TODO find out how to inherit from another class for example ".boardRow" 
         so we do not have to copy all of it here*/
+        justify-content: space-evenly;
         padding: 0px;
         display: flex;
         flex-wrap: wrap;
@@ -383,6 +388,7 @@
 
     :global(.layer2) {
         flex-wrap: wrap;
+        justify-content: space-evenly;
         /* margin: 5px; */
         flex-shrink: 1;
         gap: 5px;
