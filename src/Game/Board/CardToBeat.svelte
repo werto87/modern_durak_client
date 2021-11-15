@@ -45,7 +45,6 @@
         on:finalize={handleFinalize}
     >
         {#each items as item (item.id)}
-            <!-- <div class="fillDiv"> -->
             <div
                 class={item.type === "hearts" || item.type === "diamonds"
                     ? "redText"
@@ -55,7 +54,6 @@
                 {#if item[SHADOW_ITEM_MARKER_PROPERTY_NAME]}
                     <div class="custom-shadow-item" />
                 {/if}
-                <!-- </div> -->
             </div>
         {/each}
     </section>
@@ -70,9 +68,5 @@
         height: 100%;
         display: flex;
         flex-direction: column;
-    }
-    .fillDiv {
-        height: var(--itemHeight);
-        width: var(--itemWidth);
     }
 </style>
