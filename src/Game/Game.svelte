@@ -67,6 +67,9 @@
     let cardDroppedToAttackCallback = (card) => {
         placeSelectedCardsOnTableToAttack(card);
     };
+    import cardDeckIcon from "../asset/icons/deck.svg";
+    import { Item } from "svelte-layouts";
+    import { printCard, printType } from "./Board/helper.js";
 </script>
 
 {#if GameData}
@@ -81,14 +84,55 @@
             {cardDroppedToAttackCallback}
             bind:allowedMoves={DurakAllowedMoves}
         />
-        <p>Cards in Deck {GameData.cardsInDeck}</p>
-        <p>
-            {#if GameData.lastCardInDeck}
-                Last Card in Deck {GameData.lastCardInDeck.value}
-                {GameData.lastCardInDeck.type}
-            {/if}
-        </p>
-        <p>Trump {GameData.trump}</p>
+        {#if GameData.cardsInDeck > 1}
+            <div class="deckContainer">
+                <span class="deckIcon">
+                    {@html cardDeckIcon}
+                </span>
+                <p class="cardCount">{GameData.cardsInDeck}</p>
+
+                {#if GameData.lastCardInDeck}
+                    <div class="lastCardInDeck">
+                        <Item class="cardItem">
+                            <span
+                                class={GameData.lastCardInDeck.type ===
+                                    "hearts" ||
+                                GameData.lastCardInDeck.type === "diamonds"
+                                    ? "redText"
+                                    : "greenText"}
+                            >
+                                {printCard(GameData.lastCardInDeck)}
+                            </span>
+                        </Item>
+                    </div>
+                {/if}
+            </div>
+        {:else if GameData.lastCardInDeck}
+            <div class="onlyOneCardInDeck">
+                <Item class="cardItem">
+                    <span
+                        class={GameData.lastCardInDeck.type === "hearts" ||
+                        GameData.lastCardInDeck.type === "diamonds"
+                            ? "redText"
+                            : "greenText"}
+                    >
+                        {printCard(GameData.lastCardInDeck)}
+                    </span>
+                </Item>
+            </div>
+        {:else}
+            <p>
+                Trump:&nbsp;
+                <span
+                    class={GameData.trump === "hearts" ||
+                    GameData.trump === "diamonds"
+                        ? "redText"
+                        : "greenText"}
+                >
+                    {printType(GameData.trump)}
+                </span>
+            </p>
+        {/if}
         {#each GameData.players as player}
             <p>Player: {player.PlayerData.name}</p>
             {#if numberOfUnknowenCards(player.PlayerData.cards) !== 0}
@@ -156,5 +200,31 @@
 {/if}
 
 <style>
-    /*  */
+    :global(.deckContainer) {
+        height: var(--itemHeight);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    :global(.deckIcon) {
+        flex: 0 0 0px;
+        margin-top: 120px;
+    }
+    :global(.cardCount) {
+        flex: 0 0 0px;
+        margin-left: -8.5em;
+        min-width: 200px;
+        margin-top: 140px;
+    }
+    :global(.lastCardInDeck) {
+        flex: 0 0 0px;
+        margin-left: -6.4em;
+        z-index: -100;
+    }
+    :global(.onlyOneCardInDeck) {
+        height: var(--itemHeight);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 </style>

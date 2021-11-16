@@ -304,6 +304,7 @@
         border-width: 3px;
         border-color: #cccccc;
         border-style: solid;
+        border-radius: 10px !important;
         flex-grow: 1;
         flex-shrink: 0;
         background: #0e3b93;
@@ -320,6 +321,7 @@
         border-color: #ffaa00;
         border-width: 3px;
         border-style: solid;
+        border-radius: 10px !important;
         flex-grow: 1;
         flex-shrink: 0;
         background: #0e3b93;
@@ -330,6 +332,7 @@
         border-color: #ffaa00;
         border-style: solid;
         border-width: 3px;
+        border-radius: 10px;
     }
 
     :global(.boardRow) {
@@ -402,8 +405,10 @@
     }
     :global(.greenText) {
         color: #4ed93f !important;
+        border-radius: 10px;
     }
     :global(.redText) {
         color: #cb2d6f !important;
+        border-radius: 10px;
     }
 </style>

@@ -11,16 +11,19 @@ export function allowedToPlayDefend(cardToBeat, card, trump) {
 }
 
 export function printCard(card) {
-    let result = card.value;
-    if (card.type == "hearts") {
-        result += "♥";
-    } else if (card.type == "diamonds") {
-        result += "♦";
-    } else if (card.type == "spades") {
-        result += "♠";
-    } else if (card.type == "clubs") {
-        result += "♣";
-    }
+    return card.value + printType(card.type);
+};
 
+export function printType(type) {
+    let result;
+    if (type == "hearts") {
+        result = "♥";
+    } else if (type == "diamonds") {
+        result = "♦";
+    } else if (type == "spades") {
+        result = "♠";
+    } else if (type == "clubs") {
+        result = "♣";
+    }
     return result;
 };

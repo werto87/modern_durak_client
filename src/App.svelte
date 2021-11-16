@@ -87,7 +87,7 @@
 		border-width: 3px;
 		border-color: #cccccc;
 		font-size: 30px;
-		border-radius: 5px;
+		border-radius: 10px;
 	}
 
 	:global(select:disabled) {
@@ -99,7 +99,7 @@
 		border-color: #cccccc;
 		/* border-color: #ffaa00; DO NOT DELETE THIS: SECOND BORDER COLOR  */
 		font-size: 30px;
-		border-radius: 5px;
+		border-radius: 10px;
 	}
 
 	:global(main) {
@@ -132,13 +132,13 @@
 		border-color: #cccccc;
 		/* border-color: #ffaa00; DO NOT DELETE THIS: SECOND BORDER COLOR  */
 		font-size: 30px;
-		border-radius: 5px;
+		border-radius: 10px;
 		word-break: break-word;
 	}
 	:global(.form-field:focus) {
 		width: 100%;
 		border-width: 3px;
-		border-radius: 5px;
+		border-radius: 10px;
 		border-color: #cccccc;
 	}
 	:global(.form-error) {
@@ -149,7 +149,7 @@
 		width: 100%;
 		background: #0e3b93;
 		color: #4ed93f;
-		border-radius: 5px;
+		border-radius: 10px;
 		border-width: 3px;
 		border-color: #cccccc;
 	}
@@ -177,6 +177,6 @@
 		border-width: 3px;
 		border-color: #cccccc;
 		border-style: solid;
-		border-radius: 5px;
+		border-radius: 10px;
 	}
 </style>

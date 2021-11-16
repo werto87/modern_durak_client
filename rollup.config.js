@@ -7,6 +7,7 @@ import sveltePreprocess from 'svelte-preprocess';
 import typescript from '@rollup/plugin-typescript';
 import css from 'rollup-plugin-css-only';
 import replace from '@rollup/plugin-replace';
+import svg from 'rollup-plugin-svg'
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -40,6 +41,7 @@ export default {
 		file: 'public/build/bundle.js'
 	},
 	plugins: [
+		svg(),
 		svelte({
 			preprocess: sveltePreprocess({ sourceMap: !production }),
 			compilerOptions: {
