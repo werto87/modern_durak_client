@@ -224,6 +224,7 @@ export const toggleMachine = createMachine({
                             actions: [
                                 (context, event) => {
                                     context.props[event.type] = event;
+                                    context.props["accountName"] = context.accountName;
                                     const currentPlayer = event.players.filter(player => player.PlayerData.name == context.accountName);
                                     if (currentPlayer?.length) {
                                         context.props["playerRole"] = currentPlayer[0].PlayerData.playerRole;
