@@ -1,6 +1,7 @@
 <script>
+    import OtherPlayerState from "./State/OtherPlayerState.svelte";
+    import cardDeckIcon from "../asset/icons/deck.svg";
     import Board from "./Board/Board.svelte";
-    import Countdown from "../Util/Countdown.svelte";
     export let defenderWantsToTakeCards = false;
     export let DurakAllowedMoves = null;
     export let GameData = null;
@@ -51,15 +52,6 @@
                 (playerRole == "attack" || playerRole == "assistAttacker"))
         );
     };
-    const numberOfUnknowenCards = (cards) => {
-        let unknowenCardCount = 0;
-        cards.forEach((card) => {
-            if (card === null) {
-                unknowenCardCount++;
-            }
-        });
-        return unknowenCardCount;
-    };
 
     let cardBeatenCallback = (cardToBeat, card) => {
         placeSelectedCardOnTableToDefend(cardToBeat, card);
@@ -68,7 +60,7 @@
     let cardDroppedToAttackCallback = (card) => {
         placeSelectedCardsOnTableToAttack(card);
     };
-    import cardDeckIcon from "../asset/icons/deck.svg";
+
     import { Item, Col, Row } from "svelte-layouts";
     import { printCard, printType } from "./Board/helper.js";
 </script>
@@ -88,7 +80,7 @@
                     bind:allowedMoves={DurakAllowedMoves}
                 />
             </Col>
-            <Col>
+            <Col class="overView">
                 {#if GameData.cardsInDeck > 1}
                     <div class="deckContainer">
                         <span class="deckIcon">
@@ -142,51 +134,9 @@
                 {/if}
                 {#each GameData.players as player}
                     {#if player.PlayerData.name != accountName}
-                        <p>Player: {player.PlayerData.name}</p>
-                        {#if numberOfUnknowenCards(player.PlayerData.cards) !== 0}
-                            <div class="deckContainerUnknowenCards">
-                                <span class="unknowenCards">
-                                    {@html cardDeckIcon}
-                                </span>
-                                <p class="unknowenCardsCardCount">
-                                    {numberOfUnknowenCards(
-                                        player.PlayerData.cards
-                                    )}
-                                </p>
-                            </div>
-                        {/if}
+                        <OtherPlayerState {player} {DurakTimers} />
                     {/if}
                 {/each}
-                {#if DurakTimers}
-                    {#if DurakTimers.runningTimeUserTimePointMilliseconds}
-                        {#each DurakTimers.runningTimeUserTimePointMilliseconds as runningTimer}
-                            <p>
-                                Player Name: {runningTimer[0]}
-                            </p>
-                            <p>
-                                <Countdown
-                                    countdown={Math.floor(
-                                        (runningTimer[1] - Date.now()) / 1000
-                                    )}
-                                    let:countdown
-                                >
-                                    Player Time: {countdown}
-                                </Countdown>
-                            </p>
-                        {/each}
-                    {/if}
-                    {#if DurakTimers.pausedTimeUserDurationMilliseconds}
-                        {#each DurakTimers.pausedTimeUserDurationMilliseconds as pausedTimer}
-                            <p>
-                                Player Name: {pausedTimer[0]}
-                            </p>
-                            <p>
-                                Player Time: {Math.floor(pausedTimer[1] / 1000)}
-                                seconds
-                            </p>
-                        {/each}
-                    {/if}
-                {/if}
             </Col>
         </Row>
         {#if playerRole == "defend"}
@@ -215,68 +165,39 @@
 {/if}
 
 <style>
-    /* TODO find out how to shrink svg */
+    /* TODO place text inside of the card icon */
+    /* TODO fix scaling */
+    /* TODO add role display maybe make a enemy player component */
+    /* TODO add player status for example time left is missing for player only shows for other players */
     :global(.deckContainer) {
-        flex-shrink: 3;
-        height: calc(var(--itemHeight) + 0.5em);
-        width: calc(var(--itemHeight) + 0.5em);
+        /* height: var(--itemHeight);
+        width: var(--itemMinWidth); */
         display: flex;
-        justify-content: center;
-        align-items: center;
+        flex-shrink: 3;
     }
 
     :global(.deckIcon) {
-        flex-shrink: 3;
-        flex: 0 0 0px;
-        margin-top: 120px;
-        margin-left: -2.3em;
+        min-width: var(--itemHeight);
+        max-width: var(--itemHeight);
+        z-index: -100;
     }
     :global(.cardCount) {
-        flex-shrink: 3;
-        flex: 0 0 0px;
-        margin-left: -8.5em;
-        min-width: 200px;
-        margin-top: 140px;
     }
     :global(.lastCardInDeck) {
-        flex-shrink: 3;
-        flex: 0 0 0px;
-        margin-left: -6.4em;
+        /* flex: 0 0 0px; */
         z-index: -100;
     }
     :global(.onlyOneCardInDeck) {
-        flex-shrink: 3;
-        height: var(--itemHeight);
         display: flex;
-        justify-content: center;
-        align-items: center;
     }
-    :global(.deckContainerUnknowenCards) {
-        flex-shrink: 3;
-        height: var(--itemHeight);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-bottom: 20px;
-        margin-top: -10px;
-    }
-    :global(.unknowenCards) {
-        flex-shrink: 3;
-        transform: rotate(90deg);
-        z-index: -100;
-        margin-left: -2em;
-    }
-    :global(.unknowenCardsCardCount) {
-        flex-shrink: 3;
-        margin-left: -8.4em;
-        min-width: 200px;
-    }
+
     :global(.gameRow) {
-        justify-content: space-evenly;
+        /* justify-content: space-evenly; */
         display: flex;
-        margin: 5px;
-        flex-shrink: 1;
         border-style: solid;
         border-color: #cccccc;
+    }
+    :global(.overView) {
+        width: 10em;
     }
 </style>

@@ -73,8 +73,7 @@
 
 <style>
 	:global(.my-container) {
-		/* width: 75%; */
-		width: calc(var(--itemWidthMin) * 9);
+		width: 75%;
 		display: inline-block;
 		box-sizing: border-box;
 	}
