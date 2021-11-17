@@ -1,6 +1,6 @@
 <script>
     import OtherPlayerState from "./State/OtherPlayerState.svelte";
-    import cardDeckIcon from "../asset/icons/deck.svg";
+
     import Board from "./Board/Board.svelte";
     export let defenderWantsToTakeCards = false;
     export let DurakAllowedMoves = null;
@@ -61,8 +61,8 @@
         placeSelectedCardsOnTableToAttack(card);
     };
 
-    import { Item, Col, Row } from "svelte-layouts";
-    import { printCard, printType } from "./Board/helper.js";
+    import { Col, Row } from "svelte-layouts";
+    import CardsInDeck from "./State/CardsInDeck.svelte";
 </script>
 
 {#if GameData}
@@ -81,57 +81,7 @@
                 />
             </Col>
             <Col class="overView">
-                {#if GameData.cardsInDeck > 1}
-                    <div class="deckContainer">
-                        <span class="deckIcon">
-                            {@html cardDeckIcon}
-                        </span>
-                        <p class="cardCount">{GameData.cardsInDeck}</p>
-
-                        {#if GameData.lastCardInDeck}
-                            <div class="lastCardInDeck">
-                                <Item class="cardItem">
-                                    <span
-                                        class={GameData.lastCardInDeck.type ===
-                                            "hearts" ||
-                                        GameData.lastCardInDeck.type ===
-                                            "diamonds"
-                                            ? "redText"
-                                            : "greenText"}
-                                    >
-                                        {printCard(GameData.lastCardInDeck)}
-                                    </span>
-                                </Item>
-                            </div>
-                        {/if}
-                    </div>
-                {:else if GameData.lastCardInDeck}
-                    <div class="onlyOneCardInDeck">
-                        <Item class="cardItem">
-                            <span
-                                class={GameData.lastCardInDeck.type ===
-                                    "hearts" ||
-                                GameData.lastCardInDeck.type === "diamonds"
-                                    ? "redText"
-                                    : "greenText"}
-                            >
-                                {printCard(GameData.lastCardInDeck)}
-                            </span>
-                        </Item>
-                    </div>
-                {:else}
-                    <p>
-                        Trump:&nbsp;
-                        <span
-                            class={GameData.trump === "hearts" ||
-                            GameData.trump === "diamonds"
-                                ? "redText"
-                                : "greenText"}
-                        >
-                            {printType(GameData.trump)}
-                        </span>
-                    </p>
-                {/if}
+                <CardsInDeck {GameData} />
                 {#each GameData.players as player}
                     {#if player.PlayerData.name != accountName}
                         <OtherPlayerState {player} {DurakTimers} />
@@ -165,31 +115,9 @@
 {/if}
 
 <style>
-    /* TODO place text inside of the card icon */
+    /* TODO cards in deck */
     /* TODO fix scaling */
-    /* TODO add role display maybe make a enemy player component */
     /* TODO add player status for example time left is missing for player only shows for other players */
-    :global(.deckContainer) {
-        /* height: var(--itemHeight);
-        width: var(--itemMinWidth); */
-        display: flex;
-        flex-shrink: 3;
-    }
-
-    :global(.deckIcon) {
-        min-width: var(--itemHeight);
-        max-width: var(--itemHeight);
-        z-index: -100;
-    }
-    :global(.cardCount) {
-    }
-    :global(.lastCardInDeck) {
-        /* flex: 0 0 0px; */
-        z-index: -100;
-    }
-    :global(.onlyOneCardInDeck) {
-        display: flex;
-    }
 
     :global(.gameRow) {
         /* justify-content: space-evenly; */

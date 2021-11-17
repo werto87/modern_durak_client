@@ -91,6 +91,14 @@
 </div>
 
 <style>
+    :global(.otherPlayerState) {
+        padding-bottom: 1em;
+        border-style: solid;
+        border-color: #cccccc;
+        margin: 3px;
+        margin-left: 0px;
+        height: 8em;
+    }
     :global(.deckContainerUnknowenCards) {
         display: flex;
     }
@@ -98,6 +106,7 @@
         transform: rotate(90deg);
         min-width: var(--itemWidthMin);
         max-width: var(--itemWidthMin);
+
         margin-left: -1em;
         z-index: -100;
     }
@@ -105,13 +114,6 @@
         margin-left: -3.9em;
         margin-top: 1.4em;
         width: 2em;
-    }
-    :global(.otherPlayerState) {
-        padding-bottom: 1em;
-        border-style: solid;
-        border-color: #cccccc;
-        margin: 3px;
-        margin-left: 0px;
     }
     :global(.playerName) {
         margin: 1em;
