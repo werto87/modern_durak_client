@@ -341,11 +341,11 @@
         flex-wrap: wrap;
         margin: 5px;
         flex-shrink: 1;
+        flex-grow: 3;
         gap: 5px;
         border-style: solid;
         border-color: #cccccc;
         padding: 5px;
-        min-width: 15em;
         flex-flow: row wrap;
         display: flex;
     }
@@ -374,7 +374,6 @@
         border-style: solid;
         border-color: #cccccc;
         padding: 5px;
-        min-width: 15em;
         flex-flow: row wrap;
         display: flex;
     }
@@ -392,11 +391,9 @@
     :global(.layer2) {
         flex-wrap: wrap;
         justify-content: space-evenly;
-        /* margin: 5px; */
         flex-shrink: 1;
         gap: 5px;
         border-style: unset;
-        min-width: 15em;
         display: flex;
         margin-left: -100%;
         padding: 0px;

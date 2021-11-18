@@ -69,7 +69,7 @@
     <main>
         <h1>Game</h1>
         <Row class="gameRow">
-            <Col>
+            <Col class="gameCol">
                 <Board
                     bind:playerRole
                     bind:playerCards
@@ -115,17 +115,21 @@
 {/if}
 
 <style>
-    /* TODO cards in deck */
-    /* TODO fix scaling */
     /* TODO add player status for example time left is missing for player only shows for other players */
 
     :global(.gameRow) {
-        /* justify-content: space-evenly; */
         display: flex;
+        flex-grow: 3;
         border-style: solid;
         border-color: #cccccc;
+        margin: 3px;
+    }
+    :global(.gameCol) {
+        display: flex;
+        flex-grow: 3;
     }
     :global(.overView) {
-        width: 10em;
+        min-width: 10em;
+        display: flex;
     }
 </style>
