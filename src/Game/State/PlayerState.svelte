@@ -3,15 +3,7 @@
     import Countdown from "../../Util/Countdown.svelte";
     export let player = null;
     export let DurakTimers = null;
-    const numberOfUnknowenCards = (cards) => {
-        let unknowenCardCount = 0;
-        cards.forEach((card) => {
-            if (card === null) {
-                unknowenCardCount++;
-            }
-        });
-        return unknowenCardCount;
-    };
+
     const countdownForPlayerInSeconds = (playerName, runningTimers) => {
         let playerTimer = runningTimers.find((nameAndTimer) => {
             console.log(nameAndTimer);
@@ -59,12 +51,12 @@
 <div class="otherPlayerState">
     <h4 class="playerName">{player.PlayerData.name}</h4>
     <hr id="playerNameHr" />
-    <div class="deckContainerUnknowenCards">
-        <span class="unknowenCards">
+    <div class="deckContainerCards">
+        <span class="cards">
             {@html cardDeckIcon}
         </span>
-        <p class="unknowenCardsCardCount">
-            {numberOfUnknowenCards(player.PlayerData.cards)}
+        <p class="cardCount">
+            {player.PlayerData.cards.length}
         </p>
     </div>
     <div id="roleAndTimeLeftContainer">
@@ -112,10 +104,10 @@
         margin-bottom: 0px;
         height: 8em;
     }
-    :global(.deckContainerUnknowenCards) {
+    :global(.deckContainerCards) {
         display: flex;
     }
-    :global(.unknowenCards) {
+    :global(.cards) {
         transform: rotate(90deg);
         min-width: var(--itemWidthMin);
         max-width: var(--itemWidthMin);
@@ -123,7 +115,7 @@
         margin-left: -1em;
         z-index: -100;
     }
-    :global(.unknowenCardsCardCount) {
+    :global(.cardCount) {
         margin-left: -3.9em;
         margin-top: 1.4em;
         width: 2em;

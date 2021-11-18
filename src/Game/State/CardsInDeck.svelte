@@ -10,7 +10,7 @@
         <div class="deckContainer">
             <span class="deckIcon">
                 {@html cardDeckIcon}
-                <p class="cardCount">{GameData.cardsInDeck}</p>
+                <p class="cardDeckCount">{GameData.cardsInDeck}</p>
             </span>
 
             {#if GameData.lastCardInDeck}
@@ -73,7 +73,7 @@
         margin-bottom: 0px;
         margin-left: 1em;
     }
-    :global(.cardCount) {
+    :global(.cardDeckCount) {
         margin-top: -3.6em;
     }
     :global(.lastCardInDeck) {

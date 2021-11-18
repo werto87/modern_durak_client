@@ -1,5 +1,5 @@
 <script>
-    import OtherPlayerState from "./State/OtherPlayerState.svelte";
+    import OtherPlayerState from "./State/PlayerState.svelte";
 
     import Board from "./Board/Board.svelte";
     export let defenderWantsToTakeCards = false;
@@ -83,6 +83,11 @@
             <Col class="overView">
                 <CardsInDeck {GameData} />
                 {#each GameData.players as player}
+                    {#if player.PlayerData.name == accountName}
+                        <OtherPlayerState {player} {DurakTimers} />
+                    {/if}
+                {/each}
+                {#each GameData.players as player}
                     {#if player.PlayerData.name != accountName}
                         <OtherPlayerState {player} {DurakTimers} />
                     {/if}
@@ -133,5 +138,8 @@
         min-width: 10em;
         display: flex;
         margin: 3px;
+    }
+    :global(#playerStatus) {
+        text-align: left;
     }
 </style>
