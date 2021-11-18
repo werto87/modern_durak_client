@@ -120,8 +120,6 @@
 {/if}
 
 <style>
-    /* TODO add player status for example time left is missing for player only shows for other players */
-
     :global(.gameRow) {
         display: flex;
         flex-grow: 3;
