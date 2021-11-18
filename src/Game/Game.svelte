@@ -127,9 +127,11 @@
     :global(.gameCol) {
         display: flex;
         flex-grow: 3;
+        margin-bottom: 3px;
     }
     :global(.overView) {
         min-width: 10em;
         display: flex;
+        margin: 3px;
     }
 </style>

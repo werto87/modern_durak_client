@@ -45,10 +45,20 @@
             }) != undefined
         );
     };
+    const printPlayerRole = (playerRole) => {
+        if (playerRole == "assistAttacker") {
+            return "assist";
+        } else if (playerRole == "waiting") {
+            return "wait";
+        } else {
+            return playerRole;
+        }
+    };
 </script>
 
 <div class="otherPlayerState">
-    <p class="playerName">Player: {player.PlayerData.name}</p>
+    <h4 class="playerName">{player.PlayerData.name}</h4>
+    <hr id="playerNameHr" />
     <div class="deckContainerUnknowenCards">
         <span class="unknowenCards">
             {@html cardDeckIcon}
@@ -58,7 +68,9 @@
         </p>
     </div>
     <div id="roleAndTimeLeftContainer">
-        <p id="playerRole">Role Assist</p>
+        <p id="playerRole">
+            {printPlayerRole(player.PlayerData.playerRole)}
+        </p>
         {#if DurakTimers}
             <div id="timer">
                 {#if playerHasRunningTimer(player.PlayerData.name, DurakTimers.runningTimeUserTimePointMilliseconds)}
@@ -92,11 +104,12 @@
 
 <style>
     :global(.otherPlayerState) {
-        padding-bottom: 1em;
+        padding-bottom: 10px;
         border-style: solid;
         border-color: #cccccc;
         margin: 3px;
         margin-left: 0px;
+        margin-bottom: 0px;
         height: 8em;
     }
     :global(.deckContainerUnknowenCards) {
@@ -118,6 +131,7 @@
     :global(.playerName) {
         margin: 1em;
         margin-top: 10px;
+        margin-bottom: 0px;
     }
 
     :global(#runningTimer) {
@@ -125,8 +139,14 @@
     }
 
     :global(#roleAndTimeLeftContainer) {
-        /* margin: 1em; */
         margin-top: -6em;
         margin-right: -4em;
+    }
+    :global(#playerNameHr) {
+        margin-bottom: 1em;
+        margin-top: 8px;
+        color: #cccccc;
+
+        /* margin-right: -4em; */
     }
 </style>
