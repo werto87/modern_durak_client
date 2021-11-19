@@ -152,7 +152,7 @@
                 return [];
             }
         }
-        return result;
+        return [];
     };
 
     $: cardsOnTable = calcCardsOnTable(table);
