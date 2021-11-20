@@ -139,8 +139,8 @@
                 allowedMoves != null &&
                 allowedMoves.allowedMoves.length != 0 &&
                 allowedMoves.allowedMoves.find(
-                    (move) => (move.Move = "addCard") != undefined
-                )
+                    (move) => move.Move == "addCard"
+                ) != undefined
             ) {
                 console.log(allowedMoves.allowedMoves);
                 return calcCardsAllowedToPlayAttackOrAssist(
