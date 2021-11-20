@@ -142,7 +142,6 @@
                     (move) => move.Move == "addCard"
                 ) != undefined
             ) {
-                console.log(allowedMoves.allowedMoves);
                 return calcCardsAllowedToPlayAttackOrAssist(
                     playerCardsWithId,
                     cardsOnTable,
