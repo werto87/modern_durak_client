@@ -1,15 +1,17 @@
 <script>
     import RangeSlider from "svelte-range-slider-pips";
-
+    import { Form, Field, ErrorMessage } from "svelte-forms-lib";
+    import { printCard } from "../Game/Board/helper";
     export let UsersInGameLobby = null;
     export let SetTimerOption = {
         timerType: "noTimer",
         timeAtStartInSeconds: 0,
         timeForEachRoundInSeconds: 0,
     };
-    export let selected = 0;
+    export let timerOptionSelected = 0;
+    export let deckOptionSelected = 0;
     export let isCreateGameLobbyAdmin = true;
-    let options = [
+    let timerOptions = [
         { id: 0, value: "noTimer", label: "No Timer" },
         {
             id: 1,
@@ -22,9 +24,14 @@
             label: "Add Time on new Round",
         },
     ];
+    let deckOptions = [
+        { id: 0, value: "randomDeck", label: "Shuffle Cards" },
+        { id: 1, value: "customDeck", label: "Custom Deck" },
+        // TODO add option to play with specific cards
+    ];
     // framework "svelte-range-slider-pips" requires this to be array so this is a workaround
     $: maxUserSizeArray = [UsersInGameLobby?.maxUserSize];
-    $: maxCardValueArray = [UsersInGameLobby?.durakGameOption.maxCardValue];
+    $: cardsInDeckArray = [UsersInGameLobby?.durakGameOption.maxCardValue * 4];
     $: timeAtStartInSecondsArray = [SetTimerOption?.timeAtStartInSeconds];
     $: timeForEachRoundInSecondsArray = [
         SetTimerOption?.timeForEachRoundInSeconds,
@@ -37,57 +44,121 @@
             "SetMaxUserSizeInCreateGameLobby|" + JSON.stringify(maxUserObject)
         );
     };
-    const maxCardValueChanged = () => {
-        const maxCardValueObject = {
-            maxCardValue: maxCardValueArray[0],
-        };
-        sendMessageToWebsocket(
-            "SetMaxCardValueInCreateGameLobby|" +
-                JSON.stringify(maxCardValueObject)
-        );
-    };
 
-    const timerTypeChanged = () => {
+    const gameOptionChanged = () => {
+        const customCardDeckValue = deckOptionSelected == 0 ? null : [];
         sendMessageToWebsocket(
-            "SetTimerOption|" +
+            "GameOption|" +
                 JSON.stringify({
-                    timerType: options[selected].value,
-                    timeAtStartInSeconds: timeAtStartInSecondsArray[0],
-                    timeForEachRoundInSeconds:
-                        timeForEachRoundInSecondsArray[0],
+                    maxCardValue: cardsInDeckArray[0] / 4,
+                    typeCount: UsersInGameLobby.durakGameOption.typeCount,
+                    numberOfCardsPlayerShouldHave:
+                        UsersInGameLobby.durakGameOption
+                            .numberOfCardsPlayerShouldHave,
+                    roundToStart: UsersInGameLobby.durakGameOption.roundToStart,
+                    customCardDeck: customCardDeckValue,
                 })
         );
     };
 
-    const timeAtStartInSecondsChanged = () => {
+    const exampleDeck = () => {
+        sendMessageToWebsocket(
+            "GameOption|" +
+                JSON.stringify({
+                    maxCardValue: cardsInDeckArray[0] / 4,
+                    typeCount: UsersInGameLobby.durakGameOption.typeCount,
+                    numberOfCardsPlayerShouldHave:
+                        UsersInGameLobby.durakGameOption
+                            .numberOfCardsPlayerShouldHave,
+                    roundToStart: UsersInGameLobby.durakGameOption.roundToStart,
+                    customCardDeck: debugDeck36,
+                })
+        );
+    };
+
+    const timerOptionChanged = () => {
         sendMessageToWebsocket(
             "SetTimerOption|" +
                 JSON.stringify({
-                    timerType: options[selected].value,
+                    timerType: timerOptions[timerOptionSelected].value,
                     timeAtStartInSeconds: timeAtStartInSecondsArray[0],
                     timeForEachRoundInSeconds:
                         timeForEachRoundInSecondsArray[0],
                 })
         );
     };
-    const timeForEachRoundChanged = () => {
-        sendMessageToWebsocket(
-            "SetTimerOption|" +
-                JSON.stringify({
-                    timerType: options[selected].value,
-                    timeAtStartInSeconds: timeAtStartInSecondsArray[0],
-                    timeForEachRoundInSeconds:
-                        timeForEachRoundInSecondsArray[0],
-                })
-        );
-    };
+
     const startGame = () => {
         sendMessageToWebsocket("CreateGame|{}");
     };
     const leaveGameLobby = () => {
         sendMessageToWebsocket("LeaveGameLobby|{}");
     };
-    let values = [1];
+    const debugDeck36 = [
+        { Card: { value: 7, type: "clubs" } },
+        { Card: { value: 8, type: "clubs" } },
+        { Card: { value: 3, type: "hearts" } },
+        { Card: { value: 3, type: "clubs" } },
+        { Card: { value: 2, type: "diamonds" } },
+        { Card: { value: 3, type: "diamonds" } },
+        { Card: { value: 2, type: "clubs" } },
+        { Card: { value: 5, type: "diamonds" } },
+        { Card: { value: 6, type: "diamonds" } },
+        { Card: { value: 7, type: "diamonds" } },
+        { Card: { value: 8, type: "diamonds" } },
+        { Card: { value: 9, type: "diamonds" } },
+        { Card: { value: 1, type: "spades" } },
+        { Card: { value: 2, type: "spades" } },
+        { Card: { value: 3, type: "spades" } },
+        { Card: { value: 1, type: "diamonds" } },
+        { Card: { value: 5, type: "spades" } },
+        { Card: { value: 6, type: "spades" } },
+        { Card: { value: 7, type: "spades" } },
+        { Card: { value: 8, type: "spades" } },
+        { Card: { value: 9, type: "spades" } },
+        { Card: { value: 1, type: "hearts" } },
+        { Card: { value: 2, type: "hearts" } },
+        { Card: { value: 9, type: "clubs" } },
+        { Card: { value: 1, type: "clubs" } },
+        { Card: { value: 5, type: "hearts" } },
+        { Card: { value: 6, type: "clubs" } },
+        { Card: { value: 7, type: "hearts" } },
+        { Card: { value: 8, type: "hearts" } },
+        { Card: { value: 9, type: "hearts" } },
+        { Card: { value: 4, type: "hearts" } },
+        { Card: { value: 4, type: "diamonds" } },
+        { Card: { value: 4, type: "spades" } },
+        { Card: { value: 4, type: "clubs" } },
+        { Card: { value: 5, type: "clubs" } },
+        { Card: { value: 6, type: "hearts" } },
+    ];
+    import * as yup from "yup";
+    const schema = yup.object().shape({
+        cardArray: yup.string().required("Card Deck as Json Array is required"),
+    });
+    const formProps = {
+        initialValues: {
+            cardArray: "",
+        },
+        validationSchema: schema,
+        onSubmit: (values) => {
+            sendMessageToWebsocket(
+                "GameOption|" +
+                    JSON.stringify({
+                        // NOTE maxCardValue and typeCount will get ignored because we set customCardDeck
+                        maxCardValue:
+                            UsersInGameLobby.durakGameOption.maxCardValue,
+                        typeCount: UsersInGameLobby.durakGameOption.typeCount,
+                        numberOfCardsPlayerShouldHave:
+                            UsersInGameLobby.durakGameOption
+                                .numberOfCardsPlayerShouldHave,
+                        roundToStart:
+                            UsersInGameLobby.durakGameOption.roundToStart,
+                        customCardDeck: JSON.parse(values.cardArray),
+                    })
+            );
+        },
+    };
 </script>
 
 {#if UsersInGameLobby}
@@ -95,7 +166,6 @@
 
     <h1>Create Game</h1>
     <div>
-        <!-- TODO find out how to make this a bit smaller -->
         <label for="maxUserCount">Max User Count</label>
         <RangeSlider
             id="slider"
@@ -109,32 +179,88 @@
             max={10}
             on:change={maxUserCountChanged}
         />
-        <label for="maxCardValue">Max Card Value</label>
-        <RangeSlider
-            id="slider"
+
+        <label for="deckType">Deck Type</label>
+        <select
+            bind:value={deckOptionSelected}
+            on:change={gameOptionChanged}
             disabled={!isCreateGameLobbyAdmin || undefined}
-            bind:values={maxCardValueArray}
-            pips
-            step={1}
-            all="label"
-            pipstep={1}
-            min={1}
-            max={10}
-            on:change={maxCardValueChanged}
-        />
+        >
+            {#each deckOptions as option}
+                <option value={option.id}>{option.label}</option>
+            {/each}
+        </select>
+        {#if deckOptionSelected == 0}
+            <label for="NumberOfCardsInDeck">Number of Cards in Deck</label>
+            <RangeSlider
+                id="slider"
+                disabled={!isCreateGameLobbyAdmin || undefined}
+                bind:values={cardsInDeckArray}
+                pips
+                step={4}
+                all="label"
+                pipstep={1}
+                min={4}
+                max={40}
+                on:change={gameOptionChanged}
+            />
+        {:else}
+            {#if isCreateGameLobbyAdmin}
+                <Form
+                    {...formProps}
+                    autoComplete="false"
+                    class="form-container"
+                >
+                    <label for="cardArray"
+                        >Enter Json Array to create Card Deck</label
+                    >
+                    <Field
+                        class="form-field"
+                        type="text"
+                        name="cardArray"
+                        placeholder="Card Array"
+                        autoComplete="false"
+                    />
+                    <ErrorMessage name="cardArray" class="form-error" />
+                    <button type="submit">Create Deck</button>
+                </Form>
+                <button
+                    on:click={() => {
+                        exampleDeck();
+                    }}>Use example Deck with 36 Cards</button
+                >
+            {/if}
+            {#if UsersInGameLobby.durakGameOption.customCardDeck && UsersInGameLobby.durakGameOption.customCardDeck.length >= 1}
+                <div>
+                    <label for="">Cards in Deck</label>
+                    {#each UsersInGameLobby.durakGameOption.customCardDeck as card}
+                        <span
+                            class={card.Card.type === "hearts" ||
+                            card.Card.type === "diamonds"
+                                ? "redText"
+                                : "greenText"}
+                        >
+                            {printCard(card.Card)}&nbsp;
+                        </span>
+                    {/each}
+                </div>
+            {:else}
+                <p>No Cards in Deck</p>
+            {/if}
+        {/if}
     </div>
     <div>
         <label for="timerType">Timer Type</label>
         <select
-            bind:value={selected}
-            on:change={timerTypeChanged}
+            bind:value={timerOptionSelected}
+            on:change={timerOptionChanged}
             disabled={!isCreateGameLobbyAdmin || undefined}
         >
-            {#each options as option}
+            {#each timerOptions as option}
                 <option value={option.id}>{option.label}</option>
             {/each}
         </select>
-        {#if selected > 0}
+        {#if timerOptionSelected > 0}
             <label for="timeAtStartInSeconds">Time at Start in Seconds</label>
             <RangeSlider
                 id="slider"
@@ -145,7 +271,7 @@
                 all="label"
                 min={0}
                 max={200}
-                on:change={timeAtStartInSecondsChanged}
+                on:change={timerOptionChanged}
             />
             <label for="timeForEachRound">Time for each Round</label>
             <RangeSlider
@@ -157,7 +283,7 @@
                 all="label"
                 min={0}
                 max={50}
-                on:change={timeForEachRoundChanged}
+                on:change={timerOptionChanged}
             />
         {/if}
     </div>
@@ -181,3 +307,6 @@
 <div>
     <button on:click={leaveGameLobby}>Leave Game Lobby</button>
 </div>
+
+<style>
+</style>

@@ -148,6 +148,25 @@ export const toggleMachine = createMachine({
                                     });
                                     context.props[event.type] = event;
                                     context.props["isCreateGameLobbyAdmin"] = users[0] == context.accountName;
+                                    if (event.durakGameOption.customCardDeck == null) {
+                                        context.props["deckOptionSelected"] = 0;
+                                    } else {
+                                        context.props["deckOptionSelected"] = 1;
+                                    }
+
+                                }
+                            ],
+                        },
+                        GameOption: {
+                            actions: [
+                                (context, event) => {
+                                    context.props.UsersInGameLobby.durakGameOption["maxCardValue"] = event.maxCardValue;
+                                    context.props.UsersInGameLobby.durakGameOption["customCardDeck"] = event.customCardDeck;
+                                    if (event.customCardDeck == null) {
+                                        context.props["deckOptionSelected"] = 0;
+                                    } else {
+                                        context.props["deckOptionSelected"] = 1;
+                                    }
                                 }
                             ],
                         },
@@ -158,27 +177,21 @@ export const toggleMachine = createMachine({
                                 }
                             ],
                         },
-                        MaxCardValueInCreateGameLobby: {
-                            actions: [
-                                (context, event) => {
-                                    context.props.UsersInGameLobby.durakGameOption["maxCardValue"] = event.maxCardValue
-                                }
-                            ],
-                        },
                         SetTimerOption: {
                             actions: [
                                 (context, event) => {
                                     if (event.timerType == "resetTimeOnNewRound") {
-                                        context.props["selected"] = 1;
+                                        context.props["timerOptionSelected"] = 1;
                                     } else if (event.timerType == "addTimeOnNewRound") {
-                                        context.props["selected"] = 2;
+                                        context.props["timerOptionSelected"] = 2;
                                     } else {
-                                        context.props["selected"] = 0;
+                                        context.props["timerOptionSelected"] = 0;
                                     }
                                     context.props[event.type] = event;
                                 }
                             ],
                         },
+
                     },
                     entry: assign(
                         {
