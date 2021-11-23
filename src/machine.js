@@ -269,7 +269,7 @@ export const toggleMachine = createMachine({
                         DurakDefendWantsToTakeCardsFromTableDoYouWantToAddCards: {
                             actions: [
                                 () => {
-                                    toast.push("Defend wants to take Cards from table. Add Cards - Press 'Pass' when you are done");
+                                    toast.push("Defend wants to take Cards from table. Add Cards - Press 'Pass' when you are done", { target: 'Message' });
                                 }
                             ],
                         },

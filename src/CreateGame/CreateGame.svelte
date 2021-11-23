@@ -145,7 +145,7 @@
             let errs = {};
             if (values.createDeckArray === "") {
                 errs["createDeckArray"] = "Create Deck Array is required";
-                toast.push(errs["createDeckArray"]);
+                toast.push(errs["createDeckArray"], { target: "Error" });
             }
             return errs;
         },
@@ -197,13 +197,13 @@
                     } else {
                         toast.push(
                             "Please check if all Cards in the Array are valid Card Objects"
-                        );
+                            , { target: "Error" });
                     }
                 } else {
-                    toast.push("Please provide a Json Array");
+                    toast.push("Please provide a Json Array", { target: "Error" });
                 }
             } catch (e) {
-                toast.push("Error parsing Custom Card Deck Array");
+                toast.push("Error parsing Custom Card Deck Array", { target: "Error" });
             }
         },
     });

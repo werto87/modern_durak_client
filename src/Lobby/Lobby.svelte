@@ -18,7 +18,7 @@
             let errs = {};
             if (values.name === "") {
                 errs["name"] = "Channel Name is required";
-                toast.push(errs["name"]);
+                toast.push(errs["name"], { target: "Error" });
             }
             return errs;
         },
@@ -37,7 +37,7 @@
             let errs = {};
             if (values.name === "") {
                 errs["name"] = "Channel Name is required";
-                toast.push(errs["name"]);
+                toast.push(errs["name"], { target: "Error" });
             }
             return errs;
         },

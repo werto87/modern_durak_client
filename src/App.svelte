@@ -18,7 +18,7 @@
 		if (words.length == 2) {
 			if (words[0].includes("Error")) {
 				const someValue = JSON.parse(words[1]);
-				toast.push(someValue.error);
+				toast.push(someValue.error, { target: "Error" });
 			} else {
 				const someValue = JSON.parse(words[1]);
 				someValue["type"] = words[0];
@@ -67,12 +67,30 @@
 		{/if} -->
 	</div>
 	<SvelteToast
+		target="Error"
 		options={{
 			reversed: true,
 			intro: {},
 			dismissable: false,
 			theme: {
 				"font-size": "1.5em",
+				"--toastColor": "#cb2d6f",
+				"--toastProgressBackground": "#cb2d6f",
+			},
+		}}
+	/>
+	<SvelteToast
+		target="Message"
+		options={{
+			reversed: true,
+			duration: 6000,
+			intro: {},
+			dismissable: false,
+			theme: {
+				"font-size": "1.5em",
+				"--toastColor": "#0e3b93",
+				"--toastProgressBackground": "#cccccc",
+				opacity: 1,
 			},
 		}}
 	/>
@@ -83,8 +101,8 @@
 		--toastContainerLeft: calc(50vw - calc(10em * 1.5));
 		--toastWidth: 20em;
 		--toastBackground: #cccccc;
-		--toastColor: #cb2d6f;
-		--toastProgressBackground: #cb2d6f;
+		/* --toastColor: #cb2d6f;
+		--toastProgressBackground: #cb2d6f; */
 	}
 	:global(.my-container) {
 		width: 75%;

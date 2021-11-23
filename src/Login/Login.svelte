@@ -22,11 +22,11 @@
             let errs = {};
             if (values.accountName === "") {
                 errs["accountName"] = "Account Name is required";
-                toast.push(errs["accountName"]);
+                toast.push(errs["accountName"], { target: "Error" });
             }
             if (values.password === "") {
                 errs["password"] = "Password is required";
-                toast.push(errs["password"]);
+                toast.push(errs["password"], { target: "Error" });
             }
             return errs;
         },
