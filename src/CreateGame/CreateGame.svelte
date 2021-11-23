@@ -196,14 +196,19 @@
                         );
                     } else {
                         toast.push(
-                            "Please check if all Cards in the Array are valid Card Objects"
-                            , { target: "Error" });
+                            "Please check if all Cards in the Array are valid Card Objects",
+                            { target: "Error" }
+                        );
                     }
                 } else {
-                    toast.push("Please provide a Json Array", { target: "Error" });
+                    toast.push("Please provide a Json Array", {
+                        target: "Error",
+                    });
                 }
             } catch (e) {
-                toast.push("Error parsing Custom Card Deck Array", { target: "Error" });
+                toast.push("Error parsing Custom Card Deck Array", {
+                    target: "Error",
+                });
             }
         },
     });
@@ -339,10 +344,7 @@
 
 {#if isCreateGameLobbyAdmin}
     <div>
-        <button
-            disabled={UsersInGameLobby?.users.length < 2 || undefined}
-            on:click={startGame}>Start Game</button
-        >
+        <button on:click={startGame}>Start Game</button>
     </div>
 {/if}
 
