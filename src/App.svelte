@@ -101,8 +101,6 @@
 		--toastContainerLeft: calc(50vw - calc(10em * 1.5));
 		--toastWidth: 20em;
 		--toastBackground: #cccccc;
-		/* --toastColor: #cb2d6f;
-		--toastProgressBackground: #cb2d6f; */
 	}
 	:global(.my-container) {
 		width: 75%;
