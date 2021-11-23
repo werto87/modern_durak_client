@@ -1,13 +1,7 @@
 <script>
-    import { Form, Field, ErrorMessage } from "svelte-forms-lib";
-    import * as yup from "yup";
     import { createEventDispatcher } from "svelte";
-
+    import { toast } from "@zerodevx/svelte-toast";
     let dispatch = createEventDispatcher();
-    const schema = yup.object().shape({
-        accountName: yup.string().required("Account Name is required"),
-        password: yup.string().required("Password is required"),
-    });
     const createNewAccount = () => {
         dispatch("stateMachineEvent", "CreateAccount");
     };
@@ -15,40 +9,52 @@
         dispatch("stateMachineEvent", "Cancel");
     };
     import { sendMessageToWebsocket } from "../Webservice/store.js";
-    const formProps = {
+
+    import { createForm } from "svelte-forms-lib";
+
+    const { form, errors, state, handleChange, handleSubmit } = createForm({
         initialValues: {
             accountName: "",
             password: "",
         },
-        validationSchema: schema,
+        // TODO this could work replace everythign with it
+        validate: (values) => {
+            let errs = {};
+            if (values.accountName === "") {
+                errs["accountName"] = "Account Name is required";
+                toast.push(errs["accountName"]);
+            }
+            if (values.password === "") {
+                errs["password"] = "Password is required";
+                toast.push(errs["password"]);
+            }
+            return errs;
+        },
         onSubmit: (values) => {
             sendMessageToWebsocket("LoginAccount|" + JSON.stringify(values));
         },
-    };
+    });
 </script>
 
 <h1>Sign in to Modern Durak</h1>
-<Form {...formProps} autoComplete="false" class="form-container">
+<form on:submit={handleSubmit}>
     <label for="accountName">Account Name</label>
-    <Field
-        class="form-field"
-        type="text"
+    <input
+        id="accountName"
         name="accountName"
-        placeholder="Account Name"
-        autoComplete="false"
+        on:change={handleChange}
+        bind:value={$form.accountName}
     />
-    <ErrorMessage name="accountName" class="form-error" />
-    <label for="accountName">Password</label>
-    <Field
-        class="form-field"
+    <label for="password">Password</label>
+    <input
         type="password"
+        id="password"
         name="password"
-        placeholder="Password"
-        autoComplete="false"
+        on:change={handleChange}
+        bind:value={$form.password}
     />
-    <ErrorMessage name="password" class="form-error" />
     <button type="submit">Sign in</button>
-</Form>
+</form>
 <button on:click={createNewAccount}>Create new Account</button>
 <button on:click={cancel}>Cancel</button>
 

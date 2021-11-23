@@ -1,7 +1,7 @@
 <script>
     import RangeSlider from "svelte-range-slider-pips";
-    import { Form, Field, ErrorMessage } from "svelte-forms-lib";
     import { printCard } from "../Game/Board/helper";
+    import { toast } from "@zerodevx/svelte-toast";
     export let UsersInGameLobby = null;
     export let SetTimerOption = {
         timerType: "noTimer",
@@ -38,6 +38,7 @@
     ];
 
     import { sendMessageToWebsocket } from "../Webservice/store.js";
+    import { createForm } from "svelte-forms-lib";
     const maxUserCountChanged = () => {
         const maxUserObject = { maxUserSize: maxUserSizeArray[0] };
         sendMessageToWebsocket(
@@ -132,33 +133,81 @@
         { Card: { value: 5, type: "clubs" } },
         { Card: { value: 6, type: "hearts" } },
     ];
-    import * as yup from "yup";
-    const schema = yup.object().shape({
-        cardArray: yup.string().required("Card Deck as Json Array is required"),
-    });
-    const formProps = {
+    function isNumber(n) {
+        return !isNaN(parseFloat(n)) && !isNaN(n - 0);
+    }
+    const { form, errors, state, handleChange, handleSubmit } = createForm({
         initialValues: {
-            cardArray: "",
+            accountName: "",
+            password: "",
         },
-        validationSchema: schema,
+
+        validate: (values) => {
+            let errs = {};
+            if (values.createDeckArray === "") {
+                errs["createDeckArray"] = "Create Deck Array is required";
+                toast.push(errs["createDeckArray"]);
+            }
+            return errs;
+        },
         onSubmit: (values) => {
-            sendMessageToWebsocket(
-                "GameOption|" +
-                    JSON.stringify({
-                        // NOTE maxCardValue and typeCount will get ignored because we set customCardDeck
-                        maxCardValue:
-                            UsersInGameLobby.durakGameOption.maxCardValue,
-                        typeCount: UsersInGameLobby.durakGameOption.typeCount,
-                        numberOfCardsPlayerShouldHave:
-                            UsersInGameLobby.durakGameOption
-                                .numberOfCardsPlayerShouldHave,
-                        roundToStart:
-                            UsersInGameLobby.durakGameOption.roundToStart,
-                        customCardDeck: JSON.parse(values.cardArray),
-                    })
-            );
+            try {
+                const deckArray = JSON.parse(values.createDeckArray);
+                if (Array.isArray(deckArray)) {
+                    if (
+                        deckArray.every((element) => {
+                            return (
+                                element.hasOwnProperty("Card") &&
+                                element.Card != null &&
+                                typeof element.Card === "object" &&
+                                element.Card.hasOwnProperty("value") &&
+                                element.Card.value != null &&
+                                isNumber(element.Card.value) &&
+                                element.Card.hasOwnProperty("type") &&
+                                element.Card.type != null &&
+                                (typeof element.Card.type === "string" ||
+                                    element.Card.type instanceof String) &&
+                                (element.Card.type == "hearts" ||
+                                    element.Card.type == "diamonds" ||
+                                    element.Card.type == "spades" ||
+                                    element.Card.type == "clubs")
+                            );
+                        })
+                    ) {
+                        sendMessageToWebsocket(
+                            "GameOption|" +
+                                JSON.stringify({
+                                    // NOTE maxCardValue and typeCount will get ignored because we set customCardDeck
+                                    maxCardValue:
+                                        UsersInGameLobby.durakGameOption
+                                            .maxCardValue,
+                                    typeCount:
+                                        UsersInGameLobby.durakGameOption
+                                            .typeCount,
+                                    numberOfCardsPlayerShouldHave:
+                                        UsersInGameLobby.durakGameOption
+                                            .numberOfCardsPlayerShouldHave,
+                                    roundToStart:
+                                        UsersInGameLobby.durakGameOption
+                                            .roundToStart,
+                                    customCardDeck: JSON.parse(
+                                        values.createDeckArray
+                                    ),
+                                })
+                        );
+                    } else {
+                        toast.push(
+                            "Please check if all Cards in the Array are valid Card Objects"
+                        );
+                    }
+                } else {
+                    toast.push("Please provide a Json Array");
+                }
+            } catch (e) {
+                toast.push("Error parsing Custom Card Deck Array");
+            }
         },
-    };
+    });
 </script>
 
 {#if UsersInGameLobby}
@@ -206,24 +255,18 @@
             />
         {:else}
             {#if isCreateGameLobbyAdmin}
-                <Form
-                    {...formProps}
-                    autoComplete="false"
-                    class="form-container"
-                >
-                    <label for="cardArray"
-                        >Enter Json Array to create Card Deck</label
-                    >
-                    <Field
-                        class="form-field"
-                        type="text"
-                        name="cardArray"
-                        placeholder="Card Array"
-                        autoComplete="false"
+                <form on:submit={handleSubmit}>
+                    <label for="createDeckArray">Create Deck from Array</label>
+                    <input
+                        id="createDeckArray"
+                        name="createDeckArray"
+                        on:change={handleChange}
+                        bind:value={$form.createDeckArray}
                     />
-                    <ErrorMessage name="cardArray" class="form-error" />
-                    <button type="submit">Create Deck</button>
-                </Form>
+                    <button type="submit"
+                        >Create Card Deck from Json Array</button
+                    >
+                </form>
                 <button
                     on:click={() => {
                         exampleDeck();

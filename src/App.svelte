@@ -1,7 +1,6 @@
 <script>
 	import { interpret } from "xstate";
 	import { toggleMachine } from "./machine";
-	import Error from "./PopUp/Error.svelte";
 
 	const toggleService = interpret(toggleMachine)
 		.onTransition((state) => {
@@ -105,6 +104,29 @@
 	}
 
 	:global(select:disabled) {
+		margin-top: 10px;
+		background: #cccccc;
+		color: #cb2d6f;
+		width: 100%;
+		border-width: 3px;
+		border-color: #cccccc;
+		/* border-color: #ffaa00; DO NOT DELETE THIS: SECOND BORDER COLOR  */
+		font-size: 30px;
+		border-radius: 10px;
+	}
+
+	:global(input:enabled) {
+		margin-top: 10px;
+		background: #0e3b93;
+		color: #4ed93f;
+		width: 100%;
+		border-width: 3px;
+		border-color: #cccccc;
+		font-size: 30px;
+		border-radius: 10px;
+	}
+
+	:global(input:disabled) {
 		margin-top: 10px;
 		background: #cccccc;
 		color: #cb2d6f;

@@ -1,99 +1,89 @@
 <script>
-    import { Form, Field, ErrorMessage } from "svelte-forms-lib";
-    import * as yup from "yup";
+    import { createEventDispatcher } from "svelte";
+    import { createForm } from "svelte-forms-lib";
+    import { toast } from "@zerodevx/svelte-toast";
     import { sendMessageToWebsocket } from "../Webservice/store.js";
     const logout = () => {
+        console.log(form1);
         sendMessageToWebsocket("LogoutAccount|{}");
     };
-    const createGameLobbySchema = yup.object().shape({
-        name: yup.string().required("Create Game Lobby Name"),
-        password: yup.string(),
-    });
 
-    const createGameLobbyProps = {
+    const form1 = createForm({
         initialValues: {
             name: "",
             password: "",
         },
-        validationSchema: createGameLobbySchema,
+        // TODO this could work replace everythign with it
+        validate: (values) => {
+            let errs = {};
+            if (values.name === "") {
+                errs["name"] = "Channel Name is required";
+                toast.push(errs["name"]);
+            }
+            return errs;
+        },
         onSubmit: (values) => {
             sendMessageToWebsocket("CreateGameLobby|" + JSON.stringify(values));
         },
-    };
-
-    const joinGameLobbySchema = yup.object().shape({
-        name: yup.string().required("Join Game Lobby Name"),
-        password: yup.string(),
     });
 
-    const joinGameLobbyProps = {
+    const form2 = createForm({
         initialValues: {
             name: "",
             password: "",
         },
-        validationSchema: joinGameLobbySchema,
+        // TODO this could work replace everythign with it
+        validate: (values) => {
+            let errs = {};
+            if (values.name === "") {
+                errs["name"] = "Channel Name is required";
+                toast.push(errs["name"]);
+            }
+            return errs;
+        },
         onSubmit: (values) => {
             sendMessageToWebsocket("JoinGameLobby|" + JSON.stringify(values));
         },
-    };
+    });
 </script>
 
 <div class="container">
-    <Form {...createGameLobbyProps} autoComplete="false">
-        <h1>Create Game Lobby</h1>
-        <div>
-            <label for="name">Create Game Lobby Name</label>
-            <Field
-                class="form-field"
-                type="text"
-                name="name"
-                placeholder="Create Game Lobby Name"
-                autoComplete="false"
-            />
-            <ErrorMessage name="name" class="form-error" />
-        </div>
-        <div>
-            <label for="password">Create Game Lobby Password</label>
-            <Field
-                class="form-field"
-                type="password"
-                name="password"
-                placeholder="Create Game Lobby Password"
-                autoComplete="false"
-            />
-            <ErrorMessage name="gameLobbyPassword" class="form-error" />
-        </div>
-        <div>
-            <button type="submit">Create Game Lobby</button>
-        </div>
-    </Form>
-    <Form {...joinGameLobbyProps} autoComplete="false">
-        <h1>Join Game Lobby</h1>
-        <div>
-            <label for="name">Join Game Lobby Name</label>
-            <Field
-                class="form-field"
-                type="text"
-                name="name"
-                placeholder="Join Game Lobby Name"
-                autoComplete="false"
-            />
-            <ErrorMessage name="name" class="form-error" />
-        </div>
-        <div>
-            <label for="password">Join Game Lobby Password</label>
-            <Field
-                class="form-field"
-                type="password"
-                name="password"
-                placeholder="Join Game Lobby Password"
-                autoComplete="false"
-            />
-            <ErrorMessage name="password" class="form-error" />
-        </div>
-        <div>
-            <button type="submit">Join Game Lobby</button>
-        </div>
-    </Form>
+    <h1>Create or Join Game Lobby</h1>
+    <form on:submit={form1.handleSubmit}>
+        <label for="name">Channel Name</label>
+        <input
+            id="name"
+            name="name"
+            on:change={form1.handleChange}
+            bind:value={form1.name}
+        />
+        <label for="password">Password</label>
+        <input
+            type="password"
+            id="password"
+            name="password"
+            on:change={form1.handleChange}
+            bind:value={form1.password}
+        />
+        <button type="submit">Create Game Lobby</button>
+    </form>
+    <form on:submit={form2.handleSubmit}>
+        <label for="name">Channel Name</label>
+        <input
+            id="name"
+            name="name"
+            on:change={form2.handleChange}
+            bind:value={form2.form.name}
+        />
+        <label for="password">Password</label>
+        <input
+            type="password"
+            id="password"
+            name="password"
+            on:change={form2.handleChange}
+            bind:value={form2.form.password}
+        />
+        <button type="submit">Join Game Lobby</button>
+    </form>
     <button on:click={logout}>Logout</button>
 </div>
