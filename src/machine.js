@@ -24,7 +24,6 @@ const loginStates = {
                             console.log(context.popUpProps)
                             context.popUpProps = { destination: event.destination };
                             context.popUp = RelogTo;
-                            context.errors = [];
                             context.accountName = event.accountName;
                             console.log(context.popUpProps)
                         }
@@ -84,7 +83,6 @@ export const toggleMachine = createMachine({
                             component: (ctx) => ctx.component = LandingPage,
                             popUp: (ctx) => ctx.popUp = null,
                             props: (ctx) => ctx.props = { isLoggedIn: ctx.accountName != null },
-                            errors: (ctx) => ctx.errors = [],
                             popUpProps: (ctx) => ctx.popUpProps = {}
                         }
                     ),
@@ -130,7 +128,6 @@ export const toggleMachine = createMachine({
                             component: (ctx) => ctx.component = Lobby,
                             popUp: (ctx) => ctx.popUp = null,
                             props: (ctx) => ctx.props = {},
-                            errors: (ctx) => ctx.errors = [],
                             popUpProps: (ctx) => ctx.popUpProps = {}
                         }
                     ),
@@ -197,7 +194,6 @@ export const toggleMachine = createMachine({
                             component: (ctx) => ctx.component = CreateGame,
                             popUp: (ctx) => ctx.popUp = null,
                             props: (ctx) => ctx.props = {},
-                            errors: (ctx) => ctx.errors = [],
                             popUpProps: (ctx) => ctx.popUpProps = {}
                         }
                     ),
@@ -279,7 +275,6 @@ export const toggleMachine = createMachine({
                             component: (ctx) => ctx.component = Game,
                             popUp: (ctx) => ctx.popUp = null,
                             props: (ctx) => ctx.props = {},
-                            errors: (ctx) => ctx.errors = [],
                             popUpProps: (ctx) => ctx.popUpProps = {}
                         }
                     ),

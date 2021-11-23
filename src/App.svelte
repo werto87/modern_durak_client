@@ -62,9 +62,6 @@
 				on:stateMachineEvent={stateMachineEvent}
 			/>
 		{/if}
-		<!-- {#if $toggleService.context.accountName}
-		<p>{$toggleService.context.accountName}</p>
-		{/if} -->
 	</div>
 	<SvelteToast
 		target="Error"
