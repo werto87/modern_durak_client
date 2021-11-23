@@ -2,7 +2,7 @@
     import OtherPlayerState from "./State/PlayerState.svelte";
 
     import Board from "./Board/Board.svelte";
-    export let defenderWantsToTakeCards = false;
+
     export let DurakAllowedMoves = null;
     export let GameData = null;
     export let playerRole = "";
@@ -43,13 +43,10 @@
     const isAllowedMove = (DurakAllowedMoves, moveToCheck) => {
         console.log(DurakAllowedMoves);
         return (
-            (DurakAllowedMoves &&
-                DurakAllowedMoves.allowedMoves.filter(
-                    (element) => element.Move == moveToCheck
-                ).length > 0) ||
-            (moveToCheck == "pass" &&
-                defenderWantsToTakeCards &&
-                (playerRole == "attack" || playerRole == "assistAttacker"))
+            DurakAllowedMoves &&
+            DurakAllowedMoves.allowedMoves.filter(
+                (element) => element.Move == moveToCheck
+            ).length > 0
         );
     };
 

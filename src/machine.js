@@ -5,10 +5,9 @@ import Game from './Game/Game.svelte'
 import CreateAccount from './CreateAccount/CreateAccount.svelte'
 import CreateGame from './CreateGame/CreateGame.svelte'
 import RelogTo from './PopUp/RelogTo.svelte'
-import WantToTakeCards from './PopUp/WantToTakeCards.svelte'
 import PopUp from './PopUp/PopUp.svelte'
 import LandingPage from './LandingPage/LandingPage.svelte'
-
+import { toast } from "@zerodevx/svelte-toast";
 
 const loginStates = {
     id: "LoginMachine",
@@ -269,21 +268,11 @@ export const toggleMachine = createMachine({
                         },
                         DurakDefendWantsToTakeCardsFromTableDoYouWantToAddCards: {
                             actions: [
-                                (context) => {
-                                    context.props["defenderWantsToTakeCards"] = true;
-                                    context.popUp = PopUp;
-                                    context.popUpProps["message"] = "Defending player wants to take cards from table. Add cards and press 'Pass' if you are done";
+                                () => {
+                                    toast.push("Defend wants to take Cards from table. Add Cards - Press 'Pass' when you are done");
                                 }
                             ],
                         },
-                        DurakDefendWantsToTakeCardsFromTableDoneAddingCardsSuccess: {
-                            actions: [
-                                (context) => {
-                                    context.props["defenderWantsToTakeCards"] = false;
-                                }
-                            ],
-                        },
-
                     },
                     entry: assign(
                         {

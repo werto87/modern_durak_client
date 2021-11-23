@@ -138,8 +138,7 @@
     }
     const { form, errors, state, handleChange, handleSubmit } = createForm({
         initialValues: {
-            accountName: "",
-            password: "",
+            createDeckArray: "",
         },
 
         validate: (values) => {
