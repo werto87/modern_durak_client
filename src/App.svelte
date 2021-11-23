@@ -19,8 +19,7 @@
 		if (words.length == 2) {
 			if (words[0].includes("Error")) {
 				const someValue = JSON.parse(words[1]);
-				someValue["type"] = "GenericError";
-				toggleService.send(someValue);
+				toast.push(someValue.error);
 			} else {
 				const someValue = JSON.parse(words[1]);
 				someValue["type"] = words[0];
@@ -45,6 +44,7 @@
 	// }
 
 	//TODO fix problems with autofill passwords
+	import { toast, SvelteToast } from "@zerodevx/svelte-toast";
 </script>
 
 <main>
@@ -63,15 +63,30 @@
 				on:stateMachineEvent={stateMachineEvent}
 			/>
 		{/if}
-		<Error errors={$toggleService.context.errors} />
-
 		<!-- {#if $toggleService.context.accountName}
 		<p>{$toggleService.context.accountName}</p>
 		{/if} -->
 	</div>
+	<SvelteToast
+		options={{
+			reversed: true,
+			intro: {},
+			dismissable: false,
+			theme: {
+				"font-size": "1.5em",
+			},
+		}}
+	/>
 </main>
 
 <style>
+	:root {
+		--toastContainerLeft: calc(50vw - calc(10em * 1.5));
+		--toastWidth: 20em;
+		--toastBackground: #cccccc;
+		--toastColor: #cb2d6f;
+		--toastProgressBackground: #cb2d6f;
+	}
 	:global(.my-container) {
 		width: 75%;
 		display: inline-block;
