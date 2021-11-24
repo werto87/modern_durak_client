@@ -125,7 +125,13 @@
         allowedMoves
     ) => {
         if (playerRole == "defend") {
-            if (allowedMoves != null && allowedMoves.allowedMoves.length != 0) {
+            if (
+                allowedMoves != null &&
+                allowedMoves.allowedMoves.length != 0 &&
+                allowedMoves.allowedMoves.find(
+                    (move) => move.Move == "Defend"
+                ) != undefined
+            ) {
                 return calcCardsAllowedToPlayDefend(
                     playerCardsWithId,
                     cardsToBeat,
@@ -139,8 +145,7 @@
                 allowedMoves != null &&
                 allowedMoves.allowedMoves.length != 0 &&
                 allowedMoves.allowedMoves.find(
-                    (move) =>
-                        move.Move == "addCard" || move.Move == "startAttack"
+                    (move) => move.Move == "AddCards"
                 ) != undefined
             ) {
                 return calcCardsAllowedToPlayAttackOrAssist(

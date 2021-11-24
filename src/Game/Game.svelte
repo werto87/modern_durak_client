@@ -93,7 +93,7 @@
         </Row>
         {#if playerRole == "defend"}
             <button
-                disabled={!isAllowedMove(DurakAllowedMoves, "takeCards") ||
+                disabled={!isAllowedMove(DurakAllowedMoves, "TakeCards") ||
                     undefined}
                 on:click={() => {
                     drawCardsFromTable();
@@ -101,8 +101,10 @@
             ><br />
         {:else if playerRole == "attack" || playerRole == "assistAttacker"}
             <button
-                disabled={!isAllowedMove(DurakAllowedMoves, "pass") ||
-                    undefined}
+                disabled={!isAllowedMove(
+                    DurakAllowedMoves,
+                    "AttackAssistPass"
+                ) || undefined}
                 on:click={() => {
                     pass();
                 }}>Pass</button

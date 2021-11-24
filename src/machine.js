@@ -250,8 +250,10 @@ export const toggleMachine = createMachine({
                         },
                         DurakAskDefendWantToTakeCards: {
                             actions: [
-                                (context) => {
-                                    context.popUp = WantToTakeCards;
+                                () => {
+                                    toast.push("Discard Cards or take Cards", { target: 'Message' });
+                                    // When we send this question server should send allowed moves Take cards from table and discard cards from table
+                                    //  there should be 2 buttons if this moves are set
                                 }
                             ],
                         },

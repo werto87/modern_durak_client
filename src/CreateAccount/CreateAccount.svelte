@@ -2,7 +2,7 @@
     import { Form, Field, ErrorMessage } from "svelte-forms-lib";
     import * as yup from "yup";
     import { createEventDispatcher } from "svelte";
-
+    import { toast } from "@zerodevx/svelte-toast";
     let dispatch = createEventDispatcher();
     const schema = yup.object().shape({
         accountName: yup.string().required("Account Name is required"),
@@ -34,48 +34,69 @@
             );
         },
     };
+    import { createForm } from "svelte-forms-lib";
+    const { form, errors, state, handleChange, handleSubmit } = createForm({
+        initialValues: {
+            accountName: "",
+            password: "",
+            repeatPassword: "",
+        },
+        validate: (values) => {
+            let errs = {};
+            return errs;
+        },
+        onSubmit: (values) => {
+            if (values.accountName === "") {
+                toast.push("Account Name is required", { target: "Error" });
+            } else if (values.password === "") {
+                toast.push("Password is required", { target: "Error" });
+            } else if (values.repeatPassword !== values.password) {
+                toast.push("Repeat Password needs to be equal to Password", {
+                    target: "Error",
+                });
+            } else {
+                sendMessageToWebsocket(
+                    "CreateAccount|" + JSON.stringify(values)
+                );
+            }
+        },
+    });
 </script>
 
 <div class="container">
     <h1>Sign in to Modern Durak</h1>
-    <Form {...formProps}>
-        <div>
-            <label for="accountName">Account Name</label>
-            <Field
-                class="form-field"
-                type="text"
-                name="accountName"
-                placeholder="Account Name"
-            />
-            <ErrorMessage name="accountName" class="form-error" />
-        </div>
-        <div>
-            <label for="password">Password</label>
-            <Field
-                type="password"
-                name="password"
-                placeholder="Password"
-                class="form-field"
-            />
-            <ErrorMessage name="password" class="form-error" />
-        </div>
-        <div>
-            <label for="repeatPassword">Repeat Password</label>
-            <Field
-                class="form-field"
-                type="password"
-                name="repeatPassword"
-                placeholder="Repeat Password"
-            />
-            <ErrorMessage name="repeatPassword" class="form-error" />
-        </div>
-        <button
-            on:click={() => {
-                backToLogin();
-            }}>Back</button
-        >
-        <button type="submit">Create Account and Login</button>
-    </Form>
+    <form on:submit={handleSubmit}>
+        <label for="accountName">Account Name</label>
+        <input
+            id="accountName"
+            name="accountName"
+            on:change={handleChange}
+            bind:value={$form.accountName}
+        />
+        <label for="password">Password</label>
+        <input
+            type="password"
+            id="password"
+            name="password"
+            on:change={handleChange}
+            bind:value={$form.password}
+        />
+        <label for="repeatPassword">Repeat Password</label>
+        <input
+            type="password"
+            id="repeatPassword"
+            name="repeatPassword"
+            on:change={handleChange}
+            bind:value={$form.repeatPassword}
+        />
+        <button type="submit">Sign in</button>
+    </form>
+    <button
+        on:click={() => {
+            backToLogin();
+        }}>Back</button
+    >
+
     <div>
         <button on:click={cancel}>Cancel</button>
     </div>
