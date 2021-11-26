@@ -9,6 +9,7 @@ import PopUp from './PopUp/PopUp.svelte'
 import LandingPage from './LandingPage/LandingPage.svelte'
 import { toast } from "@zerodevx/svelte-toast";
 
+
 const loginStates = {
     id: "LoginMachine",
     initial: "Login",
@@ -251,9 +252,7 @@ export const toggleMachine = createMachine({
                         DurakAskDefendWantToTakeCards: {
                             actions: [
                                 () => {
-                                    toast.push("Discard Cards or take Cards", { target: 'Message' });
-                                    // When we send this question server should send allowed moves Take cards from table and discard cards from table
-                                    //  there should be 2 buttons if this moves are set
+                                    toast.push("Attack is over. Take or discard Cards from Tabel", { target: 'Message' });
                                 }
                             ],
                         },

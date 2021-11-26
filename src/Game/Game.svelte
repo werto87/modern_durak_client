@@ -28,6 +28,19 @@
     const drawCardsFromTable = () => {
         sendMessageToWebsocket("DurakDefendPass|{}");
     };
+
+    const durakAskDefendWantToTakeCardsAnswerYes = () => {
+        sendMessageToWebsocket(
+            'DurakAskDefendWantToTakeCardsAnswer|{"answer": true}'
+        );
+    };
+
+    const durakAskDefendWantToTakeCardsAnswerNo = () => {
+        sendMessageToWebsocket(
+            'DurakAskDefendWantToTakeCardsAnswer|{"answer": false}'
+        );
+    };
+
     const pass = () => {
         //TODO instead of sending messages to the webserver we should send an event to
         //the machine and the machine should decide if we send something or not
@@ -41,7 +54,6 @@
         sendMessageToWebsocket("DurakLeaveGame|{}");
     };
     const isAllowedMove = (DurakAllowedMoves, moveToCheck) => {
-        console.log(DurakAllowedMoves);
         return (
             DurakAllowedMoves &&
             DurakAllowedMoves.allowedMoves.filter(
@@ -92,12 +104,31 @@
             </Col>
         </Row>
         {#if playerRole == "defend"}
+            {#if isAllowedMove(DurakAllowedMoves, "TakeCards")}
+                <button
+                    on:click={() => {
+                        drawCardsFromTable();
+                    }}>Take Cards from Table</button
+                ><br />
+            {:else}
+                <button
+                    disabled={!isAllowedMove(
+                        DurakAllowedMoves,
+                        "AnswerDefendWantsToTakeCardsYes"
+                    ) || undefined}
+                    on:click={() => {
+                        durakAskDefendWantToTakeCardsAnswerYes();
+                    }}>Take Cards from Table</button
+                ><br />
+            {/if}
             <button
-                disabled={!isAllowedMove(DurakAllowedMoves, "TakeCards") ||
-                    undefined}
+                disabled={!isAllowedMove(
+                    DurakAllowedMoves,
+                    "AnswerDefendWantsToTakeCardsNo"
+                ) || undefined}
                 on:click={() => {
-                    drawCardsFromTable();
-                }}>Draw Cards from Table</button
+                    durakAskDefendWantToTakeCardsAnswerNo();
+                }}>Discard Cards from Table</button
             ><br />
         {:else if playerRole == "attack" || playerRole == "assistAttacker"}
             <button
@@ -108,6 +139,15 @@
                 on:click={() => {
                     pass();
                 }}>Pass</button
+            ><br />
+            <button
+                disabled={!isAllowedMove(
+                    DurakAllowedMoves,
+                    "AttackAssistDoneAddingCards"
+                ) || undefined}
+                on:click={() => {
+                    pass();
+                }}>Done adding Cards</button
             ><br />
         {/if}
         <button
