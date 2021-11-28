@@ -6,14 +6,11 @@
 
     const countdownForPlayerInSeconds = (playerName, runningTimers) => {
         let playerTimer = runningTimers.find((nameAndTimer) => {
-            console.log(nameAndTimer);
             return nameAndTimer[0] == playerName;
         });
         if (playerTimer) {
-            console.log(playerTimer);
             const secondsLeft = playerTimer[1];
             let result = Math.floor((secondsLeft - Date.now()) / 1000);
-            console.log(result);
             return result;
         } else {
             return 0;
@@ -32,7 +29,6 @@
     const playerHasRunningTimer = (playerName, runningTimers) => {
         return (
             runningTimers.find((nameAndTimer) => {
-                console.log(nameAndTimer);
                 return nameAndTimer[0] == playerName;
             }) != undefined
         );
