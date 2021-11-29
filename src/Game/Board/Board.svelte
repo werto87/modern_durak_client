@@ -178,7 +178,7 @@
 <!-- Table -->
 
 {#if playerRole == "attack" || playerRole == "assistAttacker"}
-    <Row class="container_row">
+    <Row class="boardRow">
         <div class="layer1">
             <PlayCard {cardDroppedToAttackCallback} />
         </div>
@@ -364,23 +364,6 @@
         flex-grow: 1;
         background-color: transparent;
         border-color: transparent;
-    }
-
-    :global(.container_row) {
-        /* TODO find out how to inherit from another class for example ".boardRow" 
-        so we do not have to copy all of it here*/
-        justify-content: space-evenly;
-        padding: 0px;
-        display: flex;
-        flex-wrap: wrap;
-        margin: 5px;
-        flex-shrink: 1;
-        gap: 0px;
-        border-style: solid;
-        border-color: #cccccc;
-        padding: 5px;
-        flex-flow: row wrap;
-        display: flex;
     }
 
     :global(.layer1) {
