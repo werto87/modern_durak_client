@@ -68,7 +68,7 @@
                 : "greenText"}
         >
             <div class="dragItem">
-                {printCard(item)}
+                <p class="cardText">       {printCard(item)}</p>
             </div>
         </div>
     {/each}

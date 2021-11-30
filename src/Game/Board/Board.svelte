@@ -1,6 +1,6 @@
 <script>
     import CardToBeat from "./CardToBeat.svelte";
-    import { Item, Row } from "svelte-layouts";
+    import { Item, Row, Col } from "svelte-layouts";
     import PlayerCards from "./PlayerCards.svelte";
     import PlayCard from "./PlayCard.svelte";
     import { allowedToPlayDefend } from "./helper.js";
@@ -187,7 +187,7 @@
                 <Item class="fill" />
             {:else}
                 {#each cardsOnTable as cardToBeatAndCard (cardToBeatAndCard.id)}
-                    <Item class="cardItem">
+                    <Col class="cardItem">
                         <span
                             class={cardToBeatAndCard.cardToBeatAndCard[0].Card
                                 .type === "hearts" ||
@@ -196,26 +196,33 @@
                                 ? "redText"
                                 : "greenText"}
                         >
-                            {printCard(
-                                cardToBeatAndCard.cardToBeatAndCard[0].Card
-                            )}
+                            <p class="cardText">
+                                {printCard(
+                                    cardToBeatAndCard.cardToBeatAndCard[0].Card
+                                )}
+                            </p>
                         </span>
                         {#if cardToBeatAndCard.cardToBeatAndCard[1] != null}
-                            <br />
-                            <span
-                                class={cardToBeatAndCard.cardToBeatAndCard[1]
-                                    .Card.type === "hearts" ||
-                                cardToBeatAndCard.cardToBeatAndCard[1].Card
-                                    .type === "diamonds"
-                                    ? "redText"
-                                    : "greenText"}
-                            >
-                                {printCard(
+                            <div class="beatCardDiv">
+                                <span
+                                    class={cardToBeatAndCard
+                                        .cardToBeatAndCard[1].Card.type ===
+                                        "hearts" ||
                                     cardToBeatAndCard.cardToBeatAndCard[1].Card
-                                )}
-                            </span>
+                                        .type === "diamonds"
+                                        ? "redText"
+                                        : "greenText"}
+                                >
+                                    <p class="cardText">
+                                        {printCard(
+                                            cardToBeatAndCard
+                                                .cardToBeatAndCard[1].Card
+                                        )}
+                                    </p>
+                                </span>
+                            </div>
                         {/if}
-                    </Item>
+                    </Col>
                 {/each}
             {/if}
         </Row>
@@ -226,7 +233,7 @@
             <Item class="fill" />
         {:else}
             {#each beatenCardsWithCards as beatenCardWithCard (beatenCardWithCard.id)}
-                <Item
+                <Col
                     class="cardItem"
                     id={beatenCardWithCard.beatenCard.type === "hearts" ||
                     beatenCardWithCard.beatenCard.type === "diamonds"
@@ -240,18 +247,23 @@
                             ? "redText"
                             : "greenText"}
                     >
-                        {printCard(beatenCardWithCard.beatenCard)}
+                        <p class="cardText">
+                            {printCard(beatenCardWithCard.beatenCard)}
+                        </p>
                     </span>
-                    <br />
-                    <span
-                        class={beatenCardWithCard.card.type === "hearts" ||
-                        beatenCardWithCard.card.type === "diamonds"
-                            ? "redText"
-                            : "greenText"}
-                    >
-                        {printCard(beatenCardWithCard.card)}
-                    </span>
-                </Item>
+                    <div class="beatCardDiv">
+                        <span
+                            class={beatenCardWithCard.card.type === "hearts" ||
+                            beatenCardWithCard.card.type === "diamonds"
+                                ? "redText"
+                                : "greenText"}
+                        >
+                            <p class="cardText">
+                                {printCard(beatenCardWithCard.card)}
+                            </p>
+                        </span>
+                    </div>
+                </Col>
             {/each}
             {#each cardsToBeat as cardToBeat, i (cardToBeat.id)}
                 <Item class="cardItem">
@@ -330,6 +342,7 @@
         flex-grow: 1;
         flex-shrink: 0;
         background: #0e3b93;
+
         /* color: #4ed93f; */
         /* color: #cb2d6f; DO NOT DELETE THIS: SECOND BUTTON TEXT COLOR  */
     }
@@ -394,6 +407,16 @@
     }
     :global(.redText) {
         color: #cb2d6f !important;
+        border-radius: 10px;
+    }
+
+    :global(.cardText) {
+        padding-top: 10px;
+        margin: 0;
+    }
+    :global(.beatCardDiv) {
+        flex-grow: 1;
+        border: 3px ridge #cccccc;
         border-radius: 10px;
     }
 </style>

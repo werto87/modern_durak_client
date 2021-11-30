@@ -31,7 +31,8 @@
             ? "redText"
             : "greenText"}
     >
-        {printCard(cardToBeat)}
+        <p class="cardText">{printCard(cardToBeat)}</p>
+        <p />
     </div>
     <section
         use:dndzone={{
@@ -50,7 +51,8 @@
                     ? "redText"
                     : "greenText"}
             >
-                {printCard(item)}
+                <p class="cardText">{printCard(item)}</p>
+                <p />
                 {#if item[SHADOW_ITEM_MARKER_PROPERTY_NAME]}
                     <div class="custom-shadow-item" />
                 {/if}

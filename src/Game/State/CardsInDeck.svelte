@@ -22,7 +22,7 @@
                                 ? "redText"
                                 : "greenText"}
                         >
-                            {printCard(GameData.lastCardInDeck)}
+                        <p class="cardText">        {printCard(GameData.lastCardInDeck)}</p>
                         </span>
                     </Item>
                 </div>
@@ -37,7 +37,7 @@
                         ? "redText"
                         : "greenText"}
                 >
-                    {printCard(GameData.lastCardInDeck)}
+                <p class="cardText">      {printCard(GameData.lastCardInDeck)} </p>
                 </span>
             </Item>
         </div>

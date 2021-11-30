@@ -287,7 +287,7 @@
                                 ? "redText"
                                 : "greenText"}
                         >
-                            {printCard(card.Card)}&nbsp;
+                            <p class="cardText">{printCard(card.Card)}&nbsp;</p>
                         </span>
                     {/each}
                 </div>
