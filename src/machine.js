@@ -8,6 +8,7 @@ import RelogTo from './PopUp/RelogTo.svelte'
 import PopUp from './PopUp/PopUp.svelte'
 import LandingPage from './LandingPage/LandingPage.svelte'
 import { toast } from "@zerodevx/svelte-toast";
+import WaitingForGame from "./WaitingForGame/WaitingForGame.svelte"
 
 
 const loginStates = {
@@ -77,7 +78,7 @@ export const toggleMachine = createMachine({
 
                 LandingPage: {
                     on: {
-                        CustomLogin: "CustomLogin", Custom: "Lobby",
+                        CustomLogin: "CustomLogin", Custom: "Lobby", Quick: "Quick",
                     },
                     entry: assign(
                         {
@@ -108,7 +109,68 @@ export const toggleMachine = createMachine({
                 // RankedLogin: {
                 //     on: { LoginSuccess: "../Lobby", Cancel: "../LandingPage" },
                 //     ...loginStates,
+                Quick: {
+                    on: {
+                        StartGame: "Game",
+                        LoginAccountSuccess: {
+                            actions: [
+                                (context, event) => {
+                                    context.accountName = event.accountName;
+                                }
+                            ],
+                        },
+                        JoinQuickGameQueueSuccess: {
+                            actions: [
+                                (context) => {
+                                    context.props = { waitingState: "waitForGame" }
+                                }
+                            ],
+                        },
+                        AskIfUserWantsToJoinGame: {
+                            actions: [
+                                (context) => {
+                                    context.props = { waitingState: "waitForAnswer" }
+                                }
+                            ],
+                        },
+                        GameStartCanceled: {
+                            actions: [
+                                (context) => {
+                                    context.props = { waitingState: "waitForGame" }
+                                }
+                            ],
+                        },
+                        GameStartCanceledRemovedFromQueue: {
+                            actions: [
+                                (context) => {
+                                    context.props = { waitingState: "retryAfterStartGameFailed" }
+                                }
+                            ],
+                        },
 
+                        AskIfUserWantsToJoinGameTimeOut: {
+                            actions: [
+                                (context) => {
+                                    context.props = { waitingState: "retryAfterStartGameFailed" };
+                                    // TODO replace this gameFound bool with an enum and we can handle:
+                                    //  wait for game
+                                    //  wait for answer 
+                                    // retry after start game failed
+
+                                }
+                            ],
+                        },
+                        JoinGameLobbySuccess: "CreateGame"
+                    },
+                    entry: assign(
+                        {
+                            component: (ctx) => ctx.component = WaitingForGame,
+                            popUp: (ctx) => ctx.popUp = null,
+                            props: (ctx) => ctx.props = {},
+                            popUpProps: (ctx) => ctx.popUpProps = {}
+                        }
+                    ),
+                },
                 Lobby: {
                     on: {
                         LogoutAccountSuccess: {
@@ -209,7 +271,7 @@ export const toggleMachine = createMachine({
                                     context.popUpProps["message"] = "You Won";
                                 }
                             ],
-                            target: "Lobby"
+                            target: "LandingPage"
                         },
                         DurakGameOverLose: {
                             actions: [
@@ -218,7 +280,7 @@ export const toggleMachine = createMachine({
                                     context.popUpProps["message"] = "You Lose";
                                 }
                             ],
-                            target: "Lobby"
+                            target: "LandingPage"
                         },
                         DurakGameOverDraw: {
                             actions: [
@@ -227,7 +289,7 @@ export const toggleMachine = createMachine({
                                     context.popUpProps["message"] = "It is a Draw";
                                 }
                             ],
-                            target: "Lobby"
+                            target: "LandingPage"
                         },
                         GameData: {
                             actions: [

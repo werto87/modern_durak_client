@@ -120,6 +120,9 @@
         margin: 1em;
         margin-top: 10px;
         margin-bottom: 0px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     :global(#runningTimer) {

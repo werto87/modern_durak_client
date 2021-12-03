@@ -2,7 +2,9 @@
     import { createEventDispatcher } from "svelte";
     export let isLoggedIn: boolean = false;
     let dispatch = createEventDispatcher();
+    import { sendMessageToWebsocket } from "../Webservice/store.js";
     const quickPressed = () => {
+        sendMessageToWebsocket("JoinQuickGameQueue|{}");
         dispatch("stateMachineEvent", "Quick");
     };
     const rankedPressed = () => {
@@ -12,7 +14,6 @@
         dispatch("stateMachineEvent", "Puzzle");
     };
     const customPressed = () => {
-        console.log(isLoggedIn);
         if (isLoggedIn) {
             dispatch("stateMachineEvent", "Custom");
         } else {
@@ -27,9 +28,7 @@
             <h1>Chose Game Mode</h1>
         </div>
         <div class="grid-item">
-            <button disabled on:click={quickPressed} id="grid-item1"
-                >Quick</button
-            >
+            <button on:click={quickPressed} id="grid-item1">Quick</button>
         </div>
         <div class="grid-item">
             <button disabled on:click={rankedPressed} id="grid-item2"
