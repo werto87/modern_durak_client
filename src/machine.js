@@ -75,10 +75,10 @@ export const toggleMachine = createMachine({
         Screens: {
             initial: "LandingPage",
             states: {
-
                 LandingPage: {
                     on: {
-                        CustomLogin: "CustomLogin", Custom: "Lobby", JoinQuickGameQueueSuccess: "Quick",
+                        CustomLogin: "CustomLogin", Custom: "Lobby", Quick: "Quick",
+
                     },
                     entry: assign(
                         {

@@ -4,8 +4,8 @@
     let dispatch = createEventDispatcher();
     import { sendMessageToWebsocket } from "../Webservice/store.js";
     const quickPressed = () => {
-        sendMessageToWebsocket("JoinQuickGameQueue|{}");
         dispatch("stateMachineEvent", "Quick");
+        sendMessageToWebsocket("JoinQuickGameQueue|{}");
     };
     const rankedPressed = () => {
         dispatch("stateMachineEvent", "Ranked");
