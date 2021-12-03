@@ -78,7 +78,7 @@ export const toggleMachine = createMachine({
 
                 LandingPage: {
                     on: {
-                        CustomLogin: "CustomLogin", Custom: "Lobby", Quick: "Quick",
+                        CustomLogin: "CustomLogin", Custom: "Lobby", JoinQuickGameQueueSuccess: "Quick",
                     },
                     entry: assign(
                         {
@@ -116,6 +116,7 @@ export const toggleMachine = createMachine({
                             actions: [
                                 (context, event) => {
                                     context.accountName = event.accountName;
+                                    context.props = { waitingState: "waitForGame" }
                                 }
                             ],
                         },
