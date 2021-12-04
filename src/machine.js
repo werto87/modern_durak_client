@@ -77,8 +77,7 @@ export const toggleMachine = createMachine({
             states: {
                 LandingPage: {
                     on: {
-                        CustomLogin: "CustomLogin", Custom: "Lobby", Quick: "Quick",
-
+                        Custom: "Lobby", Quick: "Quick", LandingPageLogin: "LandingPageLogin"
                     },
                     entry: assign(
                         {
@@ -89,22 +88,14 @@ export const toggleMachine = createMachine({
                         }
                     ),
                 },
-                CustomLogin: {
+                LandingPageLogin: {
                     on: {
-                        LoginSuccess: "Lobby",
-                        LoginAccountSuccess: {
-                            actions: [
-                                (context, event) => {
-                                    context.accountName = event.accountName;
-                                }
-                            ],
-                            target: "Lobby"
-                        },
-
+                        LoginAccountSuccess: "LandingPage",
                         Cancel: "LandingPage"
                     },
                     ...loginStates,
                 },
+
                 // TODO Ranked Login
                 // RankedLogin: {
                 //     on: { LoginSuccess: "../Lobby", Cancel: "../LandingPage" },
@@ -112,14 +103,6 @@ export const toggleMachine = createMachine({
                 Quick: {
                     on: {
                         StartGame: "Game", LandingPage: "LandingPage", LeaveQuickGameQueueSuccess: "LandingPage",
-                        LoginAccountSuccess: {
-                            actions: [
-                                (context, event) => {
-                                    context.accountName = event.accountName;
-                                    context.props = { waitingState: "waitForGame" }
-                                }
-                            ],
-                        },
                         JoinQuickGameQueueSuccess: {
                             actions: [
                                 (context) => {
@@ -153,11 +136,6 @@ export const toggleMachine = createMachine({
                             actions: [
                                 (context) => {
                                     context.props = { waitingState: "retryAfterStartGameFailed" };
-                                    // TODO replace this gameFound bool with an enum and we can handle:
-                                    //  wait for game
-                                    //  wait for answer 
-                                    // retry after start game failed
-
                                 }
                             ],
                         },
@@ -208,6 +186,8 @@ export const toggleMachine = createMachine({
                                     });
                                     context.props[event.type] = event;
                                     context.props["isCreateGameLobbyAdmin"] = users[0] == context.accountName;
+                                    console.log(users[0]);
+                                    console.log(context.accountName);
                                     if (event.durakGameOption.customCardDeck == null) {
                                         context.props["deckOptionSelected"] = 0;
                                     } else {
@@ -365,6 +345,22 @@ export const toggleMachine = createMachine({
                                 }
                             ],
                         }
+                    }
+                }
+            }
+        },
+        LoginSuccess: {
+            initial: "LoginAccountSuccess",
+            states: {
+                LoginAccountSuccess: {
+                    on: {
+                        LoginAccountSuccess: {
+                            actions: [
+                                (context, event) => {
+                                    context.accountName = event.accountName;
+                                }
+                            ],
+                        },
                     }
                 }
             }
