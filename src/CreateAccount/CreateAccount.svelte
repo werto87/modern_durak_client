@@ -2,8 +2,8 @@
     import { Form, Field, ErrorMessage } from "svelte-forms-lib";
     import * as yup from "yup";
     import { createEventDispatcher } from "svelte";
-    import { toast } from "@zerodevx/svelte-toast";
     let dispatch = createEventDispatcher();
+    import { toast } from "@zerodevx/svelte-toast";
     const schema = yup.object().shape({
         accountName: yup.string().required("Account Name is required"),
         password: yup.string().required("Password is required"),

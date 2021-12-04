@@ -111,7 +111,7 @@ export const toggleMachine = createMachine({
                 //     ...loginStates,
                 Quick: {
                     on: {
-                        StartGame: "Game",
+                        StartGame: "Game", LandingPage: "LandingPage", LeaveQuickGameQueueSuccess: "LandingPage",
                         LoginAccountSuccess: {
                             actions: [
                                 (context, event) => {
