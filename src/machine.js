@@ -23,11 +23,9 @@ const loginStates = {
                 WantToRelog: {
                     actions: [
                         (context, event) => {
-                            console.log(context.popUpProps)
                             context.popUpProps = { destination: event.destination };
                             context.popUp = RelogTo;
                             context.accountName = event.accountName;
-                            console.log(context.popUpProps)
                         }
                     ],
                 },
@@ -77,14 +75,14 @@ export const toggleMachine = createMachine({
             states: {
                 LandingPage: {
                     on: {
-                        Custom: "Lobby", Quick: "Quick", LandingPageLogin: "LandingPageLogin"
+                        Custom: "Lobby", Quick: "Quick", LandingPageLogin: "LandingPageLogin", Ranked: "Ranked", RankedLogin: "RankedLogin"
                     },
                     entry: assign(
                         {
                             component: (ctx) => ctx.component = LandingPage,
                             popUp: (ctx) => ctx.popUp = null,
+                            popUpProps: (ctx) => ctx.popUpProps = {},
                             props: (ctx) => ctx.props = { isLoggedIn: ctx.accountName != null },
-                            popUpProps: (ctx) => ctx.popUpProps = {}
                         }
                     ),
                 },
@@ -95,11 +93,19 @@ export const toggleMachine = createMachine({
                     },
                     ...loginStates,
                 },
+                RankedLogin: {
+                    on: {
+                        LoginAccountSuccess: "Ranked",
+                        Cancel: "LandingPage"
+                    },
+                    ...loginStates,
+                },
+                Ranked: {
+                    on: {
 
-                // TODO Ranked Login
-                // RankedLogin: {
-                //     on: { LoginSuccess: "../Lobby", Cancel: "../LandingPage" },
-                //     ...loginStates,
+                    },
+
+                },
                 Quick: {
                     on: {
                         StartGame: "Game", LandingPage: "LandingPage", LeaveQuickGameQueueSuccess: "LandingPage",
@@ -147,22 +153,13 @@ export const toggleMachine = createMachine({
                             popUp: (ctx) => ctx.popUp = null,
                             props: (ctx) => ctx.props = {},
                             popUpProps: (ctx) => ctx.popUpProps = {}
+
                         }
                     ),
                 },
                 Lobby: {
                     on: {
-                        LogoutAccountSuccess: {
-                            target: "LandingPage",
-                            actions: [
-                                (context) => {
-                                    context.accountName = null;
-                                    //I do not know why I have to reset this here
-                                    context.component = LandingPage
-                                    context.props = { isLoggedIn: context.accountName != null }
-                                }
-                            ],
-                        },
+
                         JoinGameLobbySuccess: "CreateGame"
                     },
                     entry: assign(
@@ -358,13 +355,34 @@ export const toggleMachine = createMachine({
                             actions: [
                                 (context, event) => {
                                     context.accountName = event.accountName;
+                                    context.props["isLoggedIn"] = true;
                                 }
                             ],
                         },
                     }
                 }
             }
-        }
+        },
+        LogoutAccount: {
+            initial: "LogoutAccountSuccess",
+            states: {
+                LogoutAccountSuccess: {
+                    on: {
+                        LogoutAccountSuccess: {
+                            actions: [
+                                (context, event) => {
+                                    context.accountName = null;
+                                    //I do not know why I have to reset this here
+                                    context.props["isLoggedIn"] = false;
+                                    context.component = LandingPage
+                                }
+                            ],
+                        },
+                    }
+                }
+            }
+        },
+
     }
 
 }, {

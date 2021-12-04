@@ -4,7 +4,6 @@
     import { toast } from "@zerodevx/svelte-toast";
     import { sendMessageToWebsocket } from "../Webservice/store.js";
     const logout = () => {
-        console.log(form1);
         sendMessageToWebsocket("LogoutAccount|{}");
     };
 
@@ -13,7 +12,7 @@
             name: "",
             password: "",
         },
-        // TODO this could work replace everythign with it
+
         validate: (values) => {
             let errs = {};
             if (values.name === "") {
@@ -32,7 +31,7 @@
             name: "",
             password: "",
         },
-        // TODO this could work replace everythign with it
+
         validate: (values) => {
             let errs = {};
             if (values.name === "") {

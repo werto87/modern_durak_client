@@ -17,7 +17,7 @@
             accountName: "",
             password: "",
         },
-        // TODO this could work replace everythign with it
+
         validate: (values) => {
             let errs = {};
             if (values.accountName === "") {

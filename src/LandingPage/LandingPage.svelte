@@ -11,7 +11,11 @@
         sendMessageToWebsocket("JoinQuickGameQueue|{}");
     };
     const rankedPressed = () => {
-        dispatch("stateMachineEvent", "Ranked");
+        if (!isLoggedIn) {
+            dispatch("stateMachineEvent", "RankedLogin");
+        } else {
+            dispatch("stateMachineEvent", "Ranked");
+        }
     };
     const puzzlePressed = () => {
         dispatch("stateMachineEvent", "Puzzle");
@@ -25,6 +29,9 @@
     const login = () => {
         dispatch("stateMachineEvent", "LandingPageLogin");
     };
+    const logout = () => {
+        sendMessageToWebsocket("LogoutAccount|{}");
+    };
 </script>
 
 <main>
@@ -33,10 +40,14 @@
             <h1>Chose Game Mode</h1>
         </div>
         <button on:click={quickPressed}>Quick</button>
-        <button disabled on:click={rankedPressed}>Ranked</button>
+        <button on:click={rankedPressed}>Ranked</button>
         <button disabled on:click={puzzlePressed}>Puzzle</button>
         <button on:click={customPressed}>Custom</button>
-        <button on:click={login}>Login</button>
+        {#if isLoggedIn}
+            <button on:click={logout}>Logout</button>
+        {:else}
+            <button on:click={login}>Login</button>
+        {/if}
     </div>
 </main>
 
