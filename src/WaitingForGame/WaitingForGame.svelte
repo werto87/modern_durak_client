@@ -2,6 +2,7 @@
     import { sendMessageToWebsocket } from "../Webservice/store.js";
     import { createEventDispatcher } from "svelte";
     let dispatch = createEventDispatcher();
+    export let isRanked = false;
     const userPressedNo = () => {
         sendMessageToWebsocket(
             "WantsToJoinGame|" + JSON.stringify({ answer: false })
@@ -12,8 +13,12 @@
             "WantsToJoinGame|" + JSON.stringify({ answer: true })
         );
     };
-    const joinQuickGameQueue = () => {
-        sendMessageToWebsocket("JoinQuickGameQueue|{}");
+    const JoinMatchMakingQueue = () => {
+        if (isRanked) {
+            sendMessageToWebsocket('JoinMatchMakingQueue|{"isRanked": true}');
+        } else {
+            sendMessageToWebsocket('JoinMatchMakingQueue|{"isRanked": false}');
+        }
     };
     const backLeaveQueueAndBackToLandingPage = () => {
         sendMessageToWebsocket("LeaveQuickGameQueue|{}");
@@ -38,7 +43,7 @@
         <button on:click={userPressedYes}>Yes</button>
         <button on:click={userPressedNo}>No</button>
     {:else if waitingState == "retryAfterStartGameFailed"}
-        <button on:click={joinQuickGameQueue}>Join Quick Game Queue</button>
+        <button on:click={JoinMatchMakingQueue}>Join Quick Game Queue</button>
         <button on:click={backToLandingPage}>Cancel</button>
     {/if}
 </main>

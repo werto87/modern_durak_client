@@ -1,27 +1,28 @@
 <script lang="ts">
     import { createEventDispatcher } from "svelte";
-    export let isLoggedIn: boolean = false;
+    export let loginState: string = null;
     let dispatch = createEventDispatcher();
     import { sendMessageToWebsocket } from "../Webservice/store.js";
     const quickPressed = () => {
-        if (!isLoggedIn) {
+        if (!loginState) {
             sendMessageToWebsocket("LoginAsGuest|{}");
         }
         dispatch("stateMachineEvent", "Quick");
-        sendMessageToWebsocket("JoinQuickGameQueue|{}");
+        sendMessageToWebsocket('JoinMatchMakingQueue|{"isRanked": false}');
     };
     const rankedPressed = () => {
-        if (!isLoggedIn) {
+        if (loginState != "registered") {
             dispatch("stateMachineEvent", "RankedLogin");
         } else {
             dispatch("stateMachineEvent", "Ranked");
+            sendMessageToWebsocket('JoinMatchMakingQueue|{"isRanked": true}');
         }
     };
     const puzzlePressed = () => {
         dispatch("stateMachineEvent", "Puzzle");
     };
     const customPressed = () => {
-        if (!isLoggedIn) {
+        if (!loginState) {
             sendMessageToWebsocket("LoginAsGuest|{}");
         }
         dispatch("stateMachineEvent", "Custom");
@@ -43,7 +44,7 @@
         <button on:click={rankedPressed}>Ranked</button>
         <button disabled on:click={puzzlePressed}>Puzzle</button>
         <button on:click={customPressed}>Custom</button>
-        {#if isLoggedIn}
+        {#if loginState}
             <button on:click={logout}>Logout</button>
         {:else}
             <button on:click={login}>Login</button>

@@ -9,7 +9,60 @@ import PopUp from './PopUp/PopUp.svelte'
 import LandingPage from './LandingPage/LandingPage.svelte'
 import { toast } from "@zerodevx/svelte-toast";
 import WaitingForGame from "./WaitingForGame/WaitingForGame.svelte"
+import { sendMessageToWebsocket } from "./Webservice/store.js";
 
+
+const matchMakingState = (isRanked) => {
+    return {
+        on: {
+            StartGame: "Game", LandingPage: "LandingPage", LeaveQuickGameQueueSuccess: "LandingPage",
+            JoinMatchMakingQueueSuccess: {
+                actions: [
+                    (context) => {
+                        context.props = { waitingState: "waitForGame" }
+                    }
+                ],
+            },
+            AskIfUserWantsToJoinGame: {
+                actions: [
+                    (context) => {
+                        context.props = { waitingState: "waitForAnswer" }
+                    }
+                ],
+            },
+            GameStartCanceled: {
+                actions: [
+                    (context) => {
+                        context.props = { waitingState: "waitForGame" }
+                    }
+                ],
+            },
+            GameStartCanceledRemovedFromQueue: {
+                actions: [
+                    (context) => {
+                        context.props = { waitingState: "retryAfterStartGameFailed" }
+                    }
+                ],
+            },
+            AskIfUserWantsToJoinGameTimeOut: {
+                actions: [
+                    (context) => {
+                        context.props = { waitingState: "retryAfterStartGameFailed" };
+                    }
+                ],
+            },
+        },
+        entry: assign(
+            {
+                component: (ctx) => ctx.component = WaitingForGame,
+                popUp: (ctx) => ctx.popUp = null,
+                props: (ctx) => ctx.props = { isRanked: isRanked },
+                popUpProps: (ctx) => ctx.popUpProps = {}
+
+            }
+        ),
+    }
+}
 
 const loginStates = {
     id: "LoginMachine",
@@ -68,6 +121,7 @@ export const toggleMachine = createMachine({
         props: {},
         errors: [],
         accountName: null,
+        loginState: null,
     },
     states: {
         Screens: {
@@ -75,14 +129,14 @@ export const toggleMachine = createMachine({
             states: {
                 LandingPage: {
                     on: {
-                        Custom: "Lobby", Quick: "Quick", LandingPageLogin: "LandingPageLogin", Ranked: "Ranked", RankedLogin: "RankedLogin"
+                        Custom: "Lobby", Quick: "Quick", Ranked: "Ranked", LandingPageLogin: "LandingPageLogin", RankedLogin: "RankedLogin"
                     },
                     entry: assign(
                         {
                             component: (ctx) => ctx.component = LandingPage,
                             popUp: (ctx) => ctx.popUp = null,
                             popUpProps: (ctx) => ctx.popUpProps = {},
-                            props: (ctx) => ctx.props = { isLoggedIn: ctx.accountName != null },
+                            props: (ctx) => ctx.props = { loginState: ctx.loginState },
                         }
                     ),
                 },
@@ -95,68 +149,20 @@ export const toggleMachine = createMachine({
                 },
                 RankedLogin: {
                     on: {
-                        LoginAccountSuccess: "Ranked",
-                        Cancel: "LandingPage"
+                        LoginAccountSuccess: {
+                            actions: [
+                                () => {
+                                    sendMessageToWebsocket('JoinMatchMakingQueue|{"isRanked": true}');
+                                }
+                            ],
+                            target: "Ranked"
+                        },
+                        Cancel: "LandingPage",
                     },
                     ...loginStates,
                 },
-                Ranked: {
-                    on: {
-
-                    },
-
-                },
-                Quick: {
-                    on: {
-                        StartGame: "Game", LandingPage: "LandingPage", LeaveQuickGameQueueSuccess: "LandingPage",
-                        JoinQuickGameQueueSuccess: {
-                            actions: [
-                                (context) => {
-                                    context.props = { waitingState: "waitForGame" }
-                                }
-                            ],
-                        },
-                        AskIfUserWantsToJoinGame: {
-                            actions: [
-                                (context) => {
-                                    context.props = { waitingState: "waitForAnswer" }
-                                }
-                            ],
-                        },
-                        GameStartCanceled: {
-                            actions: [
-                                (context) => {
-                                    context.props = { waitingState: "waitForGame" }
-                                }
-                            ],
-                        },
-                        GameStartCanceledRemovedFromQueue: {
-                            actions: [
-                                (context) => {
-                                    context.props = { waitingState: "retryAfterStartGameFailed" }
-                                }
-                            ],
-                        },
-
-                        AskIfUserWantsToJoinGameTimeOut: {
-                            actions: [
-                                (context) => {
-                                    context.props = { waitingState: "retryAfterStartGameFailed" };
-                                }
-                            ],
-                        },
-                        JoinGameLobbySuccess: "CreateGame"
-                    },
-                    entry: assign(
-                        {
-                            component: (ctx) => ctx.component = WaitingForGame,
-                            popUp: (ctx) => ctx.popUp = null,
-                            props: (ctx) => ctx.props = {},
-                            popUpProps: (ctx) => ctx.popUpProps = {}
-
-                        }
-                    ),
-                },
+                Ranked: matchMakingState(true),
+                Quick: matchMakingState(false),
                 Lobby: {
                     on: {
 
@@ -355,7 +361,26 @@ export const toggleMachine = createMachine({
                             actions: [
                                 (context, event) => {
                                     context.accountName = event.accountName;
-                                    context.props["isLoggedIn"] = true;
+                                    context.loginState = "registered";
+                                    context.props["loginState"] = context.loginState;
+                                }
+                            ],
+                        },
+                    }
+                }
+            }
+        },
+        LoginGuestSuccess: {
+            initial: "LoginAsGuestSuccess",
+            states: {
+                LoginAsGuestSuccess: {
+                    on: {
+                        LoginAsGuestSuccess: {
+                            actions: [
+                                (context, event) => {
+                                    context.accountName = event.accountName;
+                                    context.loginState = "guest";
+                                    context.props["loginState"] = context.loginState;
                                 }
                             ],
                         },
@@ -370,10 +395,11 @@ export const toggleMachine = createMachine({
                     on: {
                         LogoutAccountSuccess: {
                             actions: [
-                                (context, event) => {
+                                (context) => {
                                     context.accountName = null;
+                                    context.loginState = null;
+                                    context.props["loginState"] = context.loginState;
                                     //I do not know why I have to reset this here
-                                    context.props["isLoggedIn"] = false;
                                     context.component = LandingPage
                                 }
                             ],
@@ -385,8 +411,5 @@ export const toggleMachine = createMachine({
 
     }
 
-}, {
-    guards: {
-        loggedIn: context => context.accountName != null
-    }
+
 });
