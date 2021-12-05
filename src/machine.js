@@ -165,8 +165,7 @@ export const toggleMachine = createMachine({
                 Quick: matchMakingState(false),
                 Lobby: {
                     on: {
-
-                        JoinGameLobbySuccess: "CreateGame"
+                        JoinGameLobbySuccess: "CreateGame", LogoutAccountSuccess: "LandingPage"
                     },
                     entry: assign(
                         {
@@ -399,8 +398,6 @@ export const toggleMachine = createMachine({
                                     context.accountName = null;
                                     context.loginState = null;
                                     context.props["loginState"] = context.loginState;
-                                    //I do not know why I have to reset this here
-                                    context.component = LandingPage
                                 }
                             ],
                         },
