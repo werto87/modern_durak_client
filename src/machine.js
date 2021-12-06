@@ -19,35 +19,35 @@ const matchMakingState = (isRanked) => {
             JoinMatchMakingQueueSuccess: {
                 actions: [
                     (context) => {
-                        context.props = { waitingState: "waitForGame" }
+                        context.props = { waitingState: "waitForGame", isRanked: isRanked }
                     }
                 ],
             },
             AskIfUserWantsToJoinGame: {
                 actions: [
                     (context) => {
-                        context.props = { waitingState: "waitForAnswer" }
+                        context.props = { waitingState: "waitForAnswer", isRanked: isRanked }
                     }
                 ],
             },
             GameStartCanceled: {
                 actions: [
                     (context) => {
-                        context.props = { waitingState: "waitForGame" }
+                        context.props = { waitingState: "waitForGame", isRanked: isRanked }
                     }
                 ],
             },
             GameStartCanceledRemovedFromQueue: {
                 actions: [
                     (context) => {
-                        context.props = { waitingState: "retryAfterStartGameFailed" }
+                        context.props = { waitingState: "retryAfterStartGameFailed", isRanked: isRanked }
                     }
                 ],
             },
             AskIfUserWantsToJoinGameTimeOut: {
                 actions: [
                     (context) => {
-                        context.props = { waitingState: "retryAfterStartGameFailed" };
+                        context.props = { waitingState: "retryAfterStartGameFailed", isRanked: isRanked };
                     }
                 ],
             },
