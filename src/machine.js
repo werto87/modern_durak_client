@@ -129,7 +129,14 @@ export const toggleMachine = createMachine({
             states: {
                 LandingPage: {
                     on: {
-                        Custom: "Lobby", Quick: "Quick", Ranked: "Ranked", LandingPageLogin: "LandingPageLogin", RankedLogin: "RankedLogin"
+                        Custom: "Lobby", Quick: "Quick", Ranked: "Ranked", LandingPageLogin: "LandingPageLogin", RankedLogin: "RankedLogin",
+                        RatingChanged: {
+                            actions: [
+                                (unusedButNeededSoEventGetsSetWithTheCorrectValue, event) => {
+                                    toast.push("Your rating changed from " + event.oldRating + " to " + event.newRating, { target: 'Message' });
+                                }
+                            ],
+                        }
                     },
                     entry: assign(
                         {
@@ -249,27 +256,24 @@ export const toggleMachine = createMachine({
                         Lobby: "Lobby",
                         DurakGameOverWon: {
                             actions: [
-                                (context) => {
-                                    context.popUp = PopUp;
-                                    context.popUpProps["message"] = "You Won";
+                                () => {
+                                    toast.push("You Won", { target: 'Message' });
                                 }
                             ],
                             target: "LandingPage"
                         },
                         DurakGameOverLose: {
                             actions: [
-                                (context) => {
-                                    context.popUp = PopUp;
-                                    context.popUpProps["message"] = "You Lose";
+                                () => {
+                                    toast.push("You Lose", { target: 'Message' });
                                 }
                             ],
                             target: "LandingPage"
                         },
                         DurakGameOverDraw: {
                             actions: [
-                                (context) => {
-                                    context.popUp = PopUp;
-                                    context.popUpProps["message"] = "It is a Draw";
+                                () => {
+                                    toast.push("It is a Draw", { target: 'Message' });
                                 }
                             ],
                             target: "LandingPage"
