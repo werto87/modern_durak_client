@@ -34,7 +34,6 @@
 
 <main>
     <!-- TODO add animtation while waiting -->
-    <!-- TODO add cancel button -->
     <h1>Waiting For Game</h1>
     {#if waitingState == "waitForGame"}
         <button on:click={backLeaveQueueAndBackToLandingPage}>Cancel</button>

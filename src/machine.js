@@ -5,6 +5,7 @@ import Game from './Game/Game.svelte'
 import CreateAccount from './CreateAccount/CreateAccount.svelte'
 import CreateGame from './CreateGame/CreateGame.svelte'
 import RelogTo from './PopUp/RelogTo.svelte'
+import WantToJoinGame from './PopUp/WantToJoinGame.svelte'
 import PopUp from './PopUp/PopUp.svelte'
 import LandingPage from './LandingPage/LandingPage.svelte'
 import { toast } from "@zerodevx/svelte-toast";
@@ -203,6 +204,28 @@ export const toggleMachine = createMachine({
                                         context.props["deckOptionSelected"] = 1;
                                     }
 
+                                }
+                            ],
+                        },
+                        AskIfUserWantsToJoinGame: {
+                            actions: [
+                                (context) => {
+                                    if (context.props["isCreateGameLobbyAdmin"]) {
+                                        sendMessageToWebsocket('WantsToJoinGame|{"answer":true}');
+                                    } else {
+                                        context.popUp = WantToJoinGame
+                                        // TODO should be send as a toast
+                                        // https://zerodevx.github.io/svelte-toast/
+                                        // click on send component as message
+                                    }
+
+                                }
+                            ],
+                        },
+                        GameStartCanceled: {
+                            actions: [
+                                (context) => {
+                                    context.popUp = null
                                 }
                             ],
                         },
