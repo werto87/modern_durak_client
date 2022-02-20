@@ -1,11 +1,14 @@
 <script>
     import { sendMessageToWebsocket } from "../Webservice/store.js";
+    import { toast } from "@zerodevx/svelte-toast";
     const userPressedNo = () => {
+        toast.pop();
         sendMessageToWebsocket(
             "WantsToJoinGame|" + JSON.stringify({ answer: false })
         );
     };
     const userPressedYes = () => {
+        toast.pop();
         sendMessageToWebsocket(
             "WantsToJoinGame|" + JSON.stringify({ answer: true })
         );

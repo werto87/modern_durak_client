@@ -32,18 +32,38 @@
 			);
 		}
 	});
-	// import { sendMessageToWebsocket } from "./Webservice/store.js";
-	// let message;
+	import { sendMessageToWebsocket } from "./Webservice/store.js";
+	let message;
 
-	// function onSendMessage() {
-	// 	if (message.length > 0) {
-	// 		sendMessageToWebsocket(message);
-	// 		message = "";
-	// 	}
-	// }
+	function onSendMessage() {
+		if (message.length > 0) {
+			sendMessageToWebsocket(message);
+			message = "";
+		}
+	}
+
+	import { toast, SvelteToast } from "@zerodevx/svelte-toast";
 
 	//TODO fix problems with autofill passwords
-	import { toast, SvelteToast } from "@zerodevx/svelte-toast";
+	import { createForm } from "svelte-forms-lib";
+	const { form, errors, state, handleChange, handleSubmit } = createForm({
+		initialValues: {
+			message: "",
+		},
+
+		validate: (values) => {
+			let errs = {};
+			if (values.message === "") {
+				errs["message"] = "message is required";
+				toast.push(errs["message"], { target: "Error" });
+			}
+
+			return errs;
+		},
+		onSubmit: (values) => {
+			sendMessageToWebsocket(values.message);
+		},
+	});
 </script>
 
 <main>
@@ -91,6 +111,17 @@
 			},
 		}}
 	/>
+	<form on:submit={handleSubmit}>
+		<label for="accountName">Message</label>
+		<input
+			id="accountName"
+			name="accountName"
+			on:change={handleChange}
+			bind:value={$form.message}
+		/>
+
+		<button type="submit">Send</button>
+	</form>
 </main>
 
 <style>

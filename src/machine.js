@@ -213,19 +213,30 @@ export const toggleMachine = createMachine({
                                     if (context.props["isCreateGameLobbyAdmin"]) {
                                         sendMessageToWebsocket('WantsToJoinGame|{"answer":true}');
                                     } else {
-                                        context.popUp = WantToJoinGame
-                                        // TODO should be send as a toast
-                                        // https://zerodevx.github.io/svelte-toast/
-                                        // click on send component as message
+                                        toast.push({
+                                            component: {
+                                                src: WantToJoinGame,
+                                                props: {
+                                                    title: 'A Dummy Cookie Component'
+                                                },
+                                                sendIdTo: 'Message' // send toast id to `toastId` prop
+                                            },
+                                            target: 'Message',
+                                            dismissable: false,
+                                            initial: 0,
+                                            theme: {
+                                                '--toastPadding': '0',
+                                                '--toastMsgPadding': '0'
+                                            }
+                                        })
                                     }
-
                                 }
                             ],
                         },
                         GameStartCanceled: {
                             actions: [
-                                (context) => {
-                                    context.popUp = null
+                                () => {
+                                    toast.pop();
                                 }
                             ],
                         },
