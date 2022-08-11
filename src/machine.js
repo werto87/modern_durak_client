@@ -194,13 +194,9 @@ export const toggleMachine = createMachine({
                                     event.users.forEach(element => {
                                         users.push(element.UserInGameLobby.accountName);
                                     });
-                                // TODO game option got changed it should now look something like this
-                                // {"gameOption":{"maxCardValue":9,"typeCount":4,"numberOfCardsPlayerShouldHave":6,"roundToStart":1,"customCardDeck":[{"Card":{"value":7,"type":"clubs"}},{"Card":{"value":8,"type":"clubs"}},{"Card":{"value":3,"type":"hearts"}},{"Card":{"value":3,"type":"clubs"}},{"Card":{"value":2,"type":"diamonds"}},{"Card":{"value":3,"type":"diamonds"}},{"Card":{"value":2,"type":"clubs"}},{"Card":{"value":5,"type":"diamonds"}},{"Card":{"value":6,"type":"diamonds"}},{"Card":{"value":7,"type":"diamonds"}},{"Card":{"value":8,"type":"diamonds"}},{"Card":{"value":9,"type":"diamonds"}},{"Card":{"value":1,"type":"spades"}},{"Card":{"value":2,"type":"spades"}},{"Card":{"value":3,"type":"spades"}},{"Card":{"value":1,"type":"diamonds"}},{"Card":{"value":5,"type":"spades"}},{"Card":{"value":6,"type":"spades"}},{"Card":{"value":7,"type":"spades"}},{"Card":{"value":8,"type":"spades"}},{"Card":{"value":9,"type":"spades"}},{"Card":{"value":1,"type":"hearts"}},{"Card":{"value":2,"type":"hearts"}},{"Card":{"value":9,"type":"clubs"}},{"Card":{"value":1,"type":"clubs"}},{"Card":{"value":5,"type":"hearts"}},{"Card":{"value":6,"type":"clubs"}},{"Card":{"value":7,"type":"hearts"}},{"Card":{"value":8,"type":"hearts"}},{"Card":{"value":9,"type":"hearts"}},{"Card":{"value":4,"type":"hearts"}},{"Card":{"value":4,"type":"diamonds"}},{"Card":{"value":4,"type":"spades"}},{"Card":{"value":4,"type":"clubs"}},{"Card":{"value":5,"type":"clubs"}},{"Card":{"value":6,"type":"hearts"}}]}}
                                     context.props[event.type] = event;
                                     context.props["isCreateGameLobbyAdmin"] = users[0] == context.accountName;
-                                    console.log(users[0]);
-                                    console.log(context.accountName);
-                                    if (event.durakGameOption.customCardDeck == null) {
+                                    if (event.durakGameOption.gameOption.customCardDeck == null) {
                                         context.props["deckOptionSelected"] = 0;
                                     } else {
                                         context.props["deckOptionSelected"] = 1;
@@ -245,9 +241,9 @@ export const toggleMachine = createMachine({
                         GameOption: {
                             actions: [
                                 (context, event) => {
-                                    context.props.UsersInGameLobby.durakGameOption["maxCardValue"] = event.maxCardValue;
-                                    context.props.UsersInGameLobby.durakGameOption["customCardDeck"] = event.customCardDeck;
-                                    if (event.customCardDeck == null) {
+                                    context.props.UsersInGameLobby.durakGameOption.gameOption["maxCardValue"] = event.gameOption.maxCardValue;
+                                    context.props.UsersInGameLobby.durakGameOption.gameOption["customCardDeck"] = event.gameOption.customCardDeck;
+                                    if (event.gameOption.customCardDeck == null) {
                                         context.props["deckOptionSelected"] = 0;
                                     } else {
                                         context.props["deckOptionSelected"] = 1;
@@ -262,6 +258,7 @@ export const toggleMachine = createMachine({
                                 }
                             ],
                         },
+                        // TODO this should be in game option as a member variable
                         SetTimerOption: {
                             actions: [
                                 (context, event) => {
