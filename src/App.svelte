@@ -191,7 +191,7 @@
     text-align: center;
     color: white;
     /* color: #4ed93f; */
-    font-family: Open Sans;
+    font-family: Open Sans,serif;
     font-size: 30px;
   }
   :global(body) {
