@@ -241,12 +241,18 @@ export const toggleMachine = createMachine({
                         GameOption: {
                             actions: [
                                 (context, event) => {
-                                    context.props.UsersInGameLobby.durakGameOption.gameOption["maxCardValue"] = event.gameOption.maxCardValue;
-                                    context.props.UsersInGameLobby.durakGameOption.gameOption["customCardDeck"] = event.gameOption.customCardDeck;
+                                    context.props[event.type] = event
                                     if (event.gameOption.customCardDeck == null) {
                                         context.props["deckOptionSelected"] = 0;
                                     } else {
                                         context.props["deckOptionSelected"] = 1;
+                                    }
+                                    if (event.timerOption.timerType == "resetTimeOnNewRound") {
+                                        context.props["timerOptionSelected"] = 1;
+                                    } else if (event.timerOption.timerType == "addTimeOnNewRound") {
+                                        context.props["timerOptionSelected"] = 2;
+                                    } else {
+                                        context.props["timerOptionSelected"] = 0;
                                     }
                                 }
                             ],
@@ -258,22 +264,6 @@ export const toggleMachine = createMachine({
                                 }
                             ],
                         },
-                        // TODO this should be in game option as a member variable
-                        SetTimerOption: {
-                            actions: [
-                                (context, event) => {
-                                    if (event.timerType == "resetTimeOnNewRound") {
-                                        context.props["timerOptionSelected"] = 1;
-                                    } else if (event.timerType == "addTimeOnNewRound") {
-                                        context.props["timerOptionSelected"] = 2;
-                                    } else {
-                                        context.props["timerOptionSelected"] = 0;
-                                    }
-                                    context.props[event.type] = event;
-                                }
-                            ],
-                        },
-
                     },
                     entry: assign(
                         {

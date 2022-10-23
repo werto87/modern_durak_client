@@ -20,6 +20,7 @@ webSocket.addEventListener('message', function (event) {
 
 
 export const sendMessageToWebsocket = (message) => {
+	console.log("send to matchmaking proxy: "+message )
 	if (webSocket.readyState <= 1) {
 		webSocket.send(message);
 	}

@@ -3,11 +3,17 @@
   import { printCard } from "../Game/Board/helper";
   import { toast } from "@zerodevx/svelte-toast";
   export let UsersInGameLobby = null;
-  export let SetTimerOption = {
-    timerType: "noTimer",
-    timeAtStartInSeconds: 0,
-    timeForEachRoundInSeconds: 0,
-  };
+  export let GameOption={
+    "gameOption":{
+      "maxCardValue":9,
+      "typeCount":4,
+      "numberOfCardsPlayerShouldHave":6,
+      "roundToStart":1,
+      "customCardDeck":null},
+    "timerOption":{
+      "timerType":"noTimer",
+      "timeAtStartInSeconds":0,
+      "timeForEachRoundInSeconds":0}};
   export let timerOptionSelected = 0;
   export let deckOptionSelected = 0;
   export let isCreateGameLobbyAdmin = true;
@@ -32,11 +38,11 @@
   // framework "svelte-range-slider-pips" requires this to be array so this is a workaround
   $: maxUserSizeArray = [UsersInGameLobby?.maxUserSize];
   $: cardsInDeckArray = [
-    UsersInGameLobby?.durakGameOption.gameOption.maxCardValue * 4,
+    GameOption.gameOption.maxCardValue * 4,
   ];
-  $: timeAtStartInSecondsArray = [SetTimerOption?.timeAtStartInSeconds];
+  $: timeAtStartInSecondsArray = [GameOption?.timerOption.timeAtStartInSeconds];
   $: timeForEachRoundInSecondsArray = [
-    SetTimerOption?.timeForEachRoundInSeconds,
+    GameOption?.timerOption.timeForEachRoundInSeconds,
   ];
 
   import { sendMessageToWebsocket } from "../Webservice/store.js";
@@ -48,52 +54,35 @@
     );
   };
 
+  const createGameOption = (deck) => {
+    return "GameOption|" +
+            JSON.stringify({
+              gameOption: {
+                maxCardValue: cardsInDeckArray[0] / 4,
+                typeCount: GameOption.gameOption.typeCount,
+                numberOfCardsPlayerShouldHave: GameOption.gameOption.numberOfCardsPlayerShouldHave,
+                roundToStart:
+                GameOption.gameOption.roundToStart,
+                customCardDeck: deckOptionSelected === 0 ? null : deck? deck:GameOption.gameOption.customCardDeck? GameOption.gameOption.customCardDeck:[],
+              },
+              timerOption:{
+                timerType: timerOptions[timerOptionSelected].value,
+                timeAtStartInSeconds: timeAtStartInSecondsArray[0],
+                timeForEachRoundInSeconds: timeForEachRoundInSecondsArray[0]
+              }
+            })
+  };
+
   const gameOptionChanged = () => {
-    const customCardDeckValue = deckOptionSelected == 0 ? null : [];
-    sendMessageToWebsocket(
-      "GameOption|" +
-        JSON.stringify({
-          gameOption: {
-            maxCardValue: cardsInDeckArray[0] / 4,
-            typeCount: UsersInGameLobby.durakGameOption.gameOption.typeCount,
-            numberOfCardsPlayerShouldHave:
-              UsersInGameLobby.durakGameOption.gameOption
-                .numberOfCardsPlayerShouldHave,
-            roundToStart:
-              UsersInGameLobby.durakGameOption.gameOption.roundToStart,
-            customCardDeck: customCardDeckValue,
-          },
-        })
-    );
+    sendMessageToWebsocket(createGameOption());
   };
 
   const exampleDeck = () => {
-    let gameOption = UsersInGameLobby.durakGameOption.gameOption;
-    console.log(gameOption);
-    sendMessageToWebsocket(
-      "GameOption|" +
-        JSON.stringify({
-          gameOption: {
-            maxCardValue: cardsInDeckArray[0] / 4,
-            typeCount: gameOption.typeCount,
-            numberOfCardsPlayerShouldHave:
-              gameOption.numberOfCardsPlayerShouldHave,
-            roundToStart: gameOption.roundToStart,
-            customCardDeck: debugDeck36,
-          },
-        })
-    );
+    sendMessageToWebsocket(createGameOption(debugDeck36));
   };
 
   const timerOptionChanged = () => {
-    sendMessageToWebsocket(
-      "SetTimerOption|" +
-        JSON.stringify({
-          timerType: timerOptions[timerOptionSelected].value,
-          timeAtStartInSeconds: timeAtStartInSecondsArray[0],
-          timeForEachRoundInSeconds: timeForEachRoundInSecondsArray[0],
-        })
-    );
+    sendMessageToWebsocket(createGameOption());
   };
 
   const startGame = () => {
@@ -173,27 +162,14 @@
                 element.Card.type != null &&
                 (typeof element.Card.type === "string" ||
                   element.Card.type instanceof String) &&
-                (element.Card.type == "hearts" ||
-                  element.Card.type == "diamonds" ||
-                  element.Card.type == "spades" ||
-                  element.Card.type == "clubs")
+                (element.Card.type === "hearts" ||
+                  element.Card.type === "diamonds" ||
+                  element.Card.type === "spades" ||
+                  element.Card.type === "clubs")
               );
             })
           ) {
-            let gameOption = UsersInGameLobby.durakGameOption.gameOption;
-            sendMessageToWebsocket(
-              "GameOption|" +
-                JSON.stringify({
-                  gameOption: {
-                    maxCardValue: gameOption.maxCardValue,
-                    typeCount: gameOption.typeCount,
-                    numberOfCardsPlayerShouldHave:
-                      gameOption.numberOfCardsPlayerShouldHave,
-                    roundToStart: gameOption.roundToStart,
-                    customCardDeck: JSON.parse(values.createDeckArray),
-                  },
-                })
-            );
+            sendMessageToWebsocket(createGameOption());
           } else {
             toast.push(
               "Please check if all Cards in the Array are valid Card Objects",
@@ -215,7 +191,7 @@
 </script>
 
 {#if UsersInGameLobby}
-  <div class="container" />
+  <div class="container"></div>
 
   <h1>Create Game</h1>
   <div>
@@ -275,10 +251,10 @@
           }}>Use example Deck with 36 Cards</button
         >
       {/if}
-      {#if UsersInGameLobby.durakGameOption.gameOption.customCardDeck && UsersInGameLobby.durakGameOption.gameOption.customCardDeck.length >= 1}
+      {#if GameOption.gameOption.customCardDeck && GameOption.gameOption.customCardDeck.length >= 1}
         <div>
           <label for="">Cards in Deck</label>
-          {#each UsersInGameLobby.durakGameOption.gameOption.customCardDeck as card}
+          {#each GameOption.gameOption.customCardDeck as card}
             <span
               class={card.Card.type === "hearts" ||
               card.Card.type === "diamonds"
