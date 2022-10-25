@@ -81,6 +81,7 @@ export default {
 		production && terser(),
 
 		replace({
+			'process.env': production ? '"production"' : '"dev"',
 			'process.env.NODE_ENV': process.env.NODE_ENV
 		})
 	],
