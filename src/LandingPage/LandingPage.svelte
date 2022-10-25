@@ -42,7 +42,7 @@
         </div>
         <button on:click={quickPressed}>Quick</button>
         <button on:click={rankedPressed}>Ranked</button>
-        <button disabled on:click={puzzlePressed}>Puzzle</button>
+        <button on:click={puzzlePressed}>Puzzle</button>
         <button on:click={customPressed}>Custom</button>
         {#if loginState}
             <button on:click={logout}>Logout</button>

@@ -130,7 +130,7 @@ export const toggleMachine = createMachine({
             states: {
                 LandingPage: {
                     on: {
-                        Custom: "Lobby", Quick: "Quick", Ranked: "Ranked", LandingPageLogin: "LandingPageLogin", RankedLogin: "RankedLogin",
+                        Custom: "Lobby", Quick: "Quick", Ranked: "Ranked", LandingPageLogin: "LandingPageLogin", RankedLogin: "RankedLogin",Puzzle: "Puzzle",
                         RatingChanged: {
                             actions: [
                                 (unusedButNeededSoEventGetsSetWithTheCorrectValue, event) => {
@@ -171,6 +171,19 @@ export const toggleMachine = createMachine({
                 },
                 Ranked: matchMakingState(true),
                 Quick: matchMakingState(false),
+                Puzzle: {
+                    on: {
+                        JoinGameLobbySuccess: "CreateGame", LogoutAccountSuccess: "LandingPage"
+                    },
+                    entry: assign(
+                        {
+                            component: (ctx) => ctx.component = Lobby,
+                            popUp: (ctx) => ctx.popUp = null,
+                            props: (ctx) => ctx.props = {},
+                            popUpProps: (ctx) => ctx.popUpProps = {}
+                        }
+                    ),
+                },
                 Lobby: {
                     on: {
                         JoinGameLobbySuccess: "CreateGame", LogoutAccountSuccess: "LandingPage"
