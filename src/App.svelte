@@ -68,6 +68,7 @@
       sendMessageToWebsocket(values.message);
     },
   });
+  const  isProduction=process.env==="production";
 </script>
 
 <main>
@@ -115,17 +116,21 @@
       },
     }}
   />
-  <form on:submit={handleSubmit}>
-    <label for="accountName">Message</label>
-    <input
-      id="accountName"
-      name="accountName"
-      on:change={handleChange}
-      bind:value={$form.message}
-    />
 
-    <button type="submit">Send</button>
-  </form>
+  {#if !isProduction}
+    <form on:submit={handleSubmit}>
+      <label for="accountName">Message</label>
+      <input
+              id="accountName"
+              name="accountName"
+              on:change={handleChange}
+              bind:value={$form.message}
+      />
+
+      <button type="submit">Send</button>
+    </form>
+  {/if}
+
 </main>
 
 <style>
