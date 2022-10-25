@@ -37,6 +37,7 @@
   ];
   // framework "svelte-range-slider-pips" requires this to be array so this is a workaround
   $: maxUserSizeArray = [UsersInGameLobby?.maxUserSize];
+  $: computerControlledOpponentArray = [GameOption?.computerControlledPlayerCount];
   $: cardsInDeckArray = [
     GameOption.gameOption.maxCardValue * 4,
   ];
@@ -54,6 +55,8 @@
     );
   };
 
+
+
   const createGameOption = (deck) => {
     return "GameOption|" +
             JSON.stringify({
@@ -69,8 +72,13 @@
                 timerType: timerOptions[timerOptionSelected].value,
                 timeAtStartInSeconds: timeAtStartInSecondsArray[0],
                 timeForEachRoundInSeconds: timeForEachRoundInSecondsArray[0]
-              }
+              },
+              computerControlledPlayerCount:computerControlledOpponentArray[0]
             })
+  };
+
+  const computerControlledOpponentChanged = () => {
+    sendMessageToWebsocket(createGameOption());
   };
 
   const gameOptionChanged = () => {
@@ -207,6 +215,19 @@
       min={1}
       max={10}
       on:change={maxUserCountChanged}
+    />
+    <label for="computerControlledOpponent">Computer Controlled Opponent</label>
+    <RangeSlider
+            id="slider"
+            disabled={!isCreateGameLobbyAdmin || undefined}
+            bind:values={computerControlledOpponentArray}
+            pips
+            step={1}
+            all="label"
+            pipstep={1}
+            min={0}
+            max={5}
+            on:change={computerControlledOpponentChanged}
     />
 
     <label for="deckType">Deck Type</label>
