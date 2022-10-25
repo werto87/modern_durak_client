@@ -16,7 +16,7 @@ import { sendMessageToWebsocket } from "./Webservice/store.js";
 const matchMakingState = (isRanked) => {
     return {
         on: {
-            StartGame: "Game", LandingPage: "LandingPage", LeaveQuickGameQueueSuccess: "LandingPage",
+            StartGameSuccess: "Game", LandingPage: "LandingPage", LeaveQuickGameQueueSuccess: "LandingPage",
             JoinMatchMakingQueueSuccess: {
                 actions: [
                     (context) => {
@@ -171,6 +171,7 @@ export const toggleMachine = createMachine({
                 },
                 Ranked: matchMakingState(true),
                 Quick: matchMakingState(false),
+                //TODO implement puzzle
                 Puzzle: {
                     on: {
                         JoinGameLobbySuccess: "CreateGame", LogoutAccountSuccess: "LandingPage"
