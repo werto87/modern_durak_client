@@ -42,6 +42,7 @@
     "svelte-forms-lib": "^1.10.6",
     "svelte-layouts": "^0.3.0",
     "svelte-select": "^4.4.1",
+    "uuid": "^9.0.0",
     "xstate": "^4.23.4",
     "yup": "^0.32.9"
   }

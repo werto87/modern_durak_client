@@ -1,5 +1,7 @@
 <script lang="ts">
     import { createEventDispatcher } from "svelte";
+    import { v4 as uuidv4 } from 'uuid';
+
     export let loginState: string = null;
     let dispatch = createEventDispatcher();
     import { sendMessageToWebsocket } from "../Webservice/store.js";
@@ -19,7 +21,11 @@
         }
     };
     const puzzlePressed = () => {
-        dispatch("stateMachineEvent", "Puzzle");
+        if (!loginState) {
+            sendMessageToWebsocket("LoginAsGuest|{}");
+        }
+        sendMessageToWebsocket("CreateGameLobby|"+ "{\"name\":\""+ uuidv4()+"\",\"password\":\"\"}")
+        dispatch("stateMachineEvent", "CreatePuzzle");
     };
     const customPressed = () => {
         if (!loginState) {

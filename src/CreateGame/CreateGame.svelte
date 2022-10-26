@@ -73,7 +73,7 @@
                 timeAtStartInSeconds: timeAtStartInSecondsArray[0],
                 timeForEachRoundInSeconds: timeForEachRoundInSecondsArray[0]
               },
-              computerControlledPlayerCount:computerControlledOpponentArray[0]
+              computerControlledPlayerCount:computerControlledOpponentArray?0:computerControlledOpponentArray[0],
             })
   };
 
