@@ -38,7 +38,6 @@
   let deckOptions = [
     { id: 0, value: "randomDeck", label: "Shuffle Cards" },
     { id: 1, value: "customDeck", label: "Custom Deck" },
-    // TODO add option to play with specific cards
   ];
   // framework "svelte-range-slider-pips" requires this to be array so this is a workaround
   $: maxUserSizeArray = [UsersInGameLobby?.maxUserSize];
