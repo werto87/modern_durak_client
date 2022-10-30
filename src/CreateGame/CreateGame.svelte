@@ -21,6 +21,7 @@
   };
   export let timerOptionSelected = 0;
   export let deckOptionSelected = 0;
+  export let opponentCardsOptionsSelected = 0;
   export let isCreateGameLobbyAdmin = true;
   let timerOptions = [
     { id: 0, value: "noTimer", label: "No Timer" },
@@ -38,6 +39,10 @@
   let deckOptions = [
     { id: 0, value: "randomDeck", label: "Shuffle Cards" },
     { id: 1, value: "customDeck", label: "Custom Deck" },
+  ];
+  let opponentCardsOptions = [
+    { id: 0, value: "showNumberOfOpponentCards", label: "Show Number of Opponent Cards" },
+    { id: 1, value: "showOpponentCards", label: "Show Opponent Cards" },
   ];
   // framework "svelte-range-slider-pips" requires this to be array so this is a workaround
   $: maxUserSizeArray = [UsersInGameLobby?.maxUserSize];
@@ -78,7 +83,7 @@
                 timeForEachRoundInSeconds: timeForEachRoundInSecondsArray[0]
               },
               computerControlledPlayerCount:computerControlledOpponentArray?computerControlledOpponentArray[0]:0,
-              opponentCards:"showNumberOfOpponentCards"
+              opponentCards:opponentCardsOptions[opponentCardsOptionsSelected].value
             })
   };
 
@@ -297,6 +302,16 @@
     {/if}
   </div>
   <div>
+    <label for="opponentCardsOption">Opponent Cards Option</label>
+    <select
+            bind:value={opponentCardsOptionsSelected}
+            on:change={timerOptionChanged}
+            disabled={!isCreateGameLobbyAdmin || undefined}
+    >
+      {#each opponentCardsOptions as option}
+        <option value={option.id}>{option.label}</option>
+      {/each}
+    </select>
     <label for="timerType">Timer Type</label>
     <select
       bind:value={timerOptionSelected}

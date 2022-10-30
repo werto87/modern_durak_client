@@ -277,6 +277,11 @@ export const toggleMachine = createMachine({
                                     } else {
                                         context.props["timerOptionSelected"] = 0;
                                     }
+                                    if (event.opponentCards == "showNumberOfOpponentCards") {
+                                        context.props["opponentCardsOptionsSelected"] = 0;
+                                    } else {
+                                        context.props["opponentCardsOptionsSelected"] = 1;
+                                    }
                                 }
                             ],
                         },
