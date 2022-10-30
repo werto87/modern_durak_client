@@ -181,7 +181,7 @@ export const toggleMachine = createMachine({
                                     //TODO in production there should be rnd cards with a seed
                                     //TODO in debug there should be the possiblity to use that seed
                                     //TODO in debug there should be a way to easily run the same game
-                                    sendMessageToWebsocket("GameOption|"+"{\"gameOption\":{\"maxCardValue\":9,\"typeCount\":4,\"numberOfCardsPlayerShouldHave\":2,\"roundToStart\":1,\"customCardDeck\":[{\"Card\":{\"value\":7,\"type\":\"clubs\"}},{\"Card\":{\"value\":8,\"type\":\"clubs\"}},{\"Card\":{\"value\":5,\"type\":\"clubs\"}},{\"Card\":{\"value\":3,\"type\":\"clubs\"}}]},\"timerOption\":{\"timerType\":\"noTimer\",\"timeAtStartInSeconds\":0,\"timeForEachRoundInSeconds\":0},\"computerControlledPlayerCount\":1,\"opponentCards\":\"showNumberOfOpponentCards\"}")
+                                    sendMessageToWebsocket("GameOption|"+"{\"gameOption\":{\"maxCardValue\":9,\"typeCount\":4,\"numberOfCardsPlayerShouldHave\":2,\"roundToStart\":1,\"customCardDeck\":[{\"Card\":{\"value\":7,\"type\":\"clubs\"}},{\"Card\":{\"value\":8,\"type\":\"clubs\"}},{\"Card\":{\"value\":5,\"type\":\"clubs\"}},{\"Card\":{\"value\":3,\"type\":\"clubs\"}}]},\"timerOption\":{\"timerType\":\"noTimer\",\"timeAtStartInSeconds\":0,\"timeForEachRoundInSeconds\":0},\"computerControlledPlayerCount\":1,\"opponentCards\":\"showOpponentCards\"}")
                                 }
                             ],
                         },
