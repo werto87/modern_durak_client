@@ -9,11 +9,16 @@
       "typeCount":4,
       "numberOfCardsPlayerShouldHave":6,
       "roundToStart":1,
-      "customCardDeck":null},
+      "customCardDeck":null
+    },
     "timerOption":{
       "timerType":"noTimer",
       "timeAtStartInSeconds":0,
-      "timeForEachRoundInSeconds":0}};
+      "timeForEachRoundInSeconds":0
+    },
+    "computerControlledPlayerCount":0,
+    "opponentCards":"showNumberOfOpponentCards"
+  };
   export let timerOptionSelected = 0;
   export let deckOptionSelected = 0;
   export let isCreateGameLobbyAdmin = true;
@@ -73,7 +78,8 @@
                 timeAtStartInSeconds: timeAtStartInSecondsArray[0],
                 timeForEachRoundInSeconds: timeForEachRoundInSecondsArray[0]
               },
-              computerControlledPlayerCount:computerControlledOpponentArray?0:computerControlledOpponentArray[0],
+              computerControlledPlayerCount:computerControlledOpponentArray?computerControlledOpponentArray[0]:0,
+              opponentCards:"showNumberOfOpponentCards"
             })
   };
 
