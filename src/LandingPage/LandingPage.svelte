@@ -1,10 +1,12 @@
 <script lang="ts">
     import { createEventDispatcher } from "svelte";
     import { v4 as uuidv4 } from 'uuid';
+    import Button from "../component/ModernDurakButton.svelte";
 
     export let loginState: string = null;
     let dispatch = createEventDispatcher();
     import { sendMessageToWebsocket } from "../Webservice/store.js";
+    import ModernDurakButton from "../component/ModernDurakButton.svelte";
     const quickPressed = () => {
         if (!loginState) {
             sendMessageToWebsocket("LoginAsGuest|{}");
@@ -43,29 +45,18 @@
 
 
     <div class="p-8 bg-amber-300">
-        <div class="grid grid-cols-1 ">
+        <div class="grid grid-cols-1 space-y-5">
             <h1 class="text-center">Chose Game Mode</h1>
-            <button class="btn btn-blue" on:click={quickPressed}>Quick</button>
-            <button on:click={rankedPressed}>Ranked</button>
-            <button on:click={puzzlePressed}>Puzzle</button>
-            <button on:click={customPressed}>Custom</button>
+            <ModernDurakButton buttonText="Quick" onClick={quickPressed}/>
+            <ModernDurakButton buttonText="Ranked" onClick={rankedPressed}/>
+            <ModernDurakButton buttonText="Puzzle" onClick={puzzlePressed}/>
+            <ModernDurakButton buttonText="Custom" onClick={customPressed}/>
             {#if loginState}
-                <button on:click={logout}>Logout</button>
+                <ModernDurakButton buttonText="Logout" onClick={logout}/>
             {:else}
-                <button on:click={login}>Login</button>
+                <ModernDurakButton buttonText="Login" onClick={login}/>
             {/if}
         </div>
     </div>
 
 
-<style>
-    .btn {
-        @apply font-bold py-2 px-4 rounded;
-    }
-    .btn-blue {
-        @apply bg-blue-500 text-white;
-    }
-    .btn-blue:hover {
-        @apply bg-blue-700;
-    }
-</style>
