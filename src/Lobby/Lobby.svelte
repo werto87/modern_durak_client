@@ -3,6 +3,7 @@
     import { createForm } from "svelte-forms-lib";
     import { toast } from "@zerodevx/svelte-toast";
     import { sendMessageToWebsocket } from "../Webservice/store.js";
+    import ModernDurakButton from "../component/ModernDurakButton.svelte";
     const logout = () => {
         sendMessageToWebsocket("LogoutAccount|{}");
     };
@@ -64,7 +65,7 @@
             on:change={form1.handleChange}
             bind:value={form1.password}
         />
-        <button type="submit">Create Game Lobby</button>
+        <ModernDurakButton type="submit" buttonText="Create Game Lobby"/>
     </form>
     <form on:submit={form2.handleSubmit}>
         <label for="name">Channel Name</label>
@@ -82,7 +83,7 @@
             on:change={form2.handleChange}
             bind:value={form2.form.password}
         />
-        <button type="submit">Join Game Lobby</button>
+        <ModernDurakButton type="submit" buttonText="Join Game Lobby"/>
     </form>
-    <button on:click={logout}>Logout</button>
+    <ModernDurakButton onClick={logout} buttonText="Logout"/>
 </div>

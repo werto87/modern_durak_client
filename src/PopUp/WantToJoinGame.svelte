@@ -1,6 +1,7 @@
 <script>
     import { sendMessageToWebsocket } from "../Webservice/store.js";
     import { toast } from "@zerodevx/svelte-toast";
+    import ModernDurakButton from "../component/ModernDurakButton.svelte";
     const userPressedNo = () => {
         toast.pop();
         sendMessageToWebsocket(
@@ -19,8 +20,8 @@
     <!-- TODO add animtation while waiting -->
 
     <h1>Game found do you want to join?</h1>
-    <button on:click={userPressedYes}>Yes</button>
-    <button on:click={userPressedNo}>No</button>
+    <ModernDurakButton onClick={userPressedYes} buttonText="Yes"/>
+    <ModernDurakButton onClick={userPressedNo} buttonText="No"/>
 </main>
 
 

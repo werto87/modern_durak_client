@@ -72,6 +72,7 @@
 
     import { Col, Row } from "svelte-layouts";
     import CardsInDeck from "./State/CardsInDeck.svelte";
+    import ModernDurakButton from "../component/ModernDurakButton.svelte";
 </script>
 
 {#if GameData}
@@ -105,56 +106,50 @@
         </Row>
         {#if playerRole == "defend"}
             {#if isAllowedMove(DurakAllowedMoves, "TakeCards")}
-                <button
-                    on:click={() => {
+                <ModernDurakButton
+                    onClick={() => {
                         drawCardsFromTable();
-                    }}>Take Cards from Table</button
-                ><br />
+                    }}  buttonText="Take Cards from Table"/><br />
             {:else}
-                <button
+                <ModernDurakButton
                     disabled={!isAllowedMove(
                         DurakAllowedMoves,
                         "AnswerDefendWantsToTakeCardsYes"
                     ) || undefined}
-                    on:click={() => {
+                    onClick={() => {
                         durakAskDefendWantToTakeCardsAnswerYes();
-                    }}>Take Cards from Table</button
-                ><br />
+                    }}  buttonText="Take Cards from Table"/><br />
             {/if}
-            <button
+            <ModernDurakButton
                 disabled={!isAllowedMove(
                     DurakAllowedMoves,
                     "AnswerDefendWantsToTakeCardsNo"
                 ) || undefined}
-                on:click={() => {
+                onClick={() => {
                     durakAskDefendWantToTakeCardsAnswerNo();
-                }}>Discard Cards from Table</button
-            ><br />
+                }}  buttonText="Discard Cards from Table"/><br />
         {:else if playerRole == "attack" || playerRole == "assistAttacker"}
-            <button
+            <ModernDurakButton
                 disabled={!isAllowedMove(
                     DurakAllowedMoves,
                     "AttackAssistPass"
                 ) || undefined}
-                on:click={() => {
+                onClick={() => {
                     pass();
-                }}>Pass</button
-            ><br />
-            <button
+                }} buttonText="Pass"/><br />
+            <ModernDurakButton
                 disabled={!isAllowedMove(
                     DurakAllowedMoves,
                     "AttackAssistDoneAddingCards"
                 ) || undefined}
-                on:click={() => {
+                onClick={() => {
                     pass();
-                }}>Done adding Cards</button
-            ><br />
+                }} buttonText="Done adding Cards"/><br />
         {/if}
-        <button
-            on:click={() => {
+        <ModernDurakButton
+            onClick={() => {
                 surrender();
-            }}>Surrender</button
-        ><br />
+            }}  buttonText="Surrender"/><br />
     </main>
 {/if}
 

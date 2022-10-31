@@ -11,6 +11,7 @@
     import { sendMessageToWebsocket } from "../Webservice/store.js";
 
     import { createForm } from "svelte-forms-lib";
+    import ModernDurakButton from "../component/ModernDurakButton.svelte";
 
     const { form, errors, state, handleChange, handleSubmit } = createForm({
         initialValues: {
@@ -53,8 +54,8 @@
         on:change={handleChange}
         bind:value={$form.password}
     />
-    <button type="submit">Sign in</button>
+    <ModernDurakButton type="submit" buttonText="Sign in"/>
 </form>
-<button on:click={createNewAccount}>Create new Account</button>
-<button on:click={cancel}>Cancel</button>
+<ModernDurakButton onClick={createNewAccount} buttonText="Create new Account"/>
+<ModernDurakButton onClick={cancel} buttonText="Cancel"/>
 

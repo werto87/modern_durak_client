@@ -3,6 +3,7 @@
     let dispatch = createEventDispatcher();
     export let destination: string;
     import { sendMessageToWebsocket } from "../Webservice/store.js";
+    import ModernDurakButton from "../component/ModernDurakButton.svelte";
     const lobby = () => {
         sendMessageToWebsocket(
             "RelogTo|" + JSON.stringify({ wantsToRelog: false })
@@ -18,7 +19,6 @@
 
 <main>
     <h1>Do You Want Relog To {destination}?</h1>
-    <button on:click={lobby}>No</button>
-    <button on:click={backToCreateGameLobby}>Yes! Relog to {destination}</button
-    >
+    <ModernDurakButton onClick={lobby} buttonText="No"/>
+    <ModernDurakButton onClick={backToCreateGameLobby} buttonText="Yes! Relog to {destination}"/>
 </main>

@@ -1,4 +1,6 @@
 <script lang="ts">
+    import ModernDurakButton from "../component/ModernDurakButton.svelte";
+
     export let message: string;
     import { createEventDispatcher } from "svelte";
     let dispatch = createEventDispatcher();
@@ -9,6 +11,6 @@
 
 <main>
     <h1>{message}</h1>
-    <button on:click={close}>Close</button>
+    <ModernDurakButton onClick={close} buttonText="Close"/>
 </main>
 

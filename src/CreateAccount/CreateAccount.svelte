@@ -35,6 +35,7 @@
         },
     };
     import { createForm } from "svelte-forms-lib";
+    import ModernDurakButton from "../component/ModernDurakButton.svelte";
     const { form, errors, state, handleChange, handleSubmit } = createForm({
         initialValues: {
             accountName: "",
@@ -89,15 +90,15 @@
             on:change={handleChange}
             bind:value={$form.repeatPassword}
         />
-        <button type="submit">Sign in</button>
+        <ModernDurakButton type="submit"  buttonText="Sign in"/>
     </form>
-    <button
-        on:click={() => {
+    <ModernDurakButton
+        onClick={() => {
             backToLogin();
-        }}>Back</button
+        }}>Back</ModernDurakButton
     >
 
     <div>
-        <button on:click={cancel}>Cancel</button>
+        <ModernDurakButton onClick={cancel}  buttonText="Cancel"/>
     </div>
 </div>

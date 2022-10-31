@@ -2,6 +2,7 @@
   import RangeSlider from "svelte-range-slider-pips";
   import { printCard } from "../Game/Board/helper";
   import { toast } from "@zerodevx/svelte-toast";
+  import ModernDurakButton from "../component/ModernDurakButton.svelte";
   export let UsersInGameLobby = null;
   export let GameOption={
     "gameOption":{
@@ -274,13 +275,12 @@
             on:change={handleChange}
             bind:value={$form.createDeckArray}
           />
-          <button type="submit">Create Card Deck from Json Array</button>
+          <ModernDurakButton type="submit" buttonText="Create Card Deck from Json Array"/>
         </form>
-        <button
-          on:click={() => {
+        <ModernDurakButton
+          onClick={() => {
             exampleDeck();
-          }}>Use example Deck with 36 Cards</button
-        >
+          }}  buttonText="Use example Deck with 36 Cards"/>
       {/if}
       {#if GameOption.gameOption.customCardDeck && GameOption.gameOption.customCardDeck.length >= 1}
         <div>
@@ -359,12 +359,12 @@
 
 {#if isCreateGameLobbyAdmin}
   <div>
-    <button on:click={startGame}>Start Game</button>
+    <ModernDurakButton onClick={startGame} buttonText="Start Game"/>
   </div>
 {/if}
 
 <div>
-  <button on:click={leaveGameLobby}>Leave Game Lobby</button>
+  <ModernDurakButton onClick={leaveGameLobby}  buttonText="Leave Game Lobby"/>
 </div>
 
 

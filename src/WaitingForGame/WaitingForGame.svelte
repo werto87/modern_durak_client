@@ -1,6 +1,7 @@
 <script>
     import { sendMessageToWebsocket } from "../Webservice/store.js";
     import { createEventDispatcher } from "svelte";
+    import ModernDurakButton from "../component/ModernDurakButton.svelte";
     let dispatch = createEventDispatcher();
     export let isRanked = false;
     const userPressedNo = () => {
@@ -36,14 +37,14 @@
     <!-- TODO add animtation while waiting -->
     <h1>Waiting For Game</h1>
     {#if waitingState == "waitForGame"}
-        <button on:click={backLeaveQueueAndBackToLandingPage}>Cancel</button>
+        <ModernDurakButton onClick={backLeaveQueueAndBackToLandingPage} buttonText="Cancel"/>
     {:else if waitingState == "waitForAnswer"}
         <h1>Game found do you want to join?</h1>
-        <button on:click={userPressedYes}>Yes</button>
-        <button on:click={userPressedNo}>No</button>
+        <ModernDurakButton onClick={userPressedYes} buttonText="Yes"/>
+        <ModernDurakButton onClick={userPressedNo} buttonText="No"/>
     {:else if waitingState == "retryAfterStartGameFailed"}
-        <button on:click={JoinMatchMakingQueue}>Join Quick Game Queue</button>
-        <button on:click={backToLandingPage}>Cancel</button>
+        <ModernDurakButton onClick={JoinMatchMakingQueue} buttonText="Join Quick Game Queue"/>
+        <ModernDurakButton onClick={backToLandingPage} buttonText="Cancel"/>
     {/if}
 </main>
 

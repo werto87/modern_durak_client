@@ -4,7 +4,6 @@
         SHADOW_ITEM_MARKER_PROPERTY_NAME,
     } from "svelte-dnd-action";
     import { printCard } from "./helper.js";
-
     export let dropFromOthersDisabled;
     export let cardToBeat;
     let items = [];

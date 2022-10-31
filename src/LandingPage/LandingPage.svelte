@@ -44,9 +44,9 @@
 </script>
 
 
-    <div class="p-8 bg-amber-300">
+
         <div class="grid grid-cols-1 space-y-5">
-            <h1 class="text-center">Chose Game Mode</h1>
+            <h1 class="text-center font-bold">Chose Game Mode</h1>
             <ModernDurakButton buttonText="Quick" onClick={quickPressed}/>
             <ModernDurakButton buttonText="Ranked" onClick={rankedPressed}/>
             <ModernDurakButton buttonText="Puzzle" onClick={puzzlePressed}/>
@@ -57,6 +57,6 @@
                 <ModernDurakButton buttonText="Login" onClick={login}/>
             {/if}
         </div>
-    </div>
+
 
 

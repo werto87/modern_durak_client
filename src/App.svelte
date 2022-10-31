@@ -49,6 +49,7 @@
 
   //TODO fix problems with autofill passwords
   import { createForm } from "svelte-forms-lib";
+  import ModernDurakButton from "./component/ModernDurakButton.svelte";
   const { form, errors, state, handleChange, handleSubmit } = createForm({
     initialValues: {
       message: "",
@@ -117,16 +118,15 @@
   />
 
   {#if !isProduction}
-    <form on:submit={handleSubmit}>
-      <label for="accountName">Message</label>
-      <input
+    <form  class="p-8" on:submit={handleSubmit}>
+      <label for="accountName">Message: </label>
+      <input class="border-2 "
               id="accountName"
               name="accountName"
               on:change={handleChange}
               bind:value={$form.message}
       />
-
-      <button type="submit">Send</button>
+      <ModernDurakButton type="submit" buttonText="Send" />
     </form>
   {/if}
 
