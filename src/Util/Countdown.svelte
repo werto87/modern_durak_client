@@ -19,5 +19,3 @@
 
 <slot {countdown} />
 
-<style>
-</style>

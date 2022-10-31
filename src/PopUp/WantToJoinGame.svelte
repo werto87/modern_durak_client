@@ -23,5 +23,4 @@
     <button on:click={userPressedNo}>No</button>
 </main>
 
-<style>
-</style>
+

@@ -47,5 +47,3 @@
     {/if}
 </main>
 
-<style>
-</style>

@@ -74,17 +74,3 @@
     {/each}
 </section>
 
-<style>
-    section {
-        width: 100%;
-        height: 100%;
-        border-radius: 10px !important;
-    }
-    div {
-        width: 100%;
-        height: 100%;
-        text-align: center;
-        background: #0e3b93;
-        border-radius: 10px !important;
-    }
-</style>

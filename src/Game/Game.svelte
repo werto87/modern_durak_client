@@ -158,25 +158,3 @@
     </main>
 {/if}
 
-<style>
-    :global(.gameRow) {
-        display: flex;
-        flex-grow: 3;
-        border-style: solid;
-        border-color: #cccccc;
-        margin: 3px;
-    }
-    :global(.gameCol) {
-        display: flex;
-        flex-grow: 3;
-        margin-bottom: 3px;
-    }
-    :global(.overView) {
-        min-width: 10em;
-        display: flex;
-        margin: 3px;
-    }
-    :global(#playerStatus) {
-        text-align: left;
-    }
-</style>

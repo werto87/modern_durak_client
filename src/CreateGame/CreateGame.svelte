@@ -367,5 +367,4 @@
   <button on:click={leaveGameLobby}>Leave Game Lobby</button>
 </div>
 
-<style>
-</style>
+

@@ -47,20 +47,3 @@
     {/each}
 </section>
 
-<style>
-    section {
-        height: 100%;
-    }
-
-    :global(.custom-shadow-item) {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        visibility: visible;
-        background-color: #0f292f;
-        opacity: 0.5;
-        margin: 0;
-    }
-</style>

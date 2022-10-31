@@ -41,22 +41,31 @@
     };
 </script>
 
-<main>
-    <div class="grid-container">
-        <div class="grid-header" id="grid-item0">
-            <h1>Chose Game Mode</h1>
+
+    <div class="p-8 bg-amber-300">
+        <div class="grid grid-cols-1 ">
+            <h1 class="text-center">Chose Game Mode</h1>
+            <button class="btn btn-blue" on:click={quickPressed}>Quick</button>
+            <button on:click={rankedPressed}>Ranked</button>
+            <button on:click={puzzlePressed}>Puzzle</button>
+            <button on:click={customPressed}>Custom</button>
+            {#if loginState}
+                <button on:click={logout}>Logout</button>
+            {:else}
+                <button on:click={login}>Login</button>
+            {/if}
         </div>
-        <button on:click={quickPressed}>Quick</button>
-        <button on:click={rankedPressed}>Ranked</button>
-        <button on:click={puzzlePressed}>Puzzle</button>
-        <button on:click={customPressed}>Custom</button>
-        {#if loginState}
-            <button on:click={logout}>Logout</button>
-        {:else}
-            <button on:click={login}>Login</button>
-        {/if}
     </div>
-</main>
+
 
 <style>
+    .btn {
+        @apply font-bold py-2 px-4 rounded;
+    }
+    .btn-blue {
+        @apply bg-blue-500 text-white;
+    }
+    .btn-blue:hover {
+        @apply bg-blue-700;
+    }
 </style>

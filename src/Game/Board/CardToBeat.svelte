@@ -61,16 +61,3 @@
     </section>
 </div>
 
-<style>
-    section {
-        flex-grow: 1;
-        border-radius: 10px;
-    }
-    .container {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        border-radius: 10px;
-    }
-</style>

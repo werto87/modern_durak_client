@@ -58,9 +58,3 @@
 <button on:click={createNewAccount}>Create new Account</button>
 <button on:click={cancel}>Cancel</button>
 
-<style>
-    :global(.form-error) {
-        color: #ff3e00;
-        margin: 5px;
-    }
-</style>
