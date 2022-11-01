@@ -1,6 +1,5 @@
 <script>
     import CardToBeat from "./CardToBeat.svelte";
-    import { Item, Row, Col } from "svelte-layouts";
     import PlayerCards from "./PlayerCards.svelte";
     import PlayCard from "./PlayCard.svelte";
     import { allowedToPlayDefend } from "./helper.js";
@@ -178,16 +177,16 @@
 <!-- Table -->
 
 {#if playerRole == "attack" || playerRole == "assistAttacker"}
-    <Row class="boardRow">
+<!--    <Row class="boardRow">-->
         <div class="layer1">
             <PlayCard {cardDroppedToAttackCallback} />
         </div>
-        <Row class="layer2">
+<!--        <Row class="layer2">-->
             {#if table.length == 0}
-                <Item class="fill" />
+<!--                <Item class="fill" />-->
             {:else}
                 {#each cardsOnTable as cardToBeatAndCard (cardToBeatAndCard.id)}
-                    <Col class="cardItem">
+<!--                    <Col class="cardItem">-->
                         <span
                             class={cardToBeatAndCard.cardToBeatAndCard[0].Card
                                 .type === "hearts" ||
@@ -222,18 +221,18 @@
                                 </span>
                             </div>
                         {/if}
-                    </Col>
+<!--                    </Col>-->
                 {/each}
             {/if}
-        </Row>
-    </Row>
+<!--        </Row>-->
+<!--    </Row>-->
 {:else}
-    <Row class="boardRow">
+<!--    <Row class="boardRow">-->
         {#if table.length == 0}
-            <Item class="fill" />
+<!--            <Item class="fill" />-->
         {:else}
             {#each beatenCardsWithCards as beatenCardWithCard (beatenCardWithCard.id)}
-                <Col
+<!--                <Col-->
                     class="cardItem"
                     id={beatenCardWithCard.beatenCard.type === "hearts" ||
                     beatenCardWithCard.beatenCard.type === "diamonds"
@@ -263,33 +262,34 @@
                             </p>
                         </span>
                     </div>
-                </Col>
+<!--                </Col>-->
             {/each}
             {#each cardsToBeat as cardToBeat, i (cardToBeat.id)}
-                <Item class="cardItem">
+<!--                <Item class="cardItem">-->
                     <CardToBeat
                         {cardToBeat}
                         bind:dropFromOthersDisabled={dropFromOthersDisabled[i]}
                         {cardBeatenCallback}
                     />
-                </Item>
+<!--                </Item>-->
             {/each}
         {/if}
-    </Row>
+<!--    </Row>-->
 {/if}
 <!-- Player Cards -->
-<Row class="boardRow">
+<!--<Row class="boardRow">-->
     {#if playerCardsWithId.length != 0}
         {#each playerCardsWithId as card (card.id)}
-            <Item
-                class={shouldDragBeDisabled(
-                    card.id,
-                    playerCardsWithId,
-                    cardsAllowedToPlay
-                )
-                    ? "cardItem"
-                    : "dragableCardItem"}
-                ><PlayerCards
+<!--            <Item-->
+<!--                class={shouldDragBeDisabled(-->
+<!--                    card.id,-->
+<!--                    playerCardsWithId,-->
+<!--                    cardsAllowedToPlay-->
+<!--                )-->
+<!--                    ? "cardItem"-->
+<!--                    : "dragableCardItem"}-->
+<!--                >-->
+                <PlayerCards
                     item={card}
                     {cardsToBeat}
                     bind:dropFromOthersDisabled
@@ -299,11 +299,11 @@
                         cardsAllowedToPlay
                     )}
                     {trump}
-                /></Item
-            >
+                />
+<!--            </Item>-->
         {/each}
     {:else}
-        <Item class="fill" />
+<!--        <Item class="fill" />-->
     {/if}
-</Row>
+<!--</Row>-->
 

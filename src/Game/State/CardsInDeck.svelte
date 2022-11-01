@@ -1,6 +1,5 @@
 <script>
     import cardDeckIcon from "../../asset/icons/deck.svg";
-    import { Item } from "svelte-layouts";
     import { printCard, printType } from "../Board/helper.js";
     export let GameData = null;
 </script>
@@ -15,7 +14,7 @@
 
             {#if GameData.lastCardInDeck}
                 <div class="lastCardInDeck">
-                    <Item class="smallCardItem">
+<!--                    <Item class="smallCardItem">-->
                         <span
                             class={GameData.lastCardInDeck.type === "hearts" ||
                             GameData.lastCardInDeck.type === "diamonds"
@@ -26,13 +25,13 @@
                                 {printCard(GameData.lastCardInDeck)}
                             </p>
                         </span>
-                    </Item>
+<!--                    </Item>-->
                 </div>
             {/if}
         </div>
     {:else if GameData.lastCardInDeck}
         <div class="onlyOneCardInDeck">
-            <Item class="smallCardItem">
+<!--            <Item class="smallCardItem">-->
                 <span
                     class={GameData.lastCardInDeck.type === "hearts" ||
                     GameData.lastCardInDeck.type === "diamonds"
@@ -41,7 +40,7 @@
                 >
                     <p class="cardText">{printCard(GameData.lastCardInDeck)}</p>
                 </span>
-            </Item>
+<!--            </Item>-->
         </div>
     {:else}
         <p>
