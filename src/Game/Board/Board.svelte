@@ -177,16 +177,12 @@
 <!-- Table -->
 
 {#if playerRole == "attack" || playerRole == "assistAttacker"}
-<!--    <Row class="boardRow">-->
         <div class="layer1">
             <PlayCard {cardDroppedToAttackCallback} />
         </div>
-<!--        <Row class="layer2">-->
             {#if table.length == 0}
-<!--                <Item class="fill" />-->
             {:else}
                 {#each cardsOnTable as cardToBeatAndCard (cardToBeatAndCard.id)}
-<!--                    <Col class="cardItem">-->
                         <span
                             class={cardToBeatAndCard.cardToBeatAndCard[0].Card
                                 .type === "hearts" ||
@@ -221,18 +217,12 @@
                                 </span>
                             </div>
                         {/if}
-<!--                    </Col>-->
                 {/each}
             {/if}
-<!--        </Row>-->
-<!--    </Row>-->
 {:else}
-<!--    <Row class="boardRow">-->
         {#if table.length == 0}
-<!--            <Item class="fill" />-->
         {:else}
             {#each beatenCardsWithCards as beatenCardWithCard (beatenCardWithCard.id)}
-<!--                <Col-->
                     class="cardItem"
                     id={beatenCardWithCard.beatenCard.type === "hearts" ||
                     beatenCardWithCard.beatenCard.type === "diamonds"
@@ -262,33 +252,19 @@
                             </p>
                         </span>
                     </div>
-<!--                </Col>-->
             {/each}
             {#each cardsToBeat as cardToBeat, i (cardToBeat.id)}
-<!--                <Item class="cardItem">-->
                     <CardToBeat
                         {cardToBeat}
                         bind:dropFromOthersDisabled={dropFromOthersDisabled[i]}
                         {cardBeatenCallback}
                     />
-<!--                </Item>-->
             {/each}
         {/if}
-<!--    </Row>-->
 {/if}
 <!-- Player Cards -->
-<!--<Row class="boardRow">-->
     {#if playerCardsWithId.length != 0}
         {#each playerCardsWithId as card (card.id)}
-<!--            <Item-->
-<!--                class={shouldDragBeDisabled(-->
-<!--                    card.id,-->
-<!--                    playerCardsWithId,-->
-<!--                    cardsAllowedToPlay-->
-<!--                )-->
-<!--                    ? "cardItem"-->
-<!--                    : "dragableCardItem"}-->
-<!--                >-->
                 <PlayerCards
                     item={card}
                     {cardsToBeat}
@@ -300,10 +276,7 @@
                     )}
                     {trump}
                 />
-<!--            </Item>-->
         {/each}
     {:else}
-<!--        <Item class="fill" />-->
     {/if}
-<!--</Row>-->
 

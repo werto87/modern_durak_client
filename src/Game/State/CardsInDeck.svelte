@@ -14,7 +14,6 @@
 
             {#if GameData.lastCardInDeck}
                 <div class="lastCardInDeck">
-<!--                    <Item class="smallCardItem">-->
                         <span
                             class={GameData.lastCardInDeck.type === "hearts" ||
                             GameData.lastCardInDeck.type === "diamonds"
@@ -25,13 +24,11 @@
                                 {printCard(GameData.lastCardInDeck)}
                             </p>
                         </span>
-<!--                    </Item>-->
                 </div>
             {/if}
         </div>
     {:else if GameData.lastCardInDeck}
         <div class="onlyOneCardInDeck">
-<!--            <Item class="smallCardItem">-->
                 <span
                     class={GameData.lastCardInDeck.type === "hearts" ||
                     GameData.lastCardInDeck.type === "diamonds"
@@ -40,7 +37,6 @@
                 >
                     <p class="cardText">{printCard(GameData.lastCardInDeck)}</p>
                 </span>
-<!--            </Item>-->
         </div>
     {:else}
         <p>
