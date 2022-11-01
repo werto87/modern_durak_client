@@ -27,8 +27,8 @@
 <div class="container">
     <div
         class={cardToBeat.type === "hearts" || cardToBeat.type === "diamonds"
-            ? "redText"
-            : "greenText"}
+            ? "text-red-500"
+            : "text-green-500"}
     >
         <p class="cardText">{printCard(cardToBeat)}</p>
         <p />
@@ -47,8 +47,8 @@
         {#each items as item (item.id)}
             <div
                 class={item.type === "hearts" || item.type === "diamonds"
-                    ? "redText"
-                    : "greenText"}
+                    ? "text-red-500"
+                    : "text-green-500"}
             >
                 <p class="cardText">{printCard(item)}</p>
                 <p />

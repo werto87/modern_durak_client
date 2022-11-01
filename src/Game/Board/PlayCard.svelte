@@ -34,16 +34,18 @@
     on:consider={handleDndConsider}
     on:finalize={handleDndFinalize}
 >
+
     {#each items as item (item.id)}
         <div
             class={item.type === "hearts" || item.type === "diamonds"
-                ? "redText"
-                : "greenText"}
+                ? "text-red-500"
+                : "text-green-500"}
         >
             {#if item[SHADOW_ITEM_MARKER_PROPERTY_NAME]}
                 <div class="custom-shadow-item" />
             {/if}
         </div>
     {/each}
+
 </section>
 

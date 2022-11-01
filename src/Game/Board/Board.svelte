@@ -181,6 +181,7 @@
             <PlayCard {cardDroppedToAttackCallback} />
         </div>
             {#if table.length == 0}
+                PLACE HOLDER TABLE
             {:else}
                 {#each cardsOnTable as cardToBeatAndCard (cardToBeatAndCard.id)}
                         <span
@@ -188,8 +189,8 @@
                                 .type === "hearts" ||
                             cardToBeatAndCard.cardToBeatAndCard[0].Card.type ===
                                 "diamonds"
-                                ? "redText"
-                                : "greenText"}
+                                ? "text-red-500"
+                                : "text-green-500"}
                         >
                             <p class="cardText">
                                 {printCard(
@@ -205,8 +206,8 @@
                                         "hearts" ||
                                     cardToBeatAndCard.cardToBeatAndCard[1].Card
                                         .type === "diamonds"
-                                        ? "redText"
-                                        : "greenText"}
+                                        ? "text-red-500"
+                                        : "text-green-500"}
                                 >
                                     <p class="cardText">
                                         {printCard(
@@ -226,15 +227,15 @@
                     class="cardItem"
                     id={beatenCardWithCard.beatenCard.type === "hearts" ||
                     beatenCardWithCard.beatenCard.type === "diamonds"
-                        ? "redText"
-                        : "greenText"}
+                        ? "text-red-500"
+                        : "text-green-500"}
                 >
                     <span
                         class={beatenCardWithCard.beatenCard.type ===
                             "hearts" ||
                         beatenCardWithCard.beatenCard.type === "diamonds"
-                            ? "redText"
-                            : "greenText"}
+                            ? "text-red-500"
+                            : "text-green-500"}
                     >
                         <p class="cardText">
                             {printCard(beatenCardWithCard.beatenCard)}
@@ -244,8 +245,8 @@
                         <span
                             class={beatenCardWithCard.card.type === "hearts" ||
                             beatenCardWithCard.card.type === "diamonds"
-                                ? "redText"
-                                : "greenText"}
+                                ? "text-red-500"
+                                : "text-green-500"}
                         >
                             <p class="cardText">
                                 {printCard(beatenCardWithCard.card)}
@@ -264,6 +265,7 @@
 {/if}
 <!-- Player Cards -->
     {#if playerCardsWithId.length != 0}
+        <div class="flex space-x-1">
         {#each playerCardsWithId as card (card.id)}
                 <PlayerCards
                     item={card}
@@ -277,6 +279,7 @@
                     {trump}
                 />
         {/each}
+        </div>
     {:else}
     {/if}
 

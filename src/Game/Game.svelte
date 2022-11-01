@@ -76,6 +76,7 @@
 
 {#if GameData}
     <main>
+        <div class="grid grid-cols-1 px-4 space-y-4">
         <h1 class="text-lg font-bold text-center">Game</h1>
                 <Board
                     bind:playerRole
@@ -97,7 +98,6 @@
                         <OtherPlayerState {player} {DurakTimers} />
                     {/if}
                 {/each}
-        <div class="grid grid-cols-1 px-4 space-y-4">
         {#if playerRole == "defend"}
             {#if isAllowedMove(DurakAllowedMoves, "TakeCards")}
                 <ModernDurakButton

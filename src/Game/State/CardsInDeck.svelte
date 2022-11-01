@@ -17,8 +17,8 @@
                         <span
                             class={GameData.lastCardInDeck.type === "hearts" ||
                             GameData.lastCardInDeck.type === "diamonds"
-                                ? "redText"
-                                : "greenText"}
+                                ? "text-red-500"
+                                : "text-green-500"}
                         >
                             <p class="cardText">
                                 {printCard(GameData.lastCardInDeck)}
@@ -32,8 +32,8 @@
                 <span
                     class={GameData.lastCardInDeck.type === "hearts" ||
                     GameData.lastCardInDeck.type === "diamonds"
-                        ? "redText"
-                        : "greenText"}
+                        ? "text-red-500"
+                        : "text-green-500"}
                 >
                     <p class="cardText">{printCard(GameData.lastCardInDeck)}</p>
                 </span>
@@ -44,8 +44,8 @@
             <span
                 class={GameData.trump === "hearts" ||
                 GameData.trump === "diamonds"
-                    ? "redText"
-                    : "greenText"}
+                    ? "text-red-500"
+                    : "text-green-500"}
             >
                 {printType(GameData.trump)}
             </span>

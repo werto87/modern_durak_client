@@ -64,8 +64,8 @@
     {#each items as item (item.id)}
         <div
             class={item.type === "hearts" || item.type === "diamonds"
-                ? "redText"
-                : "greenText"}
+                ? "text-red-500"
+                : "text-green-500"}
         >
             <div class="dragItem">
                 <p class="cardText">{printCard(item)}</p>
