@@ -65,8 +65,6 @@
     );
   };
 
-
-
   const createGameOption = (deck) => {
     return "GameOption|" +
             JSON.stringify({
@@ -155,7 +153,6 @@
     initialValues: {
       createDeckArray: "",
     },
-
     validate: (values) => {
       let errs = {};
       if (values.createDeckArray === "") {
@@ -209,9 +206,9 @@
   });
 </script>
 
+<div class="grid grid-cols-1 px-4 space-y-4">
 {#if UsersInGameLobby}
   <h1 class="text-lg font-bold text-center">Create Game</h1>
-  <div>
     <label for="maxUserCount">Max User Count</label>
     <RangeSlider
       id="slider"
@@ -225,6 +222,8 @@
       max={10}
       on:change={maxUserCountChanged}
     />
+  <br/>
+  <br/>
     <label for="computerControlledOpponent">Computer Controlled Opponent</label>
     <RangeSlider
             id="slider"
@@ -238,7 +237,8 @@
             max={5}
             on:change={computerControlledOpponentChanged}
     />
-
+  <br/>
+  <br/>
     <label for="deckType">Deck Type</label>
     <select
       bind:value={deckOptionSelected}
@@ -263,11 +263,13 @@
         max={40}
         on:change={gameOptionChanged}
       />
+      <br/>
+      <br/>
     {:else}
       {#if isCreateGameLobbyAdmin}
-        <form on:submit={handleSubmit}>
+        <form class="grid grid-cols-1 space-y-4 " on:submit={handleSubmit}>
           <label for="createDeckArray">Create Deck from Array</label>
-          <input
+          <input class="border-2"
             id="createDeckArray"
             name="createDeckArray"
             on:change={handleChange}
@@ -280,26 +282,25 @@
             exampleDeck();
           }}  buttonText="Use example Deck with 36 Cards"/>
       {/if}
+      <!--TODO CARD COLOR-->
       {#if GameOption.gameOption.customCardDeck && GameOption.gameOption.customCardDeck.length >= 1}
-        <div>
           <label for="">Cards in Deck</label>
+        <div class="flex">
           {#each GameOption.gameOption.customCardDeck as card}
-            <span
-              class={card.Card.type === "hearts" ||
+            <p
+                    class={card.Card.type === "hearts" ||
               card.Card.type === "diamonds"
-                ? "redText"
-                : "greenText"}
+                ? "text-red-500"
+                : "text-green-500"}
             >
-              <p class="cardText">{printCard(card.Card)}&nbsp;</p>
-            </span>
+              {printCard(card.Card)}&nbsp;&nbsp;
+            </p>
           {/each}
         </div>
       {:else}
         <p>No Cards in Deck</p>
       {/if}
     {/if}
-  </div>
-  <div>
     <label for="opponentCardsOption">Opponent Cards Option</label>
     <select
             bind:value={opponentCardsOptionsSelected}
@@ -333,6 +334,8 @@
         max={200}
         on:change={timerOptionChanged}
       />
+      <br/>
+      <br/>
       <label for="timeForEachRound">Time for each Round</label>
       <RangeSlider
         id="slider"
@@ -345,23 +348,17 @@
         max={50}
         on:change={timerOptionChanged}
       />
+      <br/>
+      <br/>
     {/if}
-  </div>
-
-  <div>
+  <p>Users in Game Lobby</p>
     {#each UsersInGameLobby.users as user}
       <p>{user.UserInGameLobby.accountName}</p>
     {/each}
-  </div>
 {/if}
-
 {#if isCreateGameLobbyAdmin}
-  <div>
     <ModernDurakButton onClick={startGame} buttonText="Start Game"/>
-  </div>
 {/if}
-
-<div>
   <ModernDurakButton onClick={leaveGameLobby}  buttonText="Leave Game Lobby"/>
 </div>
 
