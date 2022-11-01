@@ -76,8 +76,8 @@
 
 {#if GameData}
     <main>
-        <div class="grid grid-cols-1 px-4 space-y-4">
-        <h1 class="text-lg font-bold text-center">Game</h1>
+        <div class="grid grid-cols-3 px-4 space-y-4">
+        <h1 class="text-lg font-bold text-center col-span-full">Game</h1>
                 <Board
                     bind:playerRole
                     bind:playerCards
@@ -87,6 +87,8 @@
                     {cardDroppedToAttackCallback}
                     bind:allowedMoves={DurakAllowedMoves}
                 />
+
+            <div>
                 <CardsInDeck {GameData} />
                 {#each GameData.players as player}
                     {#if player.PlayerData.name == accountName}
@@ -98,6 +100,8 @@
                         <OtherPlayerState {player} {DurakTimers} />
                     {/if}
                 {/each}
+            </div>
+            <div class="grid grid-cols-1 col-span-full px-4 space-y-4">
         {#if playerRole == "defend"}
             {#if isAllowedMove(DurakAllowedMoves, "TakeCards")}
                 <ModernDurakButton
@@ -144,6 +148,7 @@
             onClick={() => {
                 surrender();
             }}  buttonText="Surrender"/><br />
+            </div>
         </div>
     </main>
 {/if}

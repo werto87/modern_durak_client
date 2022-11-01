@@ -175,13 +175,15 @@
 </script>
 
 <!-- Table -->
-
+<div class="col-span-2">
 {#if playerRole == "attack" || playerRole == "assistAttacker"}
-        <div class="layer1">
-            <PlayCard {cardDroppedToAttackCallback} />
-        </div>
+    <div class="layer1 ">
+        <PlayCard {cardDroppedToAttackCallback} />
+    </div>
             {#if table.length == 0}
-                PLACE HOLDER TABLE
+                <p class="">
+                    PLACE HOLDER TABLE
+                </p>
             {:else}
                 {#each cardsOnTable as cardToBeatAndCard (cardToBeatAndCard.id)}
                         <span
@@ -222,6 +224,7 @@
             {/if}
 {:else}
         {#if table.length == 0}
+            PLACE HOLDER TABLE
         {:else}
             {#each beatenCardsWithCards as beatenCardWithCard (beatenCardWithCard.id)}
                     class="cardItem"
@@ -282,4 +285,4 @@
         </div>
     {:else}
     {/if}
-
+</div>
