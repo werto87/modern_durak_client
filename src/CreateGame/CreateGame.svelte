@@ -210,9 +210,7 @@
 </script>
 
 {#if UsersInGameLobby}
-  <div class="container"></div>
-
-  <h1>Create Game</h1>
+  <h1 class="text-lg font-bold text-center">Create Game</h1>
   <div>
     <label for="maxUserCount">Max User Count</label>
     <RangeSlider

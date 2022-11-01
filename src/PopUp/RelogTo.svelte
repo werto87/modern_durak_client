@@ -18,7 +18,7 @@
 </script>
 
 <main>
-    <h1>Do You Want Relog To {destination}?</h1>
+    <h1 class="text-lg font-bold text-center">Do You Want Relog To {destination}?</h1>
     <ModernDurakButton onClick={lobby} buttonText="No"/>
     <ModernDurakButton onClick={backToCreateGameLobby} buttonText="Yes! Relog to {destination}"/>
 </main>

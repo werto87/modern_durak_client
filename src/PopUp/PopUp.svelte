@@ -10,7 +10,7 @@
 </script>
 
 <main>
-    <h1>{message}</h1>
+    <h1 class="text-lg font-bold text-center">{message}</h1>
     <ModernDurakButton onClick={close} buttonText="Close"/>
 </main>
 

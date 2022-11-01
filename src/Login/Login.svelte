@@ -37,7 +37,7 @@
     });
 </script>
 
-<h1>Sign in to Modern Durak</h1>
+<h1 class="text-lg font-bold text-center">Sign in to Modern Durak</h1>
 <form on:submit={handleSubmit}>
     <label for="accountName">Account Name</label>
     <input

@@ -19,7 +19,7 @@
 <main>
     <!-- TODO add animtation while waiting -->
 
-    <h1>Game found do you want to join?</h1>
+    <h1 class="text-lg font-bold text-center">Game found do you want to join?</h1>
     <ModernDurakButton onClick={userPressedYes} buttonText="Yes"/>
     <ModernDurakButton onClick={userPressedNo} buttonText="No"/>
 </main>

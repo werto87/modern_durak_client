@@ -2,7 +2,9 @@
     export let buttonText;
     export let onClick = undefined;
     export let type = undefined;
+    export let disabled = undefined;
+
 </script>
-<button type={type} on:click={onClick} class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+<button disabled={disabled} type={type} on:click={onClick} class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
     {buttonText}
 </button>

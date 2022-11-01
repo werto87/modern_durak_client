@@ -77,7 +77,7 @@
 
 {#if GameData}
     <main>
-        <h1>Game</h1>
+        <h1 class="text-lg font-bold text-center">Game</h1>
         <Row class="gameRow">
             <Col class="gameCol">
                 <Board
@@ -104,6 +104,7 @@
                 {/each}
             </Col>
         </Row>
+        <div class="grid grid-cols-1 px-4 space-y-4">
         {#if playerRole == "defend"}
             {#if isAllowedMove(DurakAllowedMoves, "TakeCards")}
                 <ModernDurakButton
@@ -136,7 +137,7 @@
                 ) || undefined}
                 onClick={() => {
                     pass();
-                }} buttonText="Pass"/><br />
+                }} buttonText="Pass"/>
             <ModernDurakButton
                 disabled={!isAllowedMove(
                     DurakAllowedMoves,
@@ -144,12 +145,13 @@
                 ) || undefined}
                 onClick={() => {
                     pass();
-                }} buttonText="Done adding Cards"/><br />
+                }} buttonText="Done adding Cards"/>
         {/if}
         <ModernDurakButton
             onClick={() => {
                 surrender();
             }}  buttonText="Surrender"/><br />
+        </div>
     </main>
 {/if}
 

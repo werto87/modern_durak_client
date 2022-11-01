@@ -35,16 +35,19 @@
 
 <main>
     <!-- TODO add animtation while waiting -->
-    <h1>Waiting For Game</h1>
-    {#if waitingState == "waitForGame"}
-        <ModernDurakButton onClick={backLeaveQueueAndBackToLandingPage} buttonText="Cancel"/>
-    {:else if waitingState == "waitForAnswer"}
-        <h1>Game found do you want to join?</h1>
-        <ModernDurakButton onClick={userPressedYes} buttonText="Yes"/>
-        <ModernDurakButton onClick={userPressedNo} buttonText="No"/>
-    {:else if waitingState == "retryAfterStartGameFailed"}
-        <ModernDurakButton onClick={JoinMatchMakingQueue} buttonText="Join Quick Game Queue"/>
-        <ModernDurakButton onClick={backToLandingPage} buttonText="Cancel"/>
-    {/if}
+    <div class="grid grid-cols-1 px-4 space-y-4">
+        <h1 class="text-lg font-bold text-center">Waiting For Game</h1>
+        {#if waitingState == "waitForGame"}
+            <ModernDurakButton onClick={backLeaveQueueAndBackToLandingPage} buttonText="Cancel"/>
+        {:else if waitingState == "waitForAnswer"}
+            <h1 class="text-lg font-bold text-center">Game found do you want to join?</h1>
+            <ModernDurakButton onClick={userPressedYes} buttonText="Yes"/>
+            <ModernDurakButton onClick={userPressedNo} buttonText="No"/>
+        {:else if waitingState == "retryAfterStartGameFailed"}
+            <ModernDurakButton onClick={JoinMatchMakingQueue} buttonText="Join Quick Game Queue"/>
+            <ModernDurakButton onClick={backToLandingPage} buttonText="Cancel"/>
+        {/if}
+    </div>
+
 </main>
 
