@@ -44,7 +44,7 @@
     };
 </script>
 
-<p class="playerName whitespace-nowrap">{player.PlayerData.name}</p>
+<p class="playerName truncate ">{player.PlayerData.name}</p>
 <div class="grid grid-cols-2 ">
     <span class="cards relative">
         {@html cardDeckIcon}
