@@ -1,12 +1,10 @@
 <script lang="ts">
     import { createEventDispatcher } from "svelte";
     import { v4 as uuidv4 } from 'uuid';
-    import Button from "../component/ModernDurakButton.svelte";
-
-    export let loginState: string = null;
-    let dispatch = createEventDispatcher();
     import { sendMessageToWebsocket } from "../Webservice/store.js";
     import ModernDurakButton from "../component/ModernDurakButton.svelte";
+    export let loginState: string = null;
+    let dispatch = createEventDispatcher();
     const quickPressed = () => {
         if (!loginState) {
             sendMessageToWebsocket("LoginAsGuest|{}");
