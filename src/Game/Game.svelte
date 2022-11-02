@@ -101,7 +101,7 @@
                     {/if}
                 {/each}
             </div>
-            <div class="grid grid-cols-1 col-span-full px-4 space-y-4">
+            <div class="grid grid-cols-1 col-span-full space-y-4">
         {#if playerRole == "defend"}
             {#if isAllowedMove(DurakAllowedMoves, "TakeCards")}
                 <ModernDurakButton
