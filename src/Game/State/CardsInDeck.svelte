@@ -1,6 +1,8 @@
 <script>
     import cardDeckIcon from "../../asset/icons/deck.svg";
-    import { printCard, printType } from "../Board/helper.js";
+    import {printCard, printType} from "../Board/helper.js";
+    import Card from "../../component/Card.svelte";
+
     export let GameData = null;
 </script>
 
@@ -14,35 +16,19 @@
 
             {#if GameData.lastCardInDeck}
                 <div class="lastCardInDeck">
-                        <span
-                            class={GameData.lastCardInDeck.type === "hearts" ||
-                            GameData.lastCardInDeck.type === "diamonds"
-                                ? "text-red-500"
-                                : "text-green-500"}
-                        >
-                            <p class="cardText">
-                                {printCard(GameData.lastCardInDeck)}
-                            </p>
-                        </span>
+                    <Card card={GameData.lastCardInDeck}/>
                 </div>
             {/if}
         </div>
     {:else if GameData.lastCardInDeck}
         <div class="onlyOneCardInDeck">
-                <span
-                    class={GameData.lastCardInDeck.type === "hearts" ||
-                    GameData.lastCardInDeck.type === "diamonds"
-                        ? "text-red-500"
-                        : "text-green-500"}
-                >
-                    <p class="cardText">{printCard(GameData.lastCardInDeck)}</p>
-                </span>
+            <Card card={GameData.lastCardInDeck}/>
         </div>
     {:else}
         <p>
             Trump:&nbsp;
             <span
-                class={GameData.trump === "hearts" ||
+                    class={GameData.trump === "hearts" ||
                 GameData.trump === "diamonds"
                     ? "text-red-500"
                     : "text-green-500"}

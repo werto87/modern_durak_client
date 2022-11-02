@@ -2,8 +2,10 @@
     import CardToBeat from "./CardToBeat.svelte";
     import PlayerCards from "./PlayerCards.svelte";
     import PlayCard from "./PlayCard.svelte";
-    import { allowedToPlayDefend } from "./helper.js";
-    import { printCard } from "./helper.js";
+    import {allowedToPlayDefend} from "./helper.js";
+    import {printCard} from "./helper.js";
+    import Card from "../../component/Card.svelte";
+
     export let playerRole;
     export let playerCards;
     export let table;
@@ -14,7 +16,7 @@
     const calcCardsOnTable = (table) => {
         let result = [];
         table.forEach((cardToBeatAndCard, i) => {
-            let object = { id: i, cardToBeatAndCard };
+            let object = {id: i, cardToBeatAndCard};
             result.push(object);
         });
         return result;
@@ -64,7 +66,7 @@
                         element.cardToBeatAndCard[1].Card.type,
                     ...element.cardToBeatAndCard[1].Card,
                 };
-                result.push({ id: i, beatenCard, card });
+                result.push({id: i, beatenCard, card});
             });
         return result;
     };
@@ -176,112 +178,56 @@
 
 <!-- Table -->
 <div class="col-span-2">
-{#if playerRole == "attack" || playerRole == "assistAttacker"}
-    <div class="layer1 ">
-        <PlayCard {cardDroppedToAttackCallback} />
-    </div>
-            {#if table.length == 0}
-                <p class="">
-                    PLACE HOLDER TABLE
-                </p>
-            {:else}
-                {#each cardsOnTable as cardToBeatAndCard (cardToBeatAndCard.id)}
-                        <span
-                            class={cardToBeatAndCard.cardToBeatAndCard[0].Card
-                                .type === "hearts" ||
-                            cardToBeatAndCard.cardToBeatAndCard[0].Card.type ===
-                                "diamonds"
-                                ? "text-red-500"
-                                : "text-green-500"}
-                        >
-                            <p class="cardText">
-                                {printCard(
-                                    cardToBeatAndCard.cardToBeatAndCard[0].Card
-                                )}
-                            </p>
-                        </span>
-                        {#if cardToBeatAndCard.cardToBeatAndCard[1] != null}
-                            <div class="beatCardDiv">
-                                <span
-                                    class={cardToBeatAndCard
-                                        .cardToBeatAndCard[1].Card.type ===
-                                        "hearts" ||
-                                    cardToBeatAndCard.cardToBeatAndCard[1].Card
-                                        .type === "diamonds"
-                                        ? "text-red-500"
-                                        : "text-green-500"}
-                                >
-                                    <p class="cardText">
-                                        {printCard(
-                                            cardToBeatAndCard
-                                                .cardToBeatAndCard[1].Card
-                                        )}
-                                    </p>
-                                </span>
-                            </div>
-                        {/if}
-                {/each}
-            {/if}
-{:else}
+    {#if playerRole == "attack" || playerRole == "assistAttacker"}
+        <div class="layer1 ">
+            <PlayCard {cardDroppedToAttackCallback}/>
+        </div>
+        {#if table.length == 0}
+            <p class="">
+                PLACE HOLDER TABLE
+            </p>
+        {:else}
+            {#each cardsOnTable as cardToBeatAndCard (cardToBeatAndCard.id)}
+
+                <Card card={cardToBeatAndCard.cardToBeatAndCard[0].Card}/>
+                {#if cardToBeatAndCard.cardToBeatAndCard[1] != null}
+                    <Card card={cardToBeatAndCard.cardToBeatAndCard[1].Card}/>
+                {/if}
+            {/each}
+        {/if}
+    {:else}
         {#if table.length == 0}
             PLACE HOLDER TABLE
         {:else}
             {#each beatenCardsWithCards as beatenCardWithCard (beatenCardWithCard.id)}
-                    class="cardItem"
-                    id={beatenCardWithCard.beatenCard.type === "hearts" ||
-                    beatenCardWithCard.beatenCard.type === "diamonds"
-                        ? "text-red-500"
-                        : "text-green-500"}
-                >
-                    <span
-                        class={beatenCardWithCard.beatenCard.type ===
-                            "hearts" ||
-                        beatenCardWithCard.beatenCard.type === "diamonds"
-                            ? "text-red-500"
-                            : "text-green-500"}
-                    >
-                        <p class="cardText">
-                            {printCard(beatenCardWithCard.beatenCard)}
-                        </p>
-                    </span>
-                    <div class="beatCardDiv">
-                        <span
-                            class={beatenCardWithCard.card.type === "hearts" ||
-                            beatenCardWithCard.card.type === "diamonds"
-                                ? "text-red-500"
-                                : "text-green-500"}
-                        >
-                            <p class="cardText">
-                                {printCard(beatenCardWithCard.card)}
-                            </p>
-                        </span>
-                    </div>
+                <Card card={beatenCardWithCard.beatenCard}/>
+                <Card card={beatenCardWithCard.card}/>
             {/each}
             {#each cardsToBeat as cardToBeat, i (cardToBeat.id)}
-                    <CardToBeat
+                <CardToBeat
                         {cardToBeat}
                         bind:dropFromOthersDisabled={dropFromOthersDisabled[i]}
                         {cardBeatenCallback}
-                    />
+                />
             {/each}
         {/if}
-{/if}
-<!-- Player Cards -->
+    {/if}
+    <!-- Player Cards -->
     {#if playerCardsWithId.length != 0}
         <div class="flex space-x-1">
-        {#each playerCardsWithId as card (card.id)}
+            {#each playerCardsWithId as card (card.id)}
                 <PlayerCards
-                    item={card}
-                    {cardsToBeat}
-                    bind:dropFromOthersDisabled
-                    dragDisabled={shouldDragBeDisabled(
+                        item={card}
+                        {cardsToBeat}
+                        bind:dropFromOthersDisabled
+                        dragDisabled={shouldDragBeDisabled(
                         card.id,
                         playerCardsWithId,
                         cardsAllowedToPlay
                     )}
-                    {trump}
+                        {trump}
                 />
-        {/each}
+            {/each}
         </div>
     {:else}
     {/if}

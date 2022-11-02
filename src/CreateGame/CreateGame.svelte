@@ -58,6 +58,7 @@
 
   import { sendMessageToWebsocket } from "../Webservice/store.js";
   import { createForm } from "svelte-forms-lib";
+  import Card from "../component/Card.svelte";
   const maxUserCountChanged = () => {
     const maxUserObject = { maxUserSize: maxUserSizeArray[0] };
     sendMessageToWebsocket(
@@ -287,14 +288,7 @@
           <label for="">Cards in Deck</label>
         <div class="flex">
           {#each GameOption.gameOption.customCardDeck as card}
-            <p
-                    class={card.Card.type === "hearts" ||
-              card.Card.type === "diamonds"
-                ? "text-red-500"
-                : "text-green-500"}
-            >
-              {printCard(card.Card)}&nbsp;&nbsp;
-            </p>
+            <Card card={card}/>
           {/each}
         </div>
       {:else}

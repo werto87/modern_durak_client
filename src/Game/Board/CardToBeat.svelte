@@ -4,6 +4,7 @@
         SHADOW_ITEM_MARKER_PROPERTY_NAME,
     } from "svelte-dnd-action";
     import { printCard } from "./helper.js";
+    import Card from "../../component/Card.svelte";
     export let dropFromOthersDisabled;
     export let cardToBeat;
     let items = [];
@@ -25,14 +26,7 @@
 </script>
 
 <div class="container">
-    <div
-        class={cardToBeat.type === "hearts" || cardToBeat.type === "diamonds"
-            ? "text-red-500"
-            : "text-green-500"}
-    >
-        <p class="cardText">{printCard(cardToBeat)}</p>
-        <p />
-    </div>
+    <Card card={cardToBeat}/>
     <section
         use:dndzone={{
             items,
@@ -45,17 +39,7 @@
         on:finalize={handleFinalize}
     >
         {#each items as item (item.id)}
-            <div
-                class={item.type === "hearts" || item.type === "diamonds"
-                    ? "text-red-500"
-                    : "text-green-500"}
-            >
-                <p class="cardText">{printCard(item)}</p>
-                <p />
-                {#if item[SHADOW_ITEM_MARKER_PROPERTY_NAME]}
-                    <div class="custom-shadow-item" />
-                {/if}
-            </div>
+            <Card card={item}/>
         {/each}
     </section>
 </div>

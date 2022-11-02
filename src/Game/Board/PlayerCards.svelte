@@ -6,6 +6,7 @@
         TRIGGERS,
         SHADOW_ITEM_MARKER_PROPERTY_NAME,
     } from "svelte-dnd-action";
+    import Card from "../../component/Card.svelte";
     export let item;
     export let trump;
     export let cardsToBeat;
@@ -62,15 +63,7 @@
     on:finalize={handleDndFinalize}
 >
     {#each items as item (item.id)}
-        <div
-            class={item.type === "hearts" || item.type === "diamonds"
-                ? "text-red-500"
-                : "text-green-500"}
-        >
-            <div class="dragItem">
-                <p class="cardText">{printCard(item)}</p>
-            </div>
-        </div>
+        <Card card={item}/>
     {/each}
 </section>
 

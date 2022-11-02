@@ -4,6 +4,7 @@
         TRIGGERS,
         SHADOW_ITEM_MARKER_PROPERTY_NAME,
     } from "svelte-dnd-action";
+    import Card from "../../component/Card.svelte";
     export let items = [];
     export let cardDroppedToAttackCallback;
     function handleDndConsider(e) {
@@ -36,15 +37,7 @@
 >
 
     {#each items as item (item.id)}
-        <div
-            class={item.type === "hearts" || item.type === "diamonds"
-                ? "text-red-500"
-                : "text-green-500"}
-        >
-            {#if item[SHADOW_ITEM_MARKER_PROPERTY_NAME]}
-                <div class="custom-shadow-item" />
-            {/if}
-        </div>
+        <Card card={item}/>
     {/each}
 
 </section>
