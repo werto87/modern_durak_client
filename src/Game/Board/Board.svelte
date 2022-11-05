@@ -214,7 +214,7 @@
     {/if}
     <!-- Player Cards -->
     {#if playerCardsWithId.length != 0}
-        <div class="flex space-x-1">
+        <div class="grid grid-cols-2 gap-4">
             {#each playerCardsWithId as card (card.id)}
                 <PlayerCards
                         item={card}

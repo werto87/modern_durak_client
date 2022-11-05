@@ -1,5 +1,6 @@
 <script>
     export let card;
+    export let className = "";
 
     function printCard(card) {
         return card.value + printType(card.type);
@@ -25,6 +26,6 @@
     }
 </script>
 
-<div class={"bg-blue-500 truncate"+" "+ cardClass(card.type)}>
+<div class={className +" "+"bg-blue-500 truncate"+" "+ cardClass(card.type)}>
     {printCard(card)}
 </div>

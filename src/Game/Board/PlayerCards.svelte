@@ -54,7 +54,6 @@
         }
     }
 </script>
-
 <section
         use:dndzone={{
         items,
@@ -66,7 +65,7 @@
         on:finalize={handleDndFinalize}
 >
     {#each items as item (item.id)}
-        <Card class="flex-1" card={item}/>
+        <Card className="h-20" card={item}/>
     {/each}
 </section>
 
