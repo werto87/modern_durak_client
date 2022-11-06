@@ -26,6 +26,6 @@
     }
 </script>
 
-<div class={className +" "+"bg-blue-500 truncate"+" "+ cardClass(card.type)}>
+<div class={className +" "+ cardClass(card.type)}>
     {printCard(card)}
 </div>

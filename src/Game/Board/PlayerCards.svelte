@@ -54,18 +54,18 @@
         }
     }
 </script>
-<section
-        use:dndzone={{
+<section class="bg-blue-500 truncate text-center h-40 overflow-hidden "
+         use:dndzone={{
         items,
         dropFromOthersDisabled: true,
         dragDisabled,
-        dropTargetClasses: ["drop"],
+        dropTargetClasses: ["bg-orange-500"],
     }}
-        on:consider={handleDndConsider}
-        on:finalize={handleDndFinalize}
+         on:consider={handleDndConsider}
+         on:finalize={handleDndFinalize}
 >
     {#each items as item (item.id)}
-        <Card className="h-20" card={item}/>
+        <Card className="h-40 overflow-hidden" card={item}/>
     {/each}
 </section>
 

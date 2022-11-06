@@ -179,42 +179,58 @@
 <!-- Table -->
 <div class="col-span-2">
     {#if playerRole == "attack" || playerRole == "assistAttacker"}
-        <div class="layer1 ">
-            <PlayCard {cardDroppedToAttackCallback}/>
-        </div>
-        {#if table.length == 0}
-            <p class="">
-                PLACE HOLDER TABLE
-            </p>
-        {:else}
-            {#each cardsOnTable as cardToBeatAndCard (cardToBeatAndCard.id)}
 
-                <Card card={cardToBeatAndCard.cardToBeatAndCard[0].Card}/>
-                {#if cardToBeatAndCard.cardToBeatAndCard[1] != null}
-                    <Card card={cardToBeatAndCard.cardToBeatAndCard[1].Card}/>
-                {/if}
-            {/each}
+        {#if table.length == 0}
+            <PlayCard
+                    className="h-40"
+                    {cardDroppedToAttackCallback}/>
+        {:else}
+            <div class="relative inset-0 flex justify-center layer1  grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-7 xl:grid-cols-9 2xl:grid-cols-12 gap-4 overflow-hidden grid-flow-dense">
+                <PlayCard
+                        className="h-40 absolute inset-0"
+                        {cardDroppedToAttackCallback}>
+                </PlayCard>
+                {#each cardsOnTable as cardToBeatAndCard (cardToBeatAndCard.id)}
+                    <span class="cards h-40 overflow-hidden bg-blue-500">
+                        <Card className="text-center relative" card={cardToBeatAndCard.cardToBeatAndCard[0].Card}/>
+                        {#if cardToBeatAndCard.cardToBeatAndCard[1] != null}
+                            <Card className="text-center relative"
+                                  card={cardToBeatAndCard.cardToBeatAndCard[1].Card}/>
+                        {/if}
+                    </span>
+                {/each}
+
+            </div>
+
         {/if}
     {:else}
+
         {#if table.length == 0}
             PLACE HOLDER TABLE
         {:else}
-            {#each beatenCardsWithCards as beatenCardWithCard (beatenCardWithCard.id)}
-                <Card card={beatenCardWithCard.beatenCard}/>
-                <Card card={beatenCardWithCard.card}/>
-            {/each}
-            {#each cardsToBeat as cardToBeat, i (cardToBeat.id)}
-                <CardToBeat
-                        {cardToBeat}
-                        bind:dropFromOthersDisabled={dropFromOthersDisabled[i]}
-                        {cardBeatenCallback}
-                />
-            {/each}
+            <div class="h-40 inset-0 flex justify-center layer1  grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-7 xl:grid-cols-9 2xl:grid-cols-12 gap-4 overflow-hidden grid-flow-dense">
+                {#each beatenCardsWithCards as beatenCardWithCard (beatenCardWithCard.id)}
+                    <span class="bg-blue-500 h-40 text-center">
+                        <Card className="" card={beatenCardWithCard.beatenCard}/>
+                        <Card className="" card={beatenCardWithCard.card}/>
+                    </span>
+                {/each}
+                {#each cardsToBeat as cardToBeat, i (cardToBeat.id)}
+                    <div class="relative h-40 text-center">
+                        <CardToBeat className=" bg-blue-500 h-40 "
+                                    {cardToBeat}
+                                    bind:dropFromOthersDisabled={dropFromOthersDisabled[i]}
+                                    {cardBeatenCallback}
+                        />
+                        <Card className="absolute inset-0" card={cardToBeat}/>
+                    </div>
+                {/each}
+            </div>
         {/if}
     {/if}
     <!-- Player Cards -->
     {#if playerCardsWithId.length != 0}
-        <div class="grid grid-cols-2 gap-4">
+        <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-7 xl:grid-cols-9 2xl:grid-cols-12 gap-4 overflow-hidden grid-flow-dense">
             {#each playerCardsWithId as card (card.id)}
                 <PlayerCards
                         item={card}
