@@ -50,7 +50,7 @@
 <div class="h-2"></div>
 <div class="grid grid-cols-2 ">
     <div class="pt-1 cards relative ">
-        <div class="rotate-90">
+        <div class="rotate-90 absolute inset-0 flex justify-center items-center">
             {@html cardDeckIcon}
         </div>
 
@@ -58,10 +58,11 @@
             {player.PlayerData.cards.length}
         </p>
     </div>
-    <div class="grid grid-cols-1 text-center flex justify-center items-center">
+    <div class="grid grid-cols-1">
         <p id="playerRole">
             {printPlayerRole(player.PlayerData.playerRole)}
         </p>
+ 
         {#if DurakTimers}
             {#if playerHasRunningTimer(player.PlayerData.name, DurakTimers.runningTimeUserTimePointMilliseconds)}
                 <Countdown
