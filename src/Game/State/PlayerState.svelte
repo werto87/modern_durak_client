@@ -45,7 +45,7 @@
     };
 </script>
 
-<!--<div class="h-24">-->
+
 <p class="playerName truncate ">{player.PlayerData.name}</p>
 <div class="h-2"></div>
 <div class="grid grid-cols-2 ">
@@ -91,4 +91,3 @@
     </div>
 </div>
 <div class="h-2"></div>
-<!--</div>-->
