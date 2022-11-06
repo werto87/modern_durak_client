@@ -1,6 +1,7 @@
 <script>
     import cardDeckIcon from "../../asset/icons/deck.svg";
     import Countdown from "../../Util/Countdown.svelte";
+
     export let player = null;
     export let DurakTimers = null;
 
@@ -46,41 +47,41 @@
 
 <p class="playerName truncate ">{player.PlayerData.name}</p>
 <div class="grid grid-cols-2 ">
-    <span class="cards relative">
+    <span class="cards relative ">
         {@html cardDeckIcon}
         <p class=" cardCount absolute inset-0 flex justify-center items-center">
         {player.PlayerData.cards.length}
     </p>
     </span>
-<div class="grid grid-cols-1 text-center flex justify-center items-center">
-    <p id="playerRole">
-        {printPlayerRole(player.PlayerData.playerRole)}
-    </p>
-    {#if DurakTimers}
+    <div class="grid grid-cols-1 text-center flex justify-center items-center">
+        <p id="playerRole">
+            {printPlayerRole(player.PlayerData.playerRole)}
+        </p>
+        {#if DurakTimers}
             {#if playerHasRunningTimer(player.PlayerData.name, DurakTimers.runningTimeUserTimePointMilliseconds)}
                 <Countdown
-                    countdown={countdownForPlayerInSeconds(
+                        countdown={countdownForPlayerInSeconds(
                         player.PlayerData.name,
                         DurakTimers.runningTimeUserTimePointMilliseconds
                     )}
-                    let:countdown
+                        let:countdown
                 >
                     <p id="runningTimer">
                         Time Left
-                        <br />
+                        <br/>
                         {countdown}
                     </p>
                 </Countdown>
             {:else}
                 <p id="pauseTimer">
                     Time Left
-                    <br />
+                    <br/>
                     {timeLeftForPlayerInSeconds(
                         player.PlayerData.name,
                         DurakTimers.pausedTimeUserDurationMilliseconds
                     )}
                 </p>
             {/if}
-    {/if}
-</div>
+        {/if}
+    </div>
 </div>

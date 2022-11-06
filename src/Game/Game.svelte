@@ -76,7 +76,7 @@
 
 {#if GameData}
     <main>
-        <div class="grid grid-cols-3 space-x-4 space-y-4">
+        <div class="grid grid-cols-4 space-x-4 space-y-4 p-8">
             <h1 class="text-lg font-bold text-center col-span-full">Game</h1>
             <Board
                     bind:playerRole
@@ -87,7 +87,7 @@
                     {cardDroppedToAttackCallback}
                     bind:allowedMoves={DurakAllowedMoves}
             />
-            <div>
+            <div class="">
                 <CardsInDeck {GameData}/>
                 {#each GameData.players as player}
                     {#if player.PlayerData.name == accountName}
