@@ -177,15 +177,15 @@
 </script>
 
 <!-- Table -->
-<div class="col-span-2">
+<div class="col-span-2 space-y-4 space-x-4">
     {#if playerRole == "attack" || playerRole == "assistAttacker"}
 
         {#if table.length == 0}
             <PlayCard
-                    className="h-40"
+                    className="h-40 border-2 border-black"
                     {cardDroppedToAttackCallback}/>
         {:else}
-            <div class="relative inset-0 flex justify-center layer1  grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-7 xl:grid-cols-9 2xl:grid-cols-12 gap-4 overflow-hidden grid-flow-dense">
+            <div class="relative inset-0 flex justify-center layer1  grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-7 xl:grid-cols-9 2xl:grid-cols-12 gap-4 overflow-hidden grid-flow-dense border-2 border-black">
                 <PlayCard
                         className="h-40 absolute inset-0"
                         {cardDroppedToAttackCallback}>
@@ -204,16 +204,16 @@
 
         {/if}
     {:else}
-
         {#if table.length == 0}
-            PLACE HOLDER TABLE
+            <div class="h-40 border-2 border-black">
+            </div>
         {:else}
-            <div class="h-40 inset-0 flex justify-center layer1  grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-7 xl:grid-cols-9 2xl:grid-cols-12 gap-4 overflow-hidden grid-flow-dense">
+            <div class="h-40 inset-0 flex justify-center layer1  grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-7 xl:grid-cols-9 2xl:grid-cols-12 gap-4 overflow-hidden grid-flow-dense border-2 border-black">
                 {#each beatenCardsWithCards as beatenCardWithCard (beatenCardWithCard.id)}
-                    <span class="bg-blue-500 h-40 text-center">
+                    <div class="bg-blue-500 h-40 text-center">
                         <Card className="" card={beatenCardWithCard.beatenCard}/>
                         <Card className="" card={beatenCardWithCard.card}/>
-                    </span>
+                    </div>
                 {/each}
                 {#each cardsToBeat as cardToBeat, i (cardToBeat.id)}
                     <div class="relative h-40 text-center">

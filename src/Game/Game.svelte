@@ -9,10 +9,10 @@
     export let playerCards = [];
     export let DurakTimers = null;
     export let accountName = null;
-    import { sendMessageToWebsocket } from "../Webservice/store.js";
+    import {sendMessageToWebsocket} from "../Webservice/store.js";
 
     const placeSelectedCardsOnTableToAttack = (card) => {
-        let mycard = { Card: { value: card.value, type: card.type } };
+        let mycard = {Card: {value: card.value, type: card.type}};
         sendMessageToWebsocket(
             "DurakAttack|" + '{"cards":' + JSON.stringify([mycard]) + "}"
         );
@@ -76,9 +76,9 @@
 
 {#if GameData}
     <main>
-        <div class="grid grid-cols-3 px-4 space-y-4">
-        <h1 class="text-lg font-bold text-center col-span-full">Game</h1>
-                <Board
+        <div class="grid grid-cols-3 space-x-4 space-y-4">
+            <h1 class="text-lg font-bold text-center col-span-full">Game</h1>
+            <Board
                     bind:playerRole
                     bind:playerCards
                     bind:table={GameData.table}
@@ -86,68 +86,71 @@
                     {cardBeatenCallback}
                     {cardDroppedToAttackCallback}
                     bind:allowedMoves={DurakAllowedMoves}
-                />
-
+            />
             <div>
-                <CardsInDeck {GameData} />
+                <CardsInDeck {GameData}/>
                 {#each GameData.players as player}
                     {#if player.PlayerData.name == accountName}
-                        <OtherPlayerState {player} {DurakTimers} />
+                        <OtherPlayerState {player} {DurakTimers}/>
                     {/if}
                 {/each}
                 {#each GameData.players as player}
                     {#if player.PlayerData.name != accountName}
-                        <OtherPlayerState {player} {DurakTimers} />
+                        <OtherPlayerState {player} {DurakTimers}/>
                     {/if}
                 {/each}
             </div>
             <div class="grid grid-cols-1 col-span-full space-y-4">
-        {#if playerRole == "defend"}
-            {#if isAllowedMove(DurakAllowedMoves, "TakeCards")}
+                {#if playerRole == "defend"}
+                    {#if isAllowedMove(DurakAllowedMoves, "TakeCards")}
+                        <ModernDurakButton
+                                onClick={() => {
+                                drawCardsFromTable();
+                            }} buttonText="Take Cards from Table"/>
+                        <br/>
+                    {:else}
+                        <ModernDurakButton
+                                disabled={!isAllowedMove(
+                                DurakAllowedMoves,
+                                "AnswerDefendWantsToTakeCardsYes"
+                            ) || undefined}
+                                onClick={() => {
+                                durakAskDefendWantToTakeCardsAnswerYes();
+                            }} buttonText="Take Cards from Table"/>
+                        <br/>
+                    {/if}
+                    <ModernDurakButton
+                            disabled={!isAllowedMove(
+                            DurakAllowedMoves,
+                            "AnswerDefendWantsToTakeCardsNo"
+                        ) || undefined}
+                            onClick={() => {
+                            durakAskDefendWantToTakeCardsAnswerNo();
+                        }} buttonText="Discard Cards from Table"/>
+                    <br/>
+                {:else if playerRole == "attack" || playerRole == "assistAttacker"}
+                    <ModernDurakButton
+                            disabled={!isAllowedMove(
+                            DurakAllowedMoves,
+                            "AttackAssistPass"
+                        ) || undefined}
+                            onClick={() => {
+                            pass();
+                        }} buttonText="Pass"/>
+                    <ModernDurakButton
+                            disabled={!isAllowedMove(
+                            DurakAllowedMoves,
+                            "AttackAssistDoneAddingCards"
+                        ) || undefined}
+                            onClick={() => {
+                            pass();
+                        }} buttonText="Done adding Cards"/>
+                {/if}
                 <ModernDurakButton
-                    onClick={() => {
-                        drawCardsFromTable();
-                    }}  buttonText="Take Cards from Table"/><br />
-            {:else}
-                <ModernDurakButton
-                    disabled={!isAllowedMove(
-                        DurakAllowedMoves,
-                        "AnswerDefendWantsToTakeCardsYes"
-                    ) || undefined}
-                    onClick={() => {
-                        durakAskDefendWantToTakeCardsAnswerYes();
-                    }}  buttonText="Take Cards from Table"/><br />
-            {/if}
-            <ModernDurakButton
-                disabled={!isAllowedMove(
-                    DurakAllowedMoves,
-                    "AnswerDefendWantsToTakeCardsNo"
-                ) || undefined}
-                onClick={() => {
-                    durakAskDefendWantToTakeCardsAnswerNo();
-                }}  buttonText="Discard Cards from Table"/><br />
-        {:else if playerRole == "attack" || playerRole == "assistAttacker"}
-            <ModernDurakButton
-                disabled={!isAllowedMove(
-                    DurakAllowedMoves,
-                    "AttackAssistPass"
-                ) || undefined}
-                onClick={() => {
-                    pass();
-                }} buttonText="Pass"/>
-            <ModernDurakButton
-                disabled={!isAllowedMove(
-                    DurakAllowedMoves,
-                    "AttackAssistDoneAddingCards"
-                ) || undefined}
-                onClick={() => {
-                    pass();
-                }} buttonText="Done adding Cards"/>
-        {/if}
-        <ModernDurakButton
-            onClick={() => {
-                surrender();
-            }}  buttonText="Surrender"/><br />
+                        onClick={() => {
+                        surrender();
+                    }} buttonText="Surrender"/>
+                <br/>
             </div>
         </div>
     </main>
