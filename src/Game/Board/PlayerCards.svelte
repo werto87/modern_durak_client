@@ -65,7 +65,11 @@
          on:finalize={handleDndFinalize}
 >
     {#each items as item (item.id)}
-        <Card className="h-40 overflow-hidden" card={item}/>
+        {#if dragDisabled}
+            <Card className="h-40 overflow-hidden" card={item}/>
+        {:else }
+            <Card className="h-40 overflow-hidden border-orange-500 border-4 bg-blue-500" card={item}/>
+        {/if}
     {/each}
 </section>
 
