@@ -76,22 +76,20 @@
 </script>
 
 <main>
-  <div class="my-container">
-    {#if $toggleService.context.popUp}
-      <svelte:component
-        this={$toggleService.context.popUp}
-        class="mainScreen"
-        {...$toggleService.context.popUpProps}
-        on:stateMachineEvent={stateMachineEvent}
-      />
-    {:else}
-      <svelte:component
-        this={$toggleService.context.component}
-        {...$toggleService.context.props}
-        on:stateMachineEvent={stateMachineEvent}
-      />
-    {/if}
-  </div>
+  {#if $toggleService.context.popUp}
+    <svelte:component
+      this={$toggleService.context.popUp}
+      class="mainScreen"
+      {...$toggleService.context.popUpProps}
+      on:stateMachineEvent={stateMachineEvent}
+    />
+  {:else}
+    <svelte:component
+      this={$toggleService.context.component}
+      {...$toggleService.context.props}
+      on:stateMachineEvent={stateMachineEvent}
+    />
+  {/if}
   <SvelteToast
     target="Error"
     options={{
