@@ -1,50 +1,47 @@
 <script>
-    import {
-        dndzone,
-        TRIGGERS,
-        SHADOW_ITEM_MARKER_PROPERTY_NAME,
-    } from "svelte-dnd-action";
-    import Card from "../../component/Card.svelte";
+  import {
+    dndzone,
+    TRIGGERS,
+    SHADOW_ITEM_MARKER_PROPERTY_NAME,
+  } from "svelte-dnd-action";
+  import Card from "../../component/Card.svelte";
 
-    export let className = "";
-    export let items = [];
-    export let cardDroppedToAttackCallback;
+  export let className = "";
+  export let items = [];
+  export let cardDroppedToAttackCallback;
 
-    function handleDndConsider(e) {
-        console.warn(`got consider ${JSON.stringify(e.detail, null, 2)}`);
-        const {trigger, id} = e.detail.info;
-        if (trigger === TRIGGERS.DRAG_STARTED) {
-            console.warn(`copying ${id}`);
-            const idx = items.findIndex((item) => item.id === id);
-            const newId = `${id}_copy_${Math.round(Math.random() * 100000)}`;
-            e.detail.items.splice(idx, 0, {...items[idx], id: newId});
-        }
-        items = e.detail.items;
+  function handleDndConsider(e) {
+    console.warn(`got consider ${JSON.stringify(e.detail, null, 2)}`);
+    const { trigger, id } = e.detail.info;
+    if (trigger === TRIGGERS.DRAG_STARTED) {
+      console.warn(`copying ${id}`);
+      const idx = items.findIndex((item) => item.id === id);
+      const newId = `${id}_copy_${Math.round(Math.random() * 100000)}`;
+      e.detail.items.splice(idx, 0, { ...items[idx], id: newId });
     }
+    items = e.detail.items;
+  }
 
-    function handleDndFinalize(e) {
-        console.warn(`got finalize ${JSON.stringify(e.detail, null, 2)}`);
-        items = e.detail.items;
-        cardDroppedToAttackCallback(items[0]);
-        items = [];
-    }
+  function handleDndFinalize(e) {
+    console.warn(`got finalize ${JSON.stringify(e.detail, null, 2)}`);
+    items = e.detail.items;
+    cardDroppedToAttackCallback(items[0]);
+    items = [];
+  }
 </script>
 
 <section
-        class={className}
-        use:dndzone={{
-        items,
-        dropTargetClasses: ["bg-orange-500"],
-        dragDisabled: true,
-        morphDisabled: true,
-    }}
-        on:consider={handleDndConsider}
-        on:finalize={handleDndFinalize}
+  class={className}
+  use:dndzone={{
+    items,
+    dropTargetClasses: ["bg-orange-500"],
+    dragDisabled: true,
+    morphDisabled: true,
+  }}
+  on:consider={handleDndConsider}
+  on:finalize={handleDndFinalize}
 >
-
-    {#each items as item (item.id)}
-        <Card className="h-40 overflow-hidden bg-blue-500" card={item}/>
-    {/each}
-
+  {#each items as item (item.id)}
+    <Card className="h-40 overflow-hidden bg-blue-500" card={item} />
+  {/each}
 </section>
-
