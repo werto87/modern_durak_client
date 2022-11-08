@@ -175,10 +175,7 @@
     <div
       class="relative grid grid-flow-dense grid-cols-3 justify-center gap-4 border-2 border-black p-4 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-7 xl:grid-cols-9 2xl:grid-cols-12"
     >
-      <PlayCard
-        className="absolute inset-0 flex"
-        {cardDroppedToAttackCallback}
-      />
+      <PlayCard className="absolute inset-0" {cardDroppedToAttackCallback} />
       {#if table.length == 0}
         <div class="h-40" />
       {:else}
