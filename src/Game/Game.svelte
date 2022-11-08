@@ -85,7 +85,7 @@
         {cardDroppedToAttackCallback}
         bind:allowedMoves={DurakAllowedMoves}
       />
-      <div class="w-24">
+      <div class="">
         <CardsInDeck {GameData} />
         {#each GameData.players as player}
           {#if player.PlayerData.name == accountName}

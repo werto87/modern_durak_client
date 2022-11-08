@@ -8,26 +8,23 @@
 
 <div class="">
   {#if GameData.cardsInDeck > 1}
-    <div class="grid grid-cols-2">
-      <span class="relative">
-        {@html cardDeckIcon}
+    <div class="grid grid-cols-2 pt-2">
+      <div class="relative">
+        <div class="absolute inset-0 flex items-center justify-center">
+          {@html cardDeckIcon}
+        </div>
         <p
           class="cardDeckCount absolute inset-0 flex items-center justify-center"
         >
           {GameData.cardsInDeck}
         </p>
-      </span>
+      </div>
       {#if GameData.lastCardInDeck}
-        <div class="bg-white px-2">
-          <Card
-            className="h-full bg-blue-500 object-fill text-center"
-            card={GameData.lastCardInDeck}
-          />
-        </div>
+        <Card className="text-center" card={GameData.lastCardInDeck} />
       {/if}
     </div>
   {:else if GameData.lastCardInDeck}
-    <div class="onlyOneCardInDeck">
+    <div class="col-span-full text-center">
       <Card card={GameData.lastCardInDeck} />
     </div>
   {:else}

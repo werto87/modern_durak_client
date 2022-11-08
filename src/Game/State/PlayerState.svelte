@@ -58,7 +58,7 @@
     </p>
   </div>
   <div class="grid grid-cols-1">
-    <p id="playerRole">
+    <p id="playerRole" class="text-center">
       {printPlayerRole(player.PlayerData.playerRole)}
     </p>
 
@@ -91,3 +91,10 @@
   </div>
 </div>
 <div class="h-2" />
+
+<style>
+  :global(#deck) {
+    max-width: 3em;
+    display: block;
+  }
+</style>
