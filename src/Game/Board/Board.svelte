@@ -198,9 +198,8 @@
         {/each}
       {/if}
     </div>
-    <!--{/if}-->
   {:else if table.length == 0}
-    <div class="h-40 border-2 border-black" />
+    <div class="h-48 border-2 border-black" />
   {:else}
     <div
       class="layer1 inset-0 flex grid grid-flow-dense grid-cols-3 justify-center gap-4 overflow-hidden border-2 border-black p-4 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-7 xl:grid-cols-9 2xl:grid-cols-12"
