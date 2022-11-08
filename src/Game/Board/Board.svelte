@@ -3,7 +3,6 @@
   import PlayerCards from "./PlayerCards.svelte";
   import PlayCard from "./PlayCard.svelte";
   import { allowedToPlayDefend } from "./helper.js";
-  import { printCard } from "./helper.js";
   import Card from "../../component/Card.svelte";
 
   export let playerRole;
@@ -71,11 +70,11 @@
     return result;
   };
   const shouldDragBeDisabled = (id, playerCardsWithId, cardsAllowedToPlay) => {
-    const item = playerCardsWithId.find((element) => element.id == id);
+    const item = playerCardsWithId.find((element) => element.id === id);
     return (
       cardsAllowedToPlay.find((element) => {
-        return element.id == item.id;
-      }) == undefined
+        return element.id === item.id;
+      }) === undefined
     );
   };
   const calcCardsAllowedToPlayDefend = (playerCards, cardsToBeat, trump) => {
@@ -97,16 +96,16 @@
   ) => {
     return playerCardsWithId.filter((playerCard) => {
       let cardPlayable = false;
-      if (cardsOnTable.length == 0 && playerRole == "attack") return true;
+      if (cardsOnTable.length === 0 && playerRole === "attack") return true;
       cardsOnTable.some((element) => {
         cardPlayable =
-          element.cardToBeatAndCard[0].Card.value == playerCard.value;
+          element.cardToBeatAndCard[0].Card.value === playerCard.value;
 
         if (cardPlayable) {
           return true;
         } else if (element.cardToBeatAndCard[1] != null) {
           cardPlayable =
-            element.cardToBeatAndCard[1].Card.value == playerCard.value;
+            element.cardToBeatAndCard[1].Card.value === playerCard.value;
         }
         return cardPlayable;
       });
@@ -120,11 +119,11 @@
     trump,
     allowedMoves
   ) => {
-    if (playerRole == "defend") {
+    if (playerRole === "defend") {
       if (
         allowedMoves != null &&
-        allowedMoves.allowedMoves.length != 0 &&
-        allowedMoves.allowedMoves.find((move) => move.Move == "Defend") !=
+        allowedMoves.allowedMoves.length !== 0 &&
+        allowedMoves.allowedMoves.find((move) => move.Move === "Defend") !==
           undefined
       ) {
         return calcCardsAllowedToPlayDefend(
@@ -135,11 +134,11 @@
       } else {
         return [];
       }
-    } else if (playerRole == "attack" || playerRole == "assistAttacker") {
+    } else if (playerRole === "attack" || playerRole === "assistAttacker") {
       if (
         allowedMoves != null &&
-        allowedMoves.allowedMoves.length != 0 &&
-        allowedMoves.allowedMoves.find((move) => move.Move == "AddCards") !=
+        allowedMoves.allowedMoves.length !== 0 &&
+        allowedMoves.allowedMoves.find((move) => move.Move === "AddCards") !==
           undefined
       ) {
         return calcCardsAllowedToPlayAttackOrAssist(
@@ -171,12 +170,12 @@
 
 <!-- Table -->
 <div class="col-span-3 space-y-4 space-x-4">
-  {#if playerRole == "attack" || playerRole == "assistAttacker"}
+  {#if playerRole === "attack" || playerRole === "assistAttacker"}
     <div
       class="relative grid grid-flow-dense grid-cols-3 justify-center gap-4 border-2 border-black p-4 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-7 xl:grid-cols-9 2xl:grid-cols-12"
     >
       <PlayCard className="absolute inset-0" {cardDroppedToAttackCallback} />
-      {#if table.length == 0}
+      {#if table.length === 0}
         <div class="h-40" />
       {:else}
         {#each cardsOnTable as cardToBeatAndCard (cardToBeatAndCard.id)}
@@ -195,7 +194,7 @@
         {/each}
       {/if}
     </div>
-  {:else if table.length == 0}
+  {:else if table.length === 0}
     <div class="h-48 border-2 border-black" />
   {:else}
     <div
@@ -221,7 +220,7 @@
     </div>
   {/if}
   <!-- Player Cards -->
-  {#if playerCardsWithId.length != 0}
+  {#if playerCardsWithId.length !== 0}
     <div
       class="grid grid-flow-dense grid-cols-3 gap-4 overflow-hidden sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-7 xl:grid-cols-9 2xl:grid-cols-12"
     >
