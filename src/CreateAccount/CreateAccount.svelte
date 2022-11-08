@@ -1,5 +1,4 @@
 <script>
-  import { Form, Field, ErrorMessage } from "svelte-forms-lib";
   import * as yup from "yup";
   import { createEventDispatcher } from "svelte";
 
@@ -44,10 +43,6 @@
       password: "",
       repeatPassword: "",
     },
-    validate: (values) => {
-      let errs = {};
-      return errs;
-    },
     onSubmit: (values) => {
       if (values.accountName === "") {
         toast.push("Account Name is required", { target: "Error" });
@@ -64,11 +59,12 @@
   });
 </script>
 
-<div class="container">
+<div class="grid grid-cols-1 space-y-4 px-4">
   <h1 class="text-center text-lg font-bold">Sign in to Modern Durak</h1>
-  <form on:submit={handleSubmit}>
+  <form class="grid grid-cols-1 space-y-4" on:submit={handleSubmit}>
     <label for="accountName">Account Name</label>
     <input
+      class="border-2"
       id="accountName"
       name="accountName"
       on:change={handleChange}
@@ -76,6 +72,7 @@
     />
     <label for="password">Password</label>
     <input
+      class="border-2"
       type="password"
       id="password"
       name="password"
@@ -84,6 +81,7 @@
     />
     <label for="repeatPassword">Repeat Password</label>
     <input
+      class="border-2"
       type="password"
       id="repeatPassword"
       name="repeatPassword"
@@ -93,13 +91,10 @@
     <ModernDurakButton type="submit" buttonText="Sign in" />
   </form>
   <ModernDurakButton
+    buttonText="Back"
     onClick={() => {
       backToLogin();
     }}
-    >Back
-  </ModernDurakButton>
-
-  <div>
-    <ModernDurakButton onClick={cancel} buttonText="Cancel" />
-  </div>
+  />
+  <ModernDurakButton onClick={cancel} buttonText="Cancel" />
 </div>
