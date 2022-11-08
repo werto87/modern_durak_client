@@ -172,21 +172,18 @@
 <!-- Table -->
 <div class="col-span-3 space-y-4 space-x-4">
   {#if playerRole == "attack" || playerRole == "assistAttacker"}
-    {#if table.length == 0}
-      <!--TODO remove useless tailwindcss-->
-      <div class="gap-4  overflow-hidden border-2 border-black p-4">
-        <PlayCard className="h-40" {cardDroppedToAttackCallback} />
-      </div>
-    {:else}
-      <div
-        class="layer1 relative inset-0 flex grid grid-flow-dense grid-cols-3 justify-center gap-4 overflow-hidden border-2 border-black p-4 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-7 xl:grid-cols-9 2xl:grid-cols-12"
-      >
-        <PlayCard
-          className="absolute inset-0 flex grid grid-flow-dense grid-cols-3 justify-center gap-4 overflow-hidden border-2 border-black p-4 layer1 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-7 xl:grid-cols-9 2xl:grid-cols-12"
-          {cardDroppedToAttackCallback}
-        />
+    <div
+      class="relative grid grid-flow-dense grid-cols-3 justify-center gap-4 border-2 border-black p-4 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-7 xl:grid-cols-9 2xl:grid-cols-12"
+    >
+      <PlayCard
+        className="absolute inset-0 flex"
+        {cardDroppedToAttackCallback}
+      />
+      {#if table.length == 0}
+        <div class="h-40" />
+      {:else}
         {#each cardsOnTable as cardToBeatAndCard (cardToBeatAndCard.id)}
-          <div class="cards h-40 overflow-hidden bg-blue-500">
+          <div class="cards h-40 bg-blue-500">
             <Card
               className="relative text-center"
               card={cardToBeatAndCard.cardToBeatAndCard[0].Card}
@@ -199,8 +196,9 @@
             {/if}
           </div>
         {/each}
-      </div>
-    {/if}
+      {/if}
+    </div>
+    <!--{/if}-->
   {:else if table.length == 0}
     <div class="h-40 border-2 border-black" />
   {:else}

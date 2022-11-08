@@ -34,7 +34,8 @@
   class={className}
   use:dndzone={{
     items,
-    dropTargetClasses: ["bg-orange-500"],
+    dropTargetClasses: ["border-2.border-orange-500"],
+    dropTargetStyle: { outline: "rgba(249, 115, 22, 1) solid 10px" },
     dragDisabled: true,
     morphDisabled: true,
   }}
