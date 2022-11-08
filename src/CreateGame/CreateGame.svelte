@@ -313,7 +313,7 @@
         <label for="">Cards in Deck</label>
         <div class="flex">
           {#each GameOption.gameOption.customCardDeck as card}
-            <Card {card} />
+            <Card card={card.Card} />
           {/each}
         </div>
       {:else}
