@@ -205,7 +205,9 @@
               );
             })
           ) {
-            sendMessageToWebsocket(createGameOption());
+            sendMessageToWebsocket(
+              createGameOption(JSON.parse(values.createDeckArray))
+            );
           } else {
             toast.push(
               "Please check if all Cards in the Array are valid Card Objects",
