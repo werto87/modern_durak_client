@@ -107,7 +107,6 @@
               }}
               buttonText="Take Cards from Table"
             />
-            <br />
           {:else}
             <ModernDurakButton
               disabled={!isAllowedMove(
@@ -119,7 +118,6 @@
               }}
               buttonText="Take Cards from Table"
             />
-            <br />
           {/if}
           <ModernDurakButton
             disabled={!isAllowedMove(
@@ -131,7 +129,6 @@
             }}
             buttonText="Discard Cards from Table"
           />
-          <br />
         {:else if playerRole == "attack" || playerRole == "assistAttacker"}
           <ModernDurakButton
             disabled={!isAllowedMove(DurakAllowedMoves, "AttackAssistPass") ||
