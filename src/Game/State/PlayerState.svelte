@@ -45,15 +45,15 @@
   };
 </script>
 
-<p class="playerName truncate">{player.PlayerData.name}</p>
+<p class="truncate">{player.PlayerData.name}</p>
 <div class="h-2" />
 <div class="grid grid-cols-2">
-  <div class="cards relative pt-1">
+  <div class="relative pt-1">
     <div class="absolute inset-0 flex rotate-90 items-center justify-center">
       {@html cardDeckIcon}
     </div>
 
-    <p class="cardCount absolute inset-0 flex items-center justify-center">
+    <p class="absolute inset-0 flex items-center justify-center">
       {player.PlayerData.cards.length}
     </p>
   </div>

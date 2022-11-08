@@ -179,7 +179,7 @@
         <div class="h-40" />
       {:else}
         {#each cardsOnTable as cardToBeatAndCard (cardToBeatAndCard.id)}
-          <div class="cards h-40 bg-blue-500">
+          <div class="h-40 bg-blue-500">
             <Card
               className="relative text-center"
               card={cardToBeatAndCard.cardToBeatAndCard[0].Card}
@@ -198,7 +198,7 @@
     <div class="h-48 border-2 border-black" />
   {:else}
     <div
-      class="layer1 inset-0 flex grid grid-flow-dense grid-cols-3 justify-center gap-4 overflow-hidden border-2 border-black p-4 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-7 xl:grid-cols-9 2xl:grid-cols-12"
+      class="inset-0 flex grid grid-flow-dense grid-cols-3 justify-center gap-4 overflow-hidden border-2 border-black p-4 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-7 xl:grid-cols-9 2xl:grid-cols-12"
     >
       {#each beatenCardsWithCards as beatenCardWithCard (beatenCardWithCard.id)}
         <div class="h-40 bg-blue-500 text-center">

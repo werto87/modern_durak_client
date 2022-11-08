@@ -4,8 +4,8 @@
   export let value = "";
 </script>
 
-<label class="container"
+<label
   >{label}
   <input type="checkbox" bind:group={bindGroup} {value} />
-  <span class="checkmark" />
+  <span />
 </label>

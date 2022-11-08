@@ -13,9 +13,7 @@
         <div class="absolute inset-0 flex items-center justify-center">
           {@html cardDeckIcon}
         </div>
-        <p
-          class="cardDeckCount absolute inset-0 flex items-center justify-center"
-        >
+        <p class="absolute inset-0 flex items-center justify-center">
           {GameData.cardsInDeck}
         </p>
       </div>
