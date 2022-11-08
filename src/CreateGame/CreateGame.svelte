@@ -310,7 +310,6 @@
           buttonText="Use example Deck with 36 Cards"
         />
       {/if}
-      <!--TODO CARD COLOR-->
       {#if GameOption.gameOption.customCardDeck && GameOption.gameOption.customCardDeck.length >= 1}
         <label for="">Cards in Deck</label>
         <div class="flex">
