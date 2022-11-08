@@ -38,24 +38,31 @@
   });
 </script>
 
-<h1 class="text-center text-lg font-bold">Sign in to Modern Durak</h1>
-<form on:submit={handleSubmit}>
-  <label for="accountName">Account Name</label>
-  <input
-    id="accountName"
-    name="accountName"
-    on:change={handleChange}
-    bind:value={$form.accountName}
+<div class="grid grid-cols-1 space-y-4 px-4">
+  <h1 class="text-center text-lg font-bold">Sign in to Modern Durak</h1>
+  <form class="grid grid-cols-1 space-y-4" on:submit={handleSubmit}>
+    <label for="accountName">Account Name</label>
+    <input
+      class="border-2"
+      id="accountName"
+      name="accountName"
+      on:change={handleChange}
+      bind:value={$form.accountName}
+    />
+    <label for="password">Password</label>
+    <input
+      class="border-2"
+      type="password"
+      id="password"
+      name="password"
+      on:change={handleChange}
+      bind:value={$form.password}
+    />
+    <ModernDurakButton type="submit" buttonText="Sign in" />
+  </form>
+  <ModernDurakButton
+    onClick={createNewAccount}
+    buttonText="Create new Account"
   />
-  <label for="password">Password</label>
-  <input
-    type="password"
-    id="password"
-    name="password"
-    on:change={handleChange}
-    bind:value={$form.password}
-  />
-  <ModernDurakButton type="submit" buttonText="Sign in" />
-</form>
-<ModernDurakButton onClick={createNewAccount} buttonText="Create new Account" />
-<ModernDurakButton onClick={cancel} buttonText="Cancel" />
+  <ModernDurakButton onClick={cancel} buttonText="Cancel" />
+</div>

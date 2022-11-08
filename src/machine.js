@@ -212,7 +212,7 @@ export const toggleMachine = createMachine({
         Lobby: {
           on: {
             JoinGameLobbySuccess: "CreateGame",
-            LogoutAccountSuccess: "LandingPage",
+            Cancel: "LandingPage"
           },
           entry: assign({
             component: (ctx) => (ctx.component = Lobby),

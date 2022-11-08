@@ -4,7 +4,7 @@
   import { toast } from "@zerodevx/svelte-toast";
   import { sendMessageToWebsocket } from "../Webservice/store.js";
   import ModernDurakButton from "../component/ModernDurakButton.svelte";
-
+  let dispatch = createEventDispatcher();
   const logout = () => {
     sendMessageToWebsocket("LogoutAccount|{}");
   };
@@ -94,5 +94,10 @@
 
     <ModernDurakButton type="submit" buttonText="Join Game Lobby" />
   </form>
-  <ModernDurakButton onClick={logout} buttonText="Logout" />
+  <ModernDurakButton
+    onClick={() => {
+      dispatch("stateMachineEvent", "Cancel");
+    }}
+    buttonText="Cancel"
+  />
 </div>
