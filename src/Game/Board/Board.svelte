@@ -169,7 +169,7 @@
 </script>
 
 <!-- Table -->
-<div class="col-span-3 space-y-4 space-x-4">
+<div class="col-span-3 space-y-4">
   {#if playerRole === "attack" || playerRole === "assistAttacker"}
     <div
       class="relative grid grid-flow-dense grid-cols-3 justify-center gap-4 border-2 border-black p-4 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-7 xl:grid-cols-9 2xl:grid-cols-12"
