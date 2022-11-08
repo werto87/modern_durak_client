@@ -54,7 +54,7 @@
         }
     }
 </script>
-<section class="bg-blue-500 truncate text-center h-40 overflow-hidden "
+<section class="h-40 overflow-hidden truncate bg-blue-500 text-center"
          use:dndzone={{
         items,
         dropFromOthersDisabled: true,
@@ -68,7 +68,7 @@
         {#if dragDisabled}
             <Card className="h-40 overflow-hidden" card={item}/>
         {:else }
-            <Card className="h-40 overflow-hidden border-orange-500 border-4 bg-blue-500" card={item}/>
+            <Card className="h-40 overflow-hidden border-4 border-orange-500 bg-blue-500" card={item}/>
         {/if}
     {/each}
 </section>

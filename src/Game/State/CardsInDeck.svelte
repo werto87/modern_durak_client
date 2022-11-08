@@ -11,11 +11,11 @@
         <div class="grid grid-cols-2">
                         <span class="relative">
                             {@html cardDeckIcon}
-                            <p class="cardDeckCount absolute inset-0 flex justify-center items-center">{GameData.cardsInDeck}</p>
+                            <p class="absolute inset-0 flex items-center justify-center cardDeckCount">{GameData.cardsInDeck}</p>
                         </span>
             {#if GameData.lastCardInDeck}
-                <div class="bg-white  px-2">
-                    <Card className="text-center  bg-blue-500 object-fill h-full"
+                <div class="bg-white px-2">
+                    <Card className="h-full bg-blue-500 object-fill text-center"
                           card={GameData.lastCardInDeck}/>
                 </div>
 

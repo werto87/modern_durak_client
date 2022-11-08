@@ -76,8 +76,8 @@
 
 {#if GameData}
     <main>
-        <div class="grid grid-cols-4 space-x-4 space-y-4 p-8">
-            <h1 class="text-lg font-bold text-center col-span-full">Game</h1>
+        <div class="grid grid-cols-4 p-8 space-x-4 space-y-4">
+            <h1 class="col-span-full text-center text-lg font-bold">Game</h1>
             <Board
                     bind:playerRole
                     bind:playerCards
@@ -100,7 +100,7 @@
                     {/if}
                 {/each}
             </div>
-            <div class="grid grid-cols-1 col-span-full space-y-4">
+            <div class="col-span-full grid grid-cols-1 space-y-4">
                 {#if playerRole == "defend"}
                     {#if isAllowedMove(DurakAllowedMoves, "TakeCards")}
                         <ModernDurakButton

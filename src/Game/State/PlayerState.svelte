@@ -46,15 +46,15 @@
 </script>
 
 
-<p class="playerName truncate ">{player.PlayerData.name}</p>
+<p class="truncate playerName">{player.PlayerData.name}</p>
 <div class="h-2"></div>
-<div class="grid grid-cols-2 ">
-    <div class="pt-1 cards relative ">
-        <div class="rotate-90 absolute inset-0 flex justify-center items-center">
+<div class="grid grid-cols-2">
+    <div class="relative pt-1 cards">
+        <div class="absolute inset-0 flex rotate-90 items-center justify-center">
             {@html cardDeckIcon}
         </div>
 
-        <p class=" cardCount absolute inset-0 flex justify-center items-center">
+        <p class="absolute inset-0 flex items-center justify-center cardCount">
             {player.PlayerData.cards.length}
         </p>
     </div>
@@ -62,7 +62,7 @@
         <p id="playerRole">
             {printPlayerRole(player.PlayerData.playerRole)}
         </p>
- 
+
         {#if DurakTimers}
             {#if playerHasRunningTimer(player.PlayerData.name, DurakTimers.runningTimeUserTimePointMilliseconds)}
                 <Countdown

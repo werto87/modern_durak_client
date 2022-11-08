@@ -181,23 +181,25 @@
     {#if playerRole == "attack" || playerRole == "assistAttacker"}
 
         {#if table.length == 0}
-            <PlayCard
-                    className="h-40 border-2 border-black"
-                    {cardDroppedToAttackCallback}/>
-        {:else}
-            <div class="relative inset-0 flex justify-center layer1  grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-7 xl:grid-cols-9 2xl:grid-cols-12 gap-4 overflow-hidden grid-flow-dense border-2 border-black p-4">
+            <!--TODO remove useless tailwindcss-->
+            <div class="gap-4 overflow-hidden border-2 border-black p-4">
                 <PlayCard
-                        className="h-40 absolute inset-0"
-                        {cardDroppedToAttackCallback}>
-                </PlayCard>
+                        className="h-40"
+                        {cardDroppedToAttackCallback}/>
+            </div>
+        {:else}
+            <div class="relative inset-0 flex grid grid-flow-dense grid-cols-3 justify-center gap-4 overflow-hidden border-2 border-black p-4 layer1 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-7 xl:grid-cols-9 2xl:grid-cols-12">
+                <PlayCard
+                        className="absolute inset-0 flex grid grid-flow-dense grid-cols-3 justify-center gap-4 overflow-hidden border-2 border-black p-4 layer1 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-7 xl:grid-cols-9 2xl:grid-cols-12"
+                        {cardDroppedToAttackCallback}/>
                 {#each cardsOnTable as cardToBeatAndCard (cardToBeatAndCard.id)}
-                    <span class="cards h-40 overflow-hidden bg-blue-500">
-                        <Card className="text-center relative" card={cardToBeatAndCard.cardToBeatAndCard[0].Card}/>
+                    <div class="h-40 overflow-hidden bg-blue-500 cards">
+                        <Card className="relative text-center" card={cardToBeatAndCard.cardToBeatAndCard[0].Card}/>
                         {#if cardToBeatAndCard.cardToBeatAndCard[1] != null}
-                            <Card className="text-center relative"
+                            <Card className="relative text-center"
                                   card={cardToBeatAndCard.cardToBeatAndCard[1].Card}/>
                         {/if}
-                    </span>
+                    </div>
                 {/each}
 
             </div>
@@ -208,16 +210,16 @@
             <div class="h-40 border-2 border-black">
             </div>
         {:else}
-            <div class="inset-0 flex justify-center layer1  grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-7 xl:grid-cols-9 2xl:grid-cols-12 overflow-hidden grid-flow-dense border-2 border-black p-4 gap-4">
+            <div class="inset-0 flex grid grid-flow-dense grid-cols-3 justify-center gap-4 overflow-hidden border-2 border-black p-4 layer1 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-7 xl:grid-cols-9 2xl:grid-cols-12">
                 {#each beatenCardsWithCards as beatenCardWithCard (beatenCardWithCard.id)}
-                    <div class="bg-blue-500 h-40 text-center">
+                    <div class="h-40 bg-blue-500 text-center">
                         <Card className="" card={beatenCardWithCard.beatenCard}/>
                         <Card className="" card={beatenCardWithCard.card}/>
                     </div>
                 {/each}
                 {#each cardsToBeat as cardToBeat, i (cardToBeat.id)}
                     <div class="relative h-40 text-center">
-                        <CardToBeat className=" bg-blue-500 h-40 "
+                        <CardToBeat className="h-40 bg-blue-500"
                                     {cardToBeat}
                                     bind:dropFromOthersDisabled={dropFromOthersDisabled[i]}
                                     {cardBeatenCallback}
@@ -230,7 +232,7 @@
     {/if}
     <!-- Player Cards -->
     {#if playerCardsWithId.length != 0}
-        <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-7 xl:grid-cols-9 2xl:grid-cols-12 gap-4 overflow-hidden grid-flow-dense">
+        <div class="grid grid-flow-dense grid-cols-3 gap-4 overflow-hidden sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-7 xl:grid-cols-9 2xl:grid-cols-12">
             {#each playerCardsWithId as card (card.id)}
                 <PlayerCards
                         item={card}
