@@ -172,14 +172,14 @@
 <div class="col-span-3 space-y-4">
   {#if playerRole === "attack" || playerRole === "assistAttacker"}
     <div
-      class="relative grid grid-flow-dense grid-cols-3 justify-center gap-4 border-2 border-black p-4 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-7 xl:grid-cols-9 2xl:grid-cols-12"
+      class="relative flex justify-center gap-4 flex-wrap border-2 border-black p-4"
     >
       <PlayCard className="absolute inset-0" {cardDroppedToAttackCallback} />
       {#if table.length === 0}
         <div class="h-40" />
       {:else}
         {#each cardsOnTable as cardToBeatAndCard (cardToBeatAndCard.id)}
-          <div class="h-40 bg-blue-500">
+          <div class="h-40 bg-blue-500 w-24">
             <Card
               className="relative text-center"
               card={cardToBeatAndCard.cardToBeatAndCard[0].Card}
@@ -198,10 +198,10 @@
     <div class="h-48 border-2 border-black" />
   {:else}
     <div
-      class="inset-0 flex grid grid-flow-dense grid-cols-3 justify-center gap-4 overflow-hidden border-2 border-black p-4 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-7 xl:grid-cols-9 2xl:grid-cols-12"
+      class="relative flex justify-center gap-4 flex-wrap border-2 border-black p-4"
     >
       {#each beatenCardsWithCards as beatenCardWithCard (beatenCardWithCard.id)}
-        <div class="h-40 bg-blue-500 text-center">
+        <div class="h-40 bg-blue-500 w-24 text-center">
           <Card className="" card={beatenCardWithCard.beatenCard} />
           <Card className="" card={beatenCardWithCard.card} />
         </div>
@@ -209,7 +209,7 @@
       {#each cardsToBeat as cardToBeat, i (cardToBeat.id)}
         <div class="relative h-40 text-center">
           <CardToBeat
-            className="h-40 bg-blue-500"
+            className="h-40 bg-blue-500 w-24"
             {cardToBeat}
             bind:dropFromOthersDisabled={dropFromOthersDisabled[i]}
             {cardBeatenCallback}
