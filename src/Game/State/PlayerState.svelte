@@ -1,6 +1,6 @@
 <script>
-  import cardDeckIcon from "../../asset/icons/deck.svg";
   import Countdown from "../../Util/Countdown.svelte";
+  import Deck from "../../component/Deck.svelte";
 
   export let player = null;
   export let DurakTimers = null;
@@ -46,13 +46,12 @@
 </script>
 
 <p class="truncate">{player.PlayerData.name}</p>
-<div class="h-2" />
+<br>
 <div class="grid grid-cols-2">
   <div class="relative pt-1">
     <div class="absolute inset-0 flex rotate-90 items-center justify-center">
-      {@html cardDeckIcon}
+      <Deck></Deck>
     </div>
-
     <p class="absolute inset-0 flex items-center justify-center">
       {player.PlayerData.cards.length}
     </p>
@@ -90,11 +89,4 @@
     {/if}
   </div>
 </div>
-<div class="h-2" />
-
-<style>
-  :global(#deck) {
-    max-width: 3em;
-    display: block;
-  }
-</style>
+<br>
