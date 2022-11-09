@@ -44,11 +44,11 @@
     }
   };
 </script>
-
+<div>
 <p class="truncate">{player.PlayerData.name}</p>
 <br>
 <div class="grid grid-cols-2">
-  <div class="relative pt-1">
+  <div class="relative">
     <div class="absolute inset-0 flex rotate-90 items-center justify-center">
       <Deck></Deck>
     </div>
@@ -90,3 +90,4 @@
   </div>
 </div>
 <br>
+</div>
