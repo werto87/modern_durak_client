@@ -47,11 +47,20 @@
 </script>
 
 <div>
-  <p class="truncate">{player.PlayerData.name}</p>
-  {#if player?.PlayerData?.cards != null}
-    <div>
+
+  <div class="grid grid-cols-2">
+    <p>Name: </p>
+    <p class="truncate">{player.PlayerData.name}</p>
+  </div>
+  {#if player?.PlayerData?.cards !==[] && player?.PlayerData?.cards[0] != null}
+    <div class="grid grid-cols-2">
+      <p>Role: </p>
+      <p>{printPlayerRole(player.PlayerData.playerRole)}</p>
+    </div>
+
+    <div class="flex gap-2 flex-wrap justify-center" >
       {#each player?.PlayerData?.cards as card}
-        <Card card={card.Card} />
+        <Card className="h-20 w-12 bg-blue-500 text-center" card={card.Card} />
       {/each}
     </div>
   {:else}

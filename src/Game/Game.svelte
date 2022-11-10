@@ -92,6 +92,7 @@
         <!--    <OtherPlayerState {player} {DurakTimers} />-->
         <!--  {/if}-->
         <!--{/each}-->
+        <p>Player</p>
         {#each GameData.players as player}
           {#if player.PlayerData.name != accountName}
             <!--{console.log(player)}-->
