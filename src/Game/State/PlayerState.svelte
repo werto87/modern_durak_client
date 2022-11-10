@@ -45,7 +45,8 @@
     }
   };
 </script>
-
+<!--TODO timer for player-->
+<!--TODO enemy timer if player knows enemy cards-->
 <div>
 
   <div class="grid grid-cols-2">
