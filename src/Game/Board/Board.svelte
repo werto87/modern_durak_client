@@ -221,7 +221,6 @@
   {/if}
   <!-- Player Cards -->
   {#if playerCardsWithId.length !== 0}
-<!--    <div class="grid grid-flow-dense grid-cols-3 gap-4 overflow-hidden sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-7 xl:grid-cols-9 2xl:grid-cols-12">-->
     <div class="flex justify-center gap-4 flex-wrap">
       {#each playerCardsWithId as card (card.id)}
         <PlayerCards
