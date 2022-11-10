@@ -56,7 +56,7 @@
 </script>
 
 <section
-  class=" h-40 w-24 bg-blue-500 text-center"
+  class="bg-blue-500 text-center"
   use:dndzone={{
     items,
     dropFromOthersDisabled: true,
@@ -68,10 +68,10 @@
 >
   {#each items as item (item.id)}
     {#if dragDisabled}
-      <Card className="h-40" card={item} />
+      <Card className="h-40 w-24" card={item} />
     {:else}
       <Card
-        className="h-40 border-4 border-orange-500 bg-blue-500"
+        className="h-40 w-24 border-4 border-orange-500 bg-blue-500"
         card={item}
       />
     {/if}
