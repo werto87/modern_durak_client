@@ -189,7 +189,6 @@ export const toggleMachine = createMachine({
             JoinGameLobbySuccess: {
               actions: [
                 () => {
-                  //TODO enemy cards should be visible
                   //TODO in production there should be rnd cards with a seed
                   //TODO in debug there should be the possiblity to use that seed
                   //TODO in debug there should be a way to easily run the same game
