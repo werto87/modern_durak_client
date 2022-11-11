@@ -5,6 +5,7 @@
 
   export let player = null;
   export let DurakTimers = null;
+  export let ShowCardsIfPossible = true;
 
   const countdownForPlayerInSeconds = (playerName, runningTimers) => {
     let playerTimer = runningTimers.find((nameAndTimer) => {
@@ -53,15 +54,15 @@
     <p>Name:</p>
     <p class="truncate">{player.PlayerData.name}</p>
   </div>
-  {#if player?.PlayerData?.cards !== [] && player?.PlayerData?.cards[0] != null}
+  {#if ShowCardsIfPossible && player?.PlayerData?.cards !== [] && player?.PlayerData?.cards[0] != null}
     <div class="grid grid-cols-2">
       <p>Role:</p>
       <p>{printPlayerRole(player.PlayerData.playerRole)}</p>
     </div>
 
-    <div class="flex flex-wrap justify-center gap-2">
+    <div class="flex flex-wrap gap-2">
       {#each player?.PlayerData?.cards as card}
-        <Card className="h-20 w-12 bg-blue-500 text-center" card={card.Card} />
+        <Card className="h-10 w-6 bg-blue-500 text-center" card={card.Card} />
       {/each}
     </div>
   {:else}

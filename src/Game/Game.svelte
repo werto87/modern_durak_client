@@ -87,12 +87,17 @@
       />
       <div class="">
         <CardsInDeck {GameData} />
-        <!--{#each GameData.players as player}-->
-        <!--  {#if player.PlayerData.name == accountName}-->
-        <!--    <OtherPlayerState {player} {DurakTimers} />-->
-        <!--  {/if}-->
-        <!--{/each}-->
         <p>Player</p>
+        {#each GameData.players as player}
+          {#if player.PlayerData.name == accountName}
+            <OtherPlayerState
+              {player}
+              ShowCardsIfPossible={false}
+              {DurakTimers}
+            />
+          {/if}
+        {/each}
+        <p>Opponent</p>
         {#each GameData.players as player}
           {#if player.PlayerData.name != accountName}
             <!--{console.log(player)}-->
