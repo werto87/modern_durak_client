@@ -14,6 +14,7 @@
         </div>
     </div>
         {/if}
+    {#if GameData.cardsInDeck===0}
     <div class="grid grid-cols-2">
      <p>Trump</p>
       <div
@@ -24,6 +25,7 @@
         {printType(GameData.trump)}
       </div>
     </div>
+        {/if}
     {#if GameData.lastCardInDeck}
         <div class="grid grid-cols-2">
             <p>Last Card in Deck</p>
