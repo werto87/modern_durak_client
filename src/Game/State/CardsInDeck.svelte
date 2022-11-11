@@ -6,12 +6,14 @@
 
 <div class="">
   <p>Deck</p>
+    {#if GameData.cardsInDeck>0}
       <div class="grid grid-cols-2">
       <p> Cards in Deck</p>
         <div class="flex items-center">
       <p > {GameData.cardsInDeck}</p>
         </div>
     </div>
+        {/if}
     <div class="grid grid-cols-2">
      <p>Trump</p>
       <div
