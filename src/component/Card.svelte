@@ -16,14 +16,21 @@
       result = "♠";
     } else if (type === "clubs") {
       result = "♣";
-    }
+  } else if (type === "?") {
+    result = "?";
+  }
     return result;
   }
 
   function cardClass(type) {
-    return type === "hearts" || type === "diamonds"
-      ? "text-red-500"
-      : "text-green-500";
+    if (type === "hearts" || type === "diamonds"){
+      return "text-red-500";
+    }else if(type === "spades" || type === "clubs")
+    {
+      return "text-green-500";
+    }else{
+      return "";
+    }
   }
 </script>
 

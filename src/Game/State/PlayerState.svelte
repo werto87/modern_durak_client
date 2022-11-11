@@ -51,69 +51,47 @@
 <!--TODO enemy timer if player knows enemy cards-->
 <div>
   <div class="grid grid-cols-2">
-    <p>Name:</p>
-    <p class="truncate">{player.PlayerData.name}</p>
+    <p>Role</p>
+    <p>{printPlayerRole(player.PlayerData.playerRole)}</p>
   </div>
-  {#if ShowCardsIfPossible && player?.PlayerData?.cards !== [] && player?.PlayerData?.cards[0] != null}
-    <div class="grid grid-cols-2">
-      <p>Role:</p>
-      <p>{printPlayerRole(player.PlayerData.playerRole)}</p>
-    </div>
-    <div class="grid grid-cols-2">
-      <p>Cards:</p>
-      <div class="flex flex-wrap gap-2">
-        {#each player?.PlayerData?.cards as card}
+  <div class="grid grid-cols-2">
+    <p>Cards</p>
+    <div class="flex flex-wrap gap-2">
+      {#each player?.PlayerData?.cards as card}
+        {#if card }
           <Card className="h-10 w-6 bg-blue-500 text-center" card={card.Card} />
-        {/each}
-      </div>
-    </div>
-
-  {:else}
-    <br />
-    <div class="grid grid-cols-2">
-      <div class="relative">
-        <div
-          class="absolute inset-0 flex rotate-90 items-center justify-center"
-        >
-          <Deck />
-        </div>
-        <p class="absolute inset-0 flex items-center justify-center">
-          {player.PlayerData.cards.length}
-        </p>
-      </div>
-      <div class="grid grid-cols-1">
-        <p id="playerRole" class="">
-          {printPlayerRole(player.PlayerData.playerRole)}
-        </p>
-
-        {#if DurakTimers}
-          {#if playerHasRunningTimer(player.PlayerData.name, DurakTimers.runningTimeUserTimePointMilliseconds)}
-            <Countdown
-              countdown={countdownForPlayerInSeconds(
-                player.PlayerData.name,
-                DurakTimers.runningTimeUserTimePointMilliseconds
-              )}
-              let:countdown
-            >
-              <p id="runningTimer">
-                Time Left
-                <br />
-                {countdown}
-              </p>
-            </Countdown>
-          {:else}
-            <p id="pauseTimer">
-              Time Left
-              <br />
-              {timeLeftForPlayerInSeconds(
-                player.PlayerData.name,
-                DurakTimers.pausedTimeUserDurationMilliseconds
-              )}
-            </p>
-          {/if}
+          {:else }
+          <Card className="h-10 w-6 bg-blue-500 text-center" card={{"value":"?","type":"?"}} />
         {/if}
-      </div>
+
+      {/each}
     </div>
-    <br />
-  {/if}
-</div>
+  </div>
+    <div class="grid grid-cols-2">
+    {#if DurakTimers}
+      {#if playerHasRunningTimer(player.PlayerData.name, DurakTimers.runningTimeUserTimePointMilliseconds)}
+        <Countdown
+          countdown={countdownForPlayerInSeconds(
+            player.PlayerData.name,
+            DurakTimers.runningTimeUserTimePointMilliseconds
+          )}
+          let:countdown
+        >
+          <p>Time Left:</p>
+          <p id="runningTimer">
+            {countdown}
+          </p>
+        </Countdown>
+      {:else}
+        <p>Time Left:</p>
+        <p id="pauseTimer">
+          {timeLeftForPlayerInSeconds(
+            player.PlayerData.name,
+            DurakTimers.pausedTimeUserDurationMilliseconds
+          )}
+        </p>
+      {/if}
+    {/if}
+    </div>
+          </div>
+
