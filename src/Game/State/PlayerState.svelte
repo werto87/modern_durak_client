@@ -59,12 +59,15 @@
       <p>Role:</p>
       <p>{printPlayerRole(player.PlayerData.playerRole)}</p>
     </div>
-
-    <div class="flex flex-wrap gap-2">
-      {#each player?.PlayerData?.cards as card}
-        <Card className="h-10 w-6 bg-blue-500 text-center" card={card.Card} />
-      {/each}
+    <div class="grid grid-cols-2">
+      <p>Cards:</p>
+      <div class="flex flex-wrap gap-2">
+        {#each player?.PlayerData?.cards as card}
+          <Card className="h-10 w-6 bg-blue-500 text-center" card={card.Card} />
+        {/each}
+      </div>
     </div>
+
   {:else}
     <br />
     <div class="grid grid-cols-2">
@@ -79,7 +82,7 @@
         </p>
       </div>
       <div class="grid grid-cols-1">
-        <p id="playerRole" class="text-center">
+        <p id="playerRole" class="">
           {printPlayerRole(player.PlayerData.playerRole)}
         </p>
 
