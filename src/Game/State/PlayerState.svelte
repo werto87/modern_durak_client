@@ -45,21 +45,21 @@
     }
   };
 </script>
+
 <!--TODO timer for player-->
 <!--TODO enemy timer if player knows enemy cards-->
 <div>
-
   <div class="grid grid-cols-2">
-    <p>Name: </p>
+    <p>Name:</p>
     <p class="truncate">{player.PlayerData.name}</p>
   </div>
-  {#if player?.PlayerData?.cards !==[] && player?.PlayerData?.cards[0] != null}
+  {#if player?.PlayerData?.cards !== [] && player?.PlayerData?.cards[0] != null}
     <div class="grid grid-cols-2">
-      <p>Role: </p>
+      <p>Role:</p>
       <p>{printPlayerRole(player.PlayerData.playerRole)}</p>
     </div>
 
-    <div class="flex gap-2 flex-wrap justify-center" >
+    <div class="flex flex-wrap justify-center gap-2">
       {#each player?.PlayerData?.cards as card}
         <Card className="h-20 w-12 bg-blue-500 text-center" card={card.Card} />
       {/each}

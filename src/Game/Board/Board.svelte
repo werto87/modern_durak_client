@@ -172,14 +172,14 @@
 <div class="col-span-3 space-y-4">
   {#if playerRole === "attack" || playerRole === "assistAttacker"}
     <div
-      class="relative flex justify-center gap-4 flex-wrap border-2 border-black p-4"
+      class="relative flex flex-wrap justify-center gap-4 border-2 border-black p-4"
     >
       <PlayCard className="absolute inset-0" {cardDroppedToAttackCallback} />
       {#if table.length === 0}
         <div class="h-40" />
       {:else}
         {#each cardsOnTable as cardToBeatAndCard (cardToBeatAndCard.id)}
-          <div class="h-40 bg-blue-500 w-24">
+          <div class="h-40 w-24 bg-blue-500">
             <Card
               className="relative text-center"
               card={cardToBeatAndCard.cardToBeatAndCard[0].Card}
@@ -198,10 +198,10 @@
     <div class="h-48 border-2 border-black" />
   {:else}
     <div
-      class="relative flex justify-center gap-4 flex-wrap border-2 border-black p-4"
+      class="relative flex flex-wrap justify-center gap-4 border-2 border-black p-4"
     >
       {#each beatenCardsWithCards as beatenCardWithCard (beatenCardWithCard.id)}
-        <div class="h-40 bg-blue-500 w-24 text-center">
+        <div class="h-40 w-24 bg-blue-500 text-center">
           <Card className="" card={beatenCardWithCard.beatenCard} />
           <Card className="" card={beatenCardWithCard.card} />
         </div>
@@ -221,7 +221,7 @@
   {/if}
   <!-- Player Cards -->
   {#if playerCardsWithId.length !== 0}
-    <div class="flex justify-center gap-4 flex-wrap">
+    <div class="flex flex-wrap justify-center gap-4">
       {#each playerCardsWithId as card (card.id)}
         <PlayerCards
           item={card}
