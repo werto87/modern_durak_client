@@ -83,6 +83,7 @@
           numberOfCardsPlayerShouldHave:
             GameOption.gameOption.numberOfCardsPlayerShouldHave,
           roundToStart: GameOption.gameOption.roundToStart,
+          trump: null,
           customCardDeck:
             deckOptionSelected === 0
               ? null
@@ -91,6 +92,7 @@
               : GameOption.gameOption.customCardDeck
               ? GameOption.gameOption.customCardDeck
               : [],
+          cardsInHands: null
         },
         timerOption: {
           timerType: timerOptions[timerOptionSelected].value,
