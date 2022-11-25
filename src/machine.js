@@ -191,14 +191,11 @@ export const toggleMachine = createMachine({
               actions: [
                 () => {
                   const cardsToCreateGame = shuffleArray(debugDeck36).slice(0,6);
-                  //TODO find out why play 4 and then 5 leads to wrong move create A TEST IN DURAK COMPUTER CONTROLLED OPPONENT. Action is for some reason null
-                  //TODO game option needs to be updated there are new member variables
-                  sendMessageToWebsocket('GameOption|{"gameOption":{"maxCardValue":9,"typeCount":4,"numberOfCardsPlayerShouldHave":3,"roundToStart":1,"trump":null,"customCardDeck":[{"Card":{"value":7,"type":"spades"}},{"Card":{"value":2,"type":"diamonds"}},{"Card":{"value":5,"type":"hearts"}},{"Card":{"value":5,"type":"clubs"}},{"Card":{"value":9,"type":"hearts"}},{"Card":{"value":4,"type":"hearts"}}],"cardsInHands":null},"timerOption":{"timerType":"noTimer","timeAtStartInSeconds":0,"timeForEachRoundInSeconds":0},"computerControlledPlayerCount":1,"opponentCards":"showOpponentCards"}');
-                  // sendMessageToWebsocket(
-                  //   "GameOption|" +
-                  //     '{"gameOption":{"maxCardValue":9,"typeCount":4,"numberOfCardsPlayerShouldHave":3,"roundToStart":1,"trump":null,"customCardDeck":'
-                  //     +JSON.stringify(cardsToCreateGame)+ ',"cardsInHands":null},"timerOption":{"timerType":"noTimer","timeAtStartInSeconds":0,"timeForEachRoundInSeconds":0},"computerControlledPlayerCount":1,"opponentCards":"showOpponentCards"}'
-                  // );
+                  sendMessageToWebsocket(
+                    "GameOption|" +
+                      '{"gameOption":{"maxCardValue":9,"typeCount":4,"numberOfCardsPlayerShouldHave":3,"roundToStart":1,"trump":null,"customCardDeck":'
+                      +JSON.stringify(cardsToCreateGame)+ ',"cardsInHands":null},"timerOption":{"timerType":"noTimer","timeAtStartInSeconds":0,"timeForEachRoundInSeconds":0},"computerControlledPlayerCount":1,"opponentCards":"showOpponentCards"}'
+                  );
                 },
               ],
             },
