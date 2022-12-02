@@ -191,9 +191,10 @@ export const toggleMachine = createMachine({
               actions: [
                 () => {
                   const cardsToCreateGame = shuffleArray(debugDeck36).slice(0,6);
+                  const trump = shuffleArray(["hearts","spades","diamonds","clubs"]).slice(0,1);
                   sendMessageToWebsocket(
                     "GameOption|" +
-                      '{"gameOption":{"maxCardValue":9,"typeCount":4,"numberOfCardsPlayerShouldHave":3,"roundToStart":1,"trump":null,"customCardDeck":'
+                      '{"gameOption":{"maxCardValue":9,"typeCount":4,"numberOfCardsPlayerShouldHave":3,"roundToStart":1,"trump":"'+trump+'","customCardDeck":'
                       +JSON.stringify(cardsToCreateGame)+ ',"cardsInHands":null},"timerOption":{"timerType":"noTimer","timeAtStartInSeconds":0,"timeForEachRoundInSeconds":0},"computerControlledPlayerCount":1,"opponentCards":"showOpponentCards"}'
                   );
                 },
