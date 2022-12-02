@@ -50,6 +50,7 @@
 <!--TODO timer for player-->
 <!--TODO enemy timer if player knows enemy cards-->
 <div>
+  <p class="truncate">{player.PlayerData.name}</p>
   <div class="grid grid-cols-2">
     <p>Role</p>
     <p>{printPlayerRole(player.PlayerData.playerRole)}</p>
@@ -59,9 +60,9 @@
     <div class="flex flex-wrap gap-2">
       {#each player?.PlayerData?.cards as card}
         {#if card }
-          <Card className="h-10 w-6 bg-blue-500 text-center" card={card.Card} />
+          <Card className="h-10 w-6 bg-cardBackground text-center" card={card.Card} />
           {:else }
-          <Card className="h-10 w-6 bg-blue-500 text-center" card={{"value":"?","type":"?"}} />
+          <Card className="h-10 w-6 bg-cardBackground text-center" card={{"value":"?","type":"?"}} />
         {/if}
 
       {/each}

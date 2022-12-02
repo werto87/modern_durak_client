@@ -64,7 +64,7 @@
   <form class="grid grid-cols-1 space-y-4" on:submit={handleSubmit}>
     <label for="accountName">Account Name</label>
     <input
-      class="border-2"
+      class="border-2 bg-background"
       id="accountName"
       name="accountName"
       on:change={handleChange}
@@ -72,7 +72,7 @@
     />
     <label for="password">Password</label>
     <input
-      class="border-2"
+      class="border-2 bg-background"
       type="password"
       id="password"
       name="password"
@@ -81,7 +81,7 @@
     />
     <label for="repeatPassword">Repeat Password</label>
     <input
-      class="border-2"
+      class="border-2 bg-background"
       type="password"
       id="repeatPassword"
       name="repeatPassword"

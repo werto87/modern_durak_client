@@ -56,12 +56,12 @@
 </script>
 
 <section
-  class="bg-blue-500 text-center"
+  class="bg-cardBackground text-center"
   use:dndzone={{
     items,
     dropFromOthersDisabled: true,
     dragDisabled,
-    dropTargetClasses: ["bg-orange-500"],
+    dropTargetClasses: ["playableCardBorderColor"],
   }}
   on:consider={handleDndConsider}
   on:finalize={handleDndFinalize}
@@ -71,7 +71,7 @@
       <Card className="h-40 w-24" card={item} />
     {:else}
       <Card
-        className="h-40 w-24 border-4 border-orange-500 bg-blue-500"
+        className="h-40 w-24 border-4 bg-cardBackground border-playableCardBorderColor"
         card={item}
       />
     {/if}

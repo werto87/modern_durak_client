@@ -75,7 +75,7 @@
   const isProduction = process.env === "production";
 </script>
 
-<main>
+<main class="bg-background text-borderColor min-h-screen">
   {#if $toggleService.context.popUp}
     <svelte:component
       this={$toggleService.context.popUp}
@@ -112,8 +112,8 @@
       dismissable: false,
       theme: {
         "font-size": "1.5em",
-        "--toastColor": "#0e3b93",
-        "--toastProgressBackground": "#cccccc",
+        "--toastColor": "#4ed93f",
+        "--toastProgressBackground": "#4ed93f",
         opacity: 1,
       },
     }}
@@ -123,7 +123,7 @@
     <form class="p-8" on:submit={handleSubmit}>
       <label for="accountName">Message: </label>
       <input
-        class="border-2"
+        class="border-2 bg-background"
         id="accountName"
         name="accountName"
         on:change={handleChange}
@@ -133,7 +133,6 @@
     </form>
   {/if}
 </main>
-
 <style global>
   @tailwind base;
   @tailwind components;

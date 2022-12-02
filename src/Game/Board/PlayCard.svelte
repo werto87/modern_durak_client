@@ -34,8 +34,8 @@
   class={className}
   use:dndzone={{
     items,
-    dropTargetClasses: ["border-2.border-orange-500"],
-    dropTargetStyle: { outline: "rgba(249, 115, 22, 1) solid 10px" },
+    dropTargetClasses: ["border-2.bg-cardBackground"],
+    dropTargetStyle: { outline: "rgba(255, 170, 0, 1) solid 10px" },
     dragDisabled: true,
     morphDisabled: true,
   }}
@@ -43,6 +43,6 @@
   on:finalize={handleDndFinalize}
 >
   {#each items as item (item.id)}
-    <Card className="h-40 bg-blue-500 w-24" card={item} />
+    <Card className="h-40 bg-cardBackground w-24" card={item} />
   {/each}
 </section>

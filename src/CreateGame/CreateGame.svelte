@@ -258,7 +258,7 @@
         <form class="grid grid-cols-1 space-y-4" on:submit={handleSubmit}>
           <label for="createDeckArray">Create Deck from Array</label>
           <input
-            class="border-2"
+            class="border-2 bg-background"
             id="createDeckArray"
             name="createDeckArray"
             on:change={handleChange}

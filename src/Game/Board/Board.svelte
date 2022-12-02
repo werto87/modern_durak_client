@@ -179,7 +179,7 @@
         <div class="h-40" />
       {:else}
         {#each cardsOnTable as cardToBeatAndCard (cardToBeatAndCard.id)}
-          <div class="h-40 w-24 bg-blue-500">
+          <div class="h-40 w-24 bg-cardBackground">
             <Card
               className="relative text-center"
               card={cardToBeatAndCard.cardToBeatAndCard[0].Card}
@@ -201,7 +201,7 @@
       class="relative flex flex-wrap justify-center gap-4 border-2 border-black p-4"
     >
       {#each beatenCardsWithCards as beatenCardWithCard (beatenCardWithCard.id)}
-        <div class="h-40 w-24 bg-blue-500 text-center">
+        <div class="h-40 w-24 bg-cardBackground text-center">
           <Card className="" card={beatenCardWithCard.beatenCard} />
           <Card className="" card={beatenCardWithCard.card} />
         </div>
@@ -209,7 +209,7 @@
       {#each cardsToBeat as cardToBeat, i (cardToBeat.id)}
         <div class="relative h-40 text-center">
           <CardToBeat
-            className="h-40 bg-blue-500 w-24"
+            className="h-40 bg-cardBackground w-24"
             {cardToBeat}
             bind:dropFromOthersDisabled={dropFromOthersDisabled[i]}
             {cardBeatenCallback}

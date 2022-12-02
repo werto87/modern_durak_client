@@ -19,8 +19,8 @@
      <p>Trump</p>
       <div
         class={GameData.trump === "hearts" || GameData.trump === "diamonds"
-          ? "text-red-500"
-          : "text-green-500"}
+          ? "text-redCardValue"
+          : "text-greenCardValue"}
       >
         {printType(GameData.trump)}
       </div>

@@ -100,7 +100,6 @@
         <p>Opponent</p>
         {#each GameData.players as player}
           {#if player.PlayerData.name != accountName}
-            <!--{console.log(player)}-->
             <OtherPlayerState {player} {DurakTimers} />
           {/if}
         {/each}

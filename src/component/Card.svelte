@@ -24,10 +24,10 @@
 
   function cardClass(type) {
     if (type === "hearts" || type === "diamonds"){
-      return "text-red-500";
+      return "text-redCardValue";
     }else if(type === "spades" || type === "clubs")
     {
-      return "text-green-500";
+      return "text-greenCardValue";
     }else{
       return "";
     }

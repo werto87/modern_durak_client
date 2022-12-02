@@ -33,7 +33,7 @@
   use:dndzone={{
     items,
     dropFromOthersDisabled: dropNotAllowed,
-    dropTargetClasses: ["bg-orange-500"],
+    dropTargetClasses: ["bg-playableCardBorderColor"],
     dragDisabled: true,
     morphDisabled: true,
   }}
