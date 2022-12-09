@@ -74,8 +74,7 @@
 
 {#if GameData}
   <main>
-    <div class="flex flex-col gap-2 p-4">
-      <h1 class="text-center text-lg font-bold">Game</h1>
+    <div class="flex flex-col gap-2 p-2">
       <CardsInDeck {GameData} />
       {#each GameData.players as player}
         {#if player.PlayerData.name == accountName}
@@ -96,7 +95,7 @@
         {cardDroppedToAttackCallback}
         bind:allowedMoves={DurakAllowedMoves}
       />
-      <div class="col-span-full grid grid-cols-1 gap-4">
+      <div class="col-span-full grid grid-cols-1 gap-2">
         {#if playerRole == "defend"}
           {#if isAllowedMove(DurakAllowedMoves, "TakeCards")}
             <ModernDurakButton

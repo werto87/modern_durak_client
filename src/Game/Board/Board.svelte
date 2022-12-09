@@ -176,7 +176,7 @@
   >
     <PlayCard className="absolute inset-0" {cardDroppedToAttackCallback} />
     {#if table.length === 0}
-      <div class="h-20 sm:h-40" />
+      <div class="h-16 sm:h-40" />
     {:else}
       {#each cardsOnTable as cardToBeatAndCard (cardToBeatAndCard.id)}
         <div class="h-20 w-14 bg-cardBackground sm:h-40 sm:w-24">
@@ -209,7 +209,7 @@
     {#each cardsToBeat as cardToBeat, i (cardToBeat.id)}
       <div class="relative h-20 text-center sm:h-40">
         <CardToBeat
-          className="h-20 sm:h-40 bg-cardBackground sm:w-24 w-12"
+          className="h-16 sm:h-40 bg-cardBackground sm:w-24 w-12"
           {cardToBeat}
           bind:dropFromOthersDisabled={dropFromOthersDisabled[i]}
           {cardBeatenCallback}
