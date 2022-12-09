@@ -11,7 +11,7 @@ import LandingPage from "./LandingPage/LandingPage.svelte";
 import { toast } from "@zerodevx/svelte-toast";
 import WaitingForGame from "./WaitingForGame/WaitingForGame.svelte";
 import { sendMessageToWebsocket } from "./Webservice/store.js";
-import {debugDeck36, shuffleArray} from "./Util/Util";
+import { debugDeck36, shuffleArray } from "./Util/Util";
 
 const matchMakingState = (isRanked) => {
   return {
@@ -190,12 +190,23 @@ export const toggleMachine = createMachine({
             JoinGameLobbySuccess: {
               actions: [
                 () => {
-                  const cardsToCreateGame = shuffleArray(debugDeck36).slice(0,6);
-                  const trump = shuffleArray(["hearts","spades","diamonds","clubs"]).slice(0,1);
+                  const cardsToCreateGame = shuffleArray(debugDeck36).slice(
+                    0,
+                    6
+                  );
+                  const trump = shuffleArray([
+                    "hearts",
+                    "spades",
+                    "diamonds",
+                    "clubs",
+                  ]).slice(0, 1);
                   sendMessageToWebsocket(
                     "GameOption|" +
-                      '{"gameOption":{"maxCardValue":9,"typeCount":4,"numberOfCardsPlayerShouldHave":3,"roundToStart":1,"trump":"'+trump+'","customCardDeck":'
-                      +JSON.stringify(cardsToCreateGame)+ ',"cardsInHands":null},"timerOption":{"timerType":"noTimer","timeAtStartInSeconds":0,"timeForEachRoundInSeconds":0},"computerControlledPlayerCount":1,"opponentCards":"showOpponentCards"}'
+                      '{"gameOption":{"maxCardValue":9,"typeCount":4,"numberOfCardsPlayerShouldHave":3,"roundToStart":1,"trump":"' +
+                      trump +
+                      '","customCardDeck":' +
+                      JSON.stringify(cardsToCreateGame) +
+                      ',"cardsInHands":null},"timerOption":{"timerType":"noTimer","timeAtStartInSeconds":0,"timeForEachRoundInSeconds":0},"computerControlledPlayerCount":1,"opponentCards":"showOpponentCards"}'
                   );
                 },
               ],
@@ -212,7 +223,7 @@ export const toggleMachine = createMachine({
         Lobby: {
           on: {
             JoinGameLobbySuccess: "CreateGame",
-            Cancel: "LandingPage"
+            Cancel: "LandingPage",
           },
           entry: assign({
             component: (ctx) => (ctx.component = Lobby),

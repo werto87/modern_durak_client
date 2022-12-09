@@ -6,33 +6,30 @@
 
 <div class="">
   <p>Deck</p>
-    {#if GameData.cardsInDeck>0}
-      <div class="grid grid-cols-2">
-      <p> Cards in Deck</p>
-        <div class="flex items-center">
-      <p > {GameData.cardsInDeck}</p>
-        </div>
-    </div>
-        {/if}
-    {#if GameData.cardsInDeck===0}
-     <p>Trump</p>
-      <div
-        class={GameData.trump === "hearts" || GameData.trump === "diamonds"
-          ? "text-redCardValue"
-          : "text-greenCardValue"}
-      >
-        {printType(GameData.trump)}
+  {#if GameData.cardsInDeck > 0}
+    <div class="grid grid-cols-2">
+      <p>Cards in Deck</p>
+      <div class="flex items-center">
+        <p>{GameData.cardsInDeck}</p>
       </div>
-        {/if}
-    {#if GameData.lastCardInDeck}
-        <div class="grid grid-cols-2">
-            <p>Last Card in Deck</p>
-            <div class="flex items-center">
-        <Card
-                className=""
-                card={GameData.lastCardInDeck}
-        />
-            </div>
-        </div>
-    {/if}
+    </div>
+  {/if}
+  {#if GameData.cardsInDeck === 0}
+    <p>Trump</p>
+    <div
+      class={GameData.trump === "hearts" || GameData.trump === "diamonds"
+        ? "text-redCardValue"
+        : "text-greenCardValue"}
+    >
+      {printType(GameData.trump)}
+    </div>
+  {/if}
+  {#if GameData.lastCardInDeck}
+    <div class="grid grid-cols-2">
+      <p>Last Card in Deck</p>
+      <div class="flex items-center">
+        <Card className="" card={GameData.lastCardInDeck} />
+      </div>
+    </div>
+  {/if}
 </div>

@@ -16,19 +16,18 @@
       result = "♠";
     } else if (type === "clubs") {
       result = "♣";
-  } else if (type === "?") {
-    result = "?";
-  }
+    } else if (type === "?") {
+      result = "?";
+    }
     return result;
   }
 
   function cardClass(type) {
-    if (type === "hearts" || type === "diamonds"){
+    if (type === "hearts" || type === "diamonds") {
       return "text-redCardValue";
-    }else if(type === "spades" || type === "clubs")
-    {
+    } else if (type === "spades" || type === "clubs") {
       return "text-greenCardValue";
-    }else{
+    } else {
       return "";
     }
   }

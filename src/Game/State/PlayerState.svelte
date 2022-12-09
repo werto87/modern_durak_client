@@ -50,22 +50,27 @@
 <!--TODO enemy timer if player knows enemy cards-->
 <div>
   <p class="truncate">{player.PlayerData.name}</p>
-    <p>Role</p>
-    <p>{printPlayerRole(player.PlayerData.playerRole)}</p>
-  {#if isPlayer ==false}
+  <p>Role</p>
+  <p>{printPlayerRole(player.PlayerData.playerRole)}</p>
+  {#if isPlayer == false}
     <p>Cards</p>
     <div class="flex flex-wrap gap-2">
       {#each player?.PlayerData?.cards as card}
-        {#if card }
-          <Card className="h-10 w-6 bg-cardBackground text-center" card={card.Card} />
-          {:else }
-          <Card className="h-10 w-6 bg-cardBackground text-center" card={{"value":"?","type":"?"}} />
+        {#if card}
+          <Card
+            className="h-10 w-6 text-center bg-cardBackground"
+            card={card.Card}
+          />
+        {:else}
+          <Card
+            className="h-10 w-6 text-center bg-cardBackground"
+            card={{ value: "?", type: "?" }}
+          />
         {/if}
-
       {/each}
     </div>
   {/if}
-    <div class="grid grid-cols-2">
+  <div class="grid grid-cols-2">
     {#if DurakTimers}
       {#if playerHasRunningTimer(player.PlayerData.name, DurakTimers.runningTimeUserTimePointMilliseconds)}
         <Countdown
@@ -90,6 +95,5 @@
         </p>
       {/if}
     {/if}
-    </div>
-          </div>
-
+  </div>
+</div>

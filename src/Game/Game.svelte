@@ -90,11 +90,7 @@
         <p>Player</p>
         {#each GameData.players as player}
           {#if player.PlayerData.name == accountName}
-            <PlayerState
-              {player}
-              isPlayer={true}
-              {DurakTimers}
-            />
+            <PlayerState {player} isPlayer={true} {DurakTimers} />
           {/if}
         {/each}
         <p>Opponent</p>

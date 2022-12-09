@@ -1,6 +1,4 @@
-<svg
-        class="h-10"
-        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 310 202"
+<svg class="h-10" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 310 202"
   ><g transform="rotate(88.796 148.446 160.838)"
     ><rect
       width="181.038"

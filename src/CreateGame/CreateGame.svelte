@@ -64,7 +64,7 @@
   import { sendMessageToWebsocket } from "../Webservice/store.js";
   import { createForm } from "svelte-forms-lib";
   import Card from "../component/Card.svelte";
-  import {debugDeck36} from "../Util/Util";
+  import { debugDeck36 } from "../Util/Util";
 
   const maxUserCountChanged = () => {
     const maxUserObject = { maxUserSize: maxUserSizeArray[0] };
@@ -92,7 +92,7 @@
               : GameOption.gameOption.customCardDeck
               ? GameOption.gameOption.customCardDeck
               : [],
-          cardsInHands: null
+          cardsInHands: null,
         },
         timerOption: {
           timerType: timerOptions[timerOptionSelected].value,
@@ -129,7 +129,6 @@
   const leaveGameLobby = () => {
     sendMessageToWebsocket("LeaveGameLobby|{}");
   };
-
 
   function isNumber(n) {
     return !isNaN(parseFloat(n)) && !isNaN(n - 0);

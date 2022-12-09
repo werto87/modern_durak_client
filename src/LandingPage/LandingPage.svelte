@@ -46,16 +46,16 @@
 </script>
 
 <div class="grid grid-cols-1 gap-4 ">
-  <div class="grid grid-cols-1 gap-4 ml-4 mr-4">
-  <h1 class="text-center text-lg font-bold">Chose Game Mode</h1>
-  <ModernDurakButton buttonText="Quick" onClick={quickPressed} />
-  <ModernDurakButton buttonText="Ranked" onClick={rankedPressed} />
-  <ModernDurakButton buttonText="Puzzle" onClick={puzzlePressed} />
-  <ModernDurakButton buttonText="Custom" onClick={customPressed} />
-  {#if loginState}
-    <ModernDurakButton buttonText="Logout" onClick={logout} />
-  {:else}
-    <ModernDurakButton buttonText="Login" onClick={login} />
-  {/if}
+  <div class="ml-4 mr-4 grid grid-cols-1 gap-4">
+    <h1 class="text-center text-lg font-bold">Chose Game Mode</h1>
+    <ModernDurakButton buttonText="Quick" onClick={quickPressed} />
+    <ModernDurakButton buttonText="Ranked" onClick={rankedPressed} />
+    <ModernDurakButton buttonText="Puzzle" onClick={puzzlePressed} />
+    <ModernDurakButton buttonText="Custom" onClick={customPressed} />
+    {#if loginState}
+      <ModernDurakButton buttonText="Logout" onClick={logout} />
+    {:else}
+      <ModernDurakButton buttonText="Login" onClick={login} />
+    {/if}
   </div>
 </div>

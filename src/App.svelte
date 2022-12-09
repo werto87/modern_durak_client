@@ -75,7 +75,7 @@
   const isProduction = process.env === "production";
 </script>
 
-<main class="bg-background text-borderColor min-h-screen touch-none">
+<main class="min-h-screen touch-none bg-background text-borderColor">
   {#if $toggleService.context.popUp}
     <svelte:component
       this={$toggleService.context.popUp}
@@ -132,6 +132,7 @@
     </form>
   {/if}
 </main>
+
 <style global>
   @tailwind base;
   @tailwind components;
