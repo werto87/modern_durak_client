@@ -15,7 +15,6 @@
     </div>
         {/if}
     {#if GameData.cardsInDeck===0}
-<!--    <div class="grid grid-cols-2">-->
      <p>Trump</p>
       <div
         class={GameData.trump === "hearts" || GameData.trump === "diamonds"
@@ -24,7 +23,6 @@
       >
         {printType(GameData.trump)}
       </div>
-<!--    </div>-->
         {/if}
     {#if GameData.lastCardInDeck}
         <div class="grid grid-cols-2">

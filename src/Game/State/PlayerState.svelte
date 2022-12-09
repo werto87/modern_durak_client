@@ -50,10 +50,8 @@
 <!--TODO enemy timer if player knows enemy cards-->
 <div>
   <p class="truncate">{player.PlayerData.name}</p>
-<!--  <div class="grid grid-cols-2">-->
     <p>Role</p>
     <p>{printPlayerRole(player.PlayerData.playerRole)}</p>
-<!--  </div>-->
   {#if isPlayer ==false}
     <p>Cards</p>
     <div class="flex flex-wrap gap-2">
