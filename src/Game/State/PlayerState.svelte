@@ -48,22 +48,17 @@
 
 <!--TODO timer for player-->
 <!--TODO enemy timer if player knows enemy cards-->
-<div>
-  <p class="truncate">{player.PlayerData.name}</p>
-  <p>Role</p>
-  <p>{printPlayerRole(player.PlayerData.playerRole)}</p>
+<div class="flex">
+  <p class="w-14 truncate sm:w-36">{player.PlayerData.name}</p>
+  <p>{printPlayerRole(player.PlayerData.playerRole)}&nbsp;</p>
   {#if isPlayer == false}
-    <p>Cards</p>
     <div class="flex flex-wrap gap-2">
       {#each player?.PlayerData?.cards as card}
         {#if card}
-          <Card
-            className="h-10 w-6 text-center bg-cardBackground"
-            card={card.Card}
-          />
+          <Card className="text-center bg-cardBackground" card={card.Card} />
         {:else}
           <Card
-            className="h-10 w-6 text-center bg-cardBackground"
+            className="text-center bg-cardBackground"
             card={{ value: "?", type: "?" }}
           />
         {/if}

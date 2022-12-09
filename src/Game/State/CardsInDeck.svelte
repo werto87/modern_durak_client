@@ -4,32 +4,28 @@
   export let GameData = null;
 </script>
 
-<div class="">
-  <p>Deck</p>
+<div class="flex space-x-2">
   {#if GameData.cardsInDeck > 0}
-    <div class="grid grid-cols-2">
-      <p>Cards in Deck</p>
-      <div class="flex items-center">
-        <p>{GameData.cardsInDeck}</p>
-      </div>
+    <div>
+      Cards in Deck {GameData.cardsInDeck}
     </div>
   {/if}
   {#if GameData.cardsInDeck === 0}
-    <p>Trump</p>
-    <div
-      class={GameData.trump === "hearts" || GameData.trump === "diamonds"
-        ? "text-redCardValue"
-        : "text-greenCardValue"}
-    >
-      {printType(GameData.trump)}
+    <div class="flex space-x-2">
+      <div>Trump</div>
+      <div
+        class={GameData.trump === "hearts" || GameData.trump === "diamonds"
+          ? "text-redCardValue"
+          : "text-greenCardValue"}
+      >
+        {printType(GameData.trump)}
+      </div>
     </div>
   {/if}
   {#if GameData.lastCardInDeck}
-    <div class="grid grid-cols-2">
-      <p>Last Card in Deck</p>
-      <div class="flex items-center">
-        <Card className="" card={GameData.lastCardInDeck} />
-      </div>
+    <div class="flex space-x-2">
+      <div>Last Card in Deck</div>
+      <Card className="" card={GameData.lastCardInDeck} />
     </div>
   {/if}
 </div>

@@ -74,8 +74,19 @@
 
 {#if GameData}
   <main>
-    <div class="grid grid-cols-4 gap-2 gap-4 p-4">
-      <h1 class="col-span-full text-center text-lg font-bold">Game</h1>
+    <div class="flex flex-col gap-2 p-4">
+      <h1 class="text-center text-lg font-bold">Game</h1>
+      <CardsInDeck {GameData} />
+      {#each GameData.players as player}
+        {#if player.PlayerData.name == accountName}
+          <PlayerState {player} isPlayer={true} {DurakTimers} />
+        {/if}
+      {/each}
+      {#each GameData.players as player}
+        {#if player.PlayerData.name != accountName}
+          <PlayerState {player} {DurakTimers} />
+        {/if}
+      {/each}
       <Board
         bind:playerRole
         bind:playerCards
@@ -85,21 +96,6 @@
         {cardDroppedToAttackCallback}
         bind:allowedMoves={DurakAllowedMoves}
       />
-      <div class="">
-        <CardsInDeck {GameData} />
-        <p>Player</p>
-        {#each GameData.players as player}
-          {#if player.PlayerData.name == accountName}
-            <PlayerState {player} isPlayer={true} {DurakTimers} />
-          {/if}
-        {/each}
-        <p>Opponent</p>
-        {#each GameData.players as player}
-          {#if player.PlayerData.name != accountName}
-            <PlayerState {player} {DurakTimers} />
-          {/if}
-        {/each}
-      </div>
       <div class="col-span-full grid grid-cols-1 gap-4">
         {#if playerRole == "defend"}
           {#if isAllowedMove(DurakAllowedMoves, "TakeCards")}
