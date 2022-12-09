@@ -79,7 +79,6 @@
   {#if $toggleService.context.popUp}
     <svelte:component
       this={$toggleService.context.popUp}
-      class="mainScreen"
       {...$toggleService.context.popUpProps}
       on:stateMachineEvent={stateMachineEvent}
     />
