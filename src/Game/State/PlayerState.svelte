@@ -1,11 +1,10 @@
 <script>
   import Countdown from "../../Util/Countdown.svelte";
-  import Deck from "../../component/Deck.svelte";
   import Card from "../../component/Card.svelte";
 
   export let player = null;
   export let DurakTimers = null;
-  export let ShowCardsIfPossible = true;
+  export let isPlayer = false;
 
   const countdownForPlayerInSeconds = (playerName, runningTimers) => {
     let playerTimer = runningTimers.find((nameAndTimer) => {
@@ -51,11 +50,11 @@
 <!--TODO enemy timer if player knows enemy cards-->
 <div>
   <p class="truncate">{player.PlayerData.name}</p>
-  <div class="grid grid-cols-2">
+<!--  <div class="grid grid-cols-2">-->
     <p>Role</p>
     <p>{printPlayerRole(player.PlayerData.playerRole)}</p>
-  </div>
-  <div class="grid grid-cols-2">
+<!--  </div>-->
+  {#if isPlayer ==false}
     <p>Cards</p>
     <div class="flex flex-wrap gap-2">
       {#each player?.PlayerData?.cards as card}
@@ -67,7 +66,7 @@
 
       {/each}
     </div>
-  </div>
+  {/if}
     <div class="grid grid-cols-2">
     {#if DurakTimers}
       {#if playerHasRunningTimer(player.PlayerData.name, DurakTimers.runningTimeUserTimePointMilliseconds)}

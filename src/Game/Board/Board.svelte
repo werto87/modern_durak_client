@@ -169,17 +169,17 @@
 </script>
 
 <!-- Table -->
-<div class="col-span-3 space-y-4">
+<div class="col-span-3 gap-4">
   {#if playerRole === "attack" || playerRole === "assistAttacker"}
     <div
       class="relative flex flex-wrap justify-center gap-4 border-2 border-black p-4"
     >
       <PlayCard className="absolute inset-0" {cardDroppedToAttackCallback} />
       {#if table.length === 0}
-        <div class="h-40" />
+        <div class="h-20 sm:h-40" />
       {:else}
         {#each cardsOnTable as cardToBeatAndCard (cardToBeatAndCard.id)}
-          <div class="h-40 w-24 bg-cardBackground">
+          <div class="h-20 sm:w-24 w-14 sm:h-40 bg-cardBackground">
             <Card
               className="relative text-center"
               card={cardToBeatAndCard.cardToBeatAndCard[0].Card}
@@ -195,21 +195,21 @@
       {/if}
     </div>
   {:else if table.length === 0}
-    <div class="h-48 border-2 border-black" />
+    <div class="h-24 sm:h-48 border-2 border-black" />
   {:else}
     <div
       class="relative flex flex-wrap justify-center gap-4 border-2 border-black p-4"
     >
       {#each beatenCardsWithCards as beatenCardWithCard (beatenCardWithCard.id)}
-        <div class="h-40 w-24 bg-cardBackground text-center">
+        <div class="h-20 sm:w-24 w-14 sm:h-40 bg-cardBackground text-center">
           <Card className="" card={beatenCardWithCard.beatenCard} />
           <Card className="" card={beatenCardWithCard.card} />
         </div>
       {/each}
       {#each cardsToBeat as cardToBeat, i (cardToBeat.id)}
-        <div class="relative h-40 text-center">
+        <div class="relative h-20 sm:h-40 text-center">
           <CardToBeat
-            className="h-40 bg-cardBackground w-24"
+            className="h-20 sm:h-40 bg-cardBackground sm:w-24 w-14"
             {cardToBeat}
             bind:dropFromOthersDisabled={dropFromOthersDisabled[i]}
             {cardBeatenCallback}
@@ -221,7 +221,7 @@
   {/if}
   <!-- Player Cards -->
   {#if playerCardsWithId.length !== 0}
-    <div class="flex flex-wrap justify-center gap-4">
+    <div class="flex flex-wrap justify-center gap-4 p-4">
       {#each playerCardsWithId as card (card.id)}
         <PlayerCards
           item={card}

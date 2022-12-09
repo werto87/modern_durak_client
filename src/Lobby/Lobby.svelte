@@ -48,9 +48,9 @@
   });
 </script>
 
-<div class="grid grid-cols-1 space-y-4 px-4">
+<div class="grid grid-cols-1 gap-4 ">
   <h1 class="text-center text-lg font-bold">Create or Join Game Lobby</h1>
-  <form class="grid grid-cols-1 space-y-4" on:submit={form1.handleSubmit}>
+  <form class="grid grid-cols-1 gap-4" on:submit={form1.handleSubmit}>
     <label for="name">Channel Name</label>
     <input
       class="border-2 bg-background"
@@ -72,7 +72,7 @@
 
     <ModernDurakButton type="submit" buttonText="Create Game Lobby" />
   </form>
-  <form class="grid grid-cols-1 space-y-4" on:submit={form2.handleSubmit}>
+  <form class="grid grid-cols-1 gap-4" on:submit={form2.handleSubmit}>
     <label for="name">Channel Name</label>
     <input
       class="border-2 bg-background"

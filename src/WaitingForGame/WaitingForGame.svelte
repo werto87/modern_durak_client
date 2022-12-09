@@ -36,7 +36,7 @@
 
 <main>
   <!-- TODO add animtation while waiting -->
-  <div class="grid grid-cols-1 space-y-4 px-4">
+  <div class="grid grid-cols-1 gap-4 ">
     <h1 class="text-center text-lg font-bold">Waiting For Game</h1>
     {#if waitingState == "waitForGame"}
       <ModernDurakButton

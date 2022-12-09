@@ -194,7 +194,7 @@
   });
 </script>
 
-<div class="grid grid-cols-1 space-y-4 px-4">
+<div class="grid grid-cols-1 gap-4 ">
   {#if UsersInGameLobby}
     <h1 class="text-center text-lg font-bold">Create Game</h1>
     <label for="maxUserCount">Max User Count</label>
@@ -255,7 +255,7 @@
       <br />
     {:else}
       {#if isCreateGameLobbyAdmin}
-        <form class="grid grid-cols-1 space-y-4" on:submit={handleSubmit}>
+        <form class="grid grid-cols-1 gap-4" on:submit={handleSubmit}>
           <label for="createDeckArray">Create Deck from Array</label>
           <input
             class="border-2 bg-background"

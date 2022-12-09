@@ -1,5 +1,5 @@
 <script>
-  import OtherPlayerState from "./State/PlayerState.svelte";
+  import PlayerState from "./State/PlayerState.svelte";
 
   import Board from "./Board/Board.svelte";
 
@@ -74,7 +74,7 @@
 
 {#if GameData}
   <main>
-    <div class="grid grid-cols-4 space-x-4 space-y-4 p-8">
+    <div class="grid grid-cols-4 gap-2 gap-4 p-4">
       <h1 class="col-span-full text-center text-lg font-bold">Game</h1>
       <Board
         bind:playerRole
@@ -90,9 +90,9 @@
         <p>Player</p>
         {#each GameData.players as player}
           {#if player.PlayerData.name == accountName}
-            <OtherPlayerState
+            <PlayerState
               {player}
-              ShowCardsIfPossible={false}
+              isPlayer={true}
               {DurakTimers}
             />
           {/if}
@@ -100,11 +100,11 @@
         <p>Opponent</p>
         {#each GameData.players as player}
           {#if player.PlayerData.name != accountName}
-            <OtherPlayerState {player} {DurakTimers} />
+            <PlayerState {player} {DurakTimers} />
           {/if}
         {/each}
       </div>
-      <div class="col-span-full grid grid-cols-1 space-y-4">
+      <div class="col-span-full grid grid-cols-1 gap-4">
         {#if playerRole == "defend"}
           {#if isAllowedMove(DurakAllowedMoves, "TakeCards")}
             <ModernDurakButton

@@ -9,7 +9,7 @@
   {disabled}
   {type}
   on:click={onClick}
-  class="rounded border-2 border-borderColor bg-cardBackground px-4 py-2 font-bold text-greenCardValue  focus:outline-none disabled:opacity-25"
+  class="rounded border-2 border-borderColor bg-cardBackground  py-2 font-bold text-greenCardValue  focus:outline-none disabled:opacity-25"
 >
   {buttonText}
 </button>
