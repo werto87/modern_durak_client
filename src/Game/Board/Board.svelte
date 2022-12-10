@@ -179,7 +179,7 @@
       <div class="h-16 sm:h-40" />
     {:else}
       {#each cardsOnTable as cardToBeatAndCard (cardToBeatAndCard.id)}
-        <div class="h-20 w-14 bg-cardBackground sm:h-40 sm:w-24">
+        <div class="h-20 w-12 bg-cardBackground sm:h-40 sm:w-24">
           <Card
             className="relative text-center"
             card={cardToBeatAndCard.cardToBeatAndCard[0].Card}

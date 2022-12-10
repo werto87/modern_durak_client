@@ -43,6 +43,6 @@
   on:finalize={handleDndFinalize}
 >
   {#each items as item (item.id)}
-    <Card className="h-16 sm:h-40 bg-cardBackground sm:w-24 w-14" card={item} />
+    <Card className="h-16 sm:h-40 bg-cardBackground sm:w-24 w-12" card={item} />
   {/each}
 </section>

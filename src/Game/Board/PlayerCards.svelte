@@ -68,10 +68,10 @@
 >
   {#each items as item (item.id)}
     {#if dragDisabled}
-      <Card className="h-16 sm:w-24 w-14 sm:h-40" card={item} />
+      <Card className="h-16 sm:w-24 w-12 sm:h-40" card={item} />
     {:else}
       <Card
-        className="h-16 sm:w-24 w-14 sm:h-40 border-4 bg-cardBackground border-playableCardBorderColor"
+        className="h-16 sm:w-24 w-12 sm:h-40 border-4 bg-cardBackground border-playableCardBorderColor"
         card={item}
       />
     {/if}

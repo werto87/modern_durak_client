@@ -49,7 +49,7 @@
 <!--TODO timer for player-->
 <!--TODO enemy timer if player knows enemy cards-->
 <div class="flex">
-  <p class="w-14 truncate sm:w-36">{player.PlayerData.name}</p>
+  <p class="w-12 truncate sm:w-36">{player.PlayerData.name}</p>
   <p>{printPlayerRole(player.PlayerData.playerRole)}&nbsp;</p>
   {#if isPlayer == false}
     <div class="flex flex-wrap gap-2">
