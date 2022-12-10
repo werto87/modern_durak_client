@@ -5,7 +5,8 @@
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
-    "start": "sirv public --no-clear",
+    "connect-to-production": "rollup -c -w --environment CONNECT_TO_PRODUCTION",
+    "start": "sirv public --no-clear  --host 0.0.0.0",
     "check": "svelte-check --tsconfig ./tsconfig.json"
   },
   "devDependencies": {
@@ -41,6 +42,7 @@
     "@xstate/svelte": "^0.1.1",
     "gridstack": "^4.2.7",
     "muuri": "^0.9.5",
+    "rollup-plugin-inject-process-env": "^1.3.1",
     "sirv-cli": "^1.0.0",
     "styled-components": "^5.3.1",
     "svelte-countdown": "^1.0.0",

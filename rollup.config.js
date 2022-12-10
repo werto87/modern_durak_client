@@ -6,10 +6,12 @@ import { terser } from "rollup-plugin-terser";
 import sveltePreprocess from "svelte-preprocess";
 import typescript from "@rollup/plugin-typescript";
 import css from "rollup-plugin-css-only";
-import replace from "@rollup/plugin-replace";
 import svg from "rollup-plugin-svg";
+import injectProcessEnv from 'rollup-plugin-inject-process-env';
 
 const production = !process.env.ROLLUP_WATCH;
+
+
 
 function serve() {
   let server;
@@ -89,9 +91,9 @@ export default {
     // instead of npm run dev), minify
     production && terser(),
 
-    replace({
-      "process.env": production ? '"production"' : '"dev"',
-      "process.env.NODE_ENV": process.env.NODE_ENV,
+    injectProcessEnv({
+      NODE_ENV: production?'production':'dev',
+      CONNECT_TO_PRODUCTION: process.env.CONNECT_TO_PRODUCTION
     }),
   ],
   watch: {

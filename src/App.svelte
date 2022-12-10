@@ -72,7 +72,7 @@
       sendMessageToWebsocket(values.message);
     },
   });
-  const isProduction = process.env === "production";
+  const isProduction = process.env.NODE_ENV === "production";
 </script>
 
 <main class="min-h-screen touch-none bg-background text-borderColor">
