@@ -4,7 +4,13 @@
   import PlayCard from "./PlayCard.svelte";
   import { allowedToPlayDefend } from "./helper.js";
   import Card from "../../component/Card.svelte";
+  import { isOtherItemDraggingStore } from "./boardStore";
 
+  let isOtherItemDragging = false;
+  isOtherItemDraggingStore.subscribe((value) => {
+    console.log("isOtherItemDraggingStore.subscribe " + value);
+    isOtherItemDragging = value;
+  });
   export let playerRole;
   export let playerCards;
   export let table;
@@ -231,7 +237,7 @@
           card.id,
           playerCardsWithId,
           cardsAllowedToPlay
-        )}
+        ) || isOtherItemDragging}
         {trump}
       />
     {/each}

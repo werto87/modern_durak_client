@@ -7,6 +7,7 @@
     SHADOW_ITEM_MARKER_PROPERTY_NAME,
   } from "svelte-dnd-action";
   import Card from "../../component/Card.svelte";
+  import { isOtherItemDraggingStore } from "./boardStore";
 
   export let item;
   export let trump;
@@ -17,6 +18,7 @@
   let shouldIgnoreDndEvents = false;
 
   function handleDndConsider(e) {
+    isOtherItemDraggingStore.set(true);
     const { trigger, id } = e.detail.info;
     if (trigger === TRIGGERS.DRAG_STARTED) {
       const idx = items.findIndex((item) => item.id === id);
@@ -45,6 +47,7 @@
   }
 
   function handleDndFinalize(e) {
+    isOtherItemDraggingStore.set(false);
     console.warn(`got finalize ${JSON.stringify(e.detail, null, 2)}`);
     if (!shouldIgnoreDndEvents) {
       items = e.detail.items;
