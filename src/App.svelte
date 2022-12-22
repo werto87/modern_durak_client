@@ -75,7 +75,7 @@
   const isProduction = process.env.NODE_ENV === "production";
 </script>
 
-<main class="min-h-screen touch-none bg-background text-borderColor">
+<main class="min-h-screen touch-pan-y bg-background text-borderColor">
   {#if $toggleService.context.popUp}
     <svelte:component
       this={$toggleService.context.popUp}
