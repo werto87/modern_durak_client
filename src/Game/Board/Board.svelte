@@ -165,6 +165,7 @@
   );
 
   $: beatenCardsWithCards = calcBeatenCardsWithCards(cardsOnTable);
+  // TODO why 42
   $: dropFromOthersDisabled = Array(42).fill(true);
 </script>
 
