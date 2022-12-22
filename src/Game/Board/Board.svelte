@@ -170,7 +170,6 @@
 </script>
 
 <!-- Table -->
-<!--<div class="col-span-3 gap-4">-->
 {#if playerRole === "attack" || playerRole === "assistAttacker"}
   <div
     class="border-black relative flex flex-wrap justify-center gap-4 border-2 p-4"
@@ -237,5 +236,4 @@
       />
     {/each}
   </div>
-{:else}{/if}
-<!--</div>-->
+{/if}
