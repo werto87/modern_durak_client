@@ -1,7 +1,11 @@
 <script>
   import { interpret } from "xstate";
   import { toggleMachine } from "./machine";
-
+  import { isWebSocketConnected } from "./Webservice/store.js";
+  let showSpinner = false;
+  isWebSocketConnected.subscribe((isConnected) => {
+    showSpinner = !isConnected;
+  });
   const toggleService = interpret(toggleMachine)
     .onTransition((state) => {
       console.log("Screen: " + state.value.Screens);
@@ -75,7 +79,11 @@
   const isProduction = process.env.NODE_ENV === "production";
 </script>
 
-<main class="min-h-screen touch-pan-y bg-background text-borderColor">
+<main
+  class={showSpinner
+    ? "min-h-screen cursor-progress touch-pan-y bg-background text-borderColor"
+    : "min-h-screen touch-pan-y bg-background text-borderColor"}
+>
   {#if $toggleService.context.popUp}
     <svelte:component
       this={$toggleService.context.popUp}

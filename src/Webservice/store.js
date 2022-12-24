@@ -26,6 +26,7 @@ webSocket.addEventListener("message", function (event) {
   messageStore.update((messageStore) => [...messageStore, event.data]);
 });
 webSocket.addEventListener("close", function (event) {
+  alert("Connection lost");
   isWebSocketConnected.set(false);
 });
 
