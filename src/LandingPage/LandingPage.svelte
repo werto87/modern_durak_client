@@ -3,12 +3,6 @@
   import { v4 as uuidv4 } from "uuid";
   import { sendMessageToWebsocket } from "../Webservice/store.js";
   import ModernDurakButton from "../component/ModernDurakButton.svelte";
-  import { isWebSocketConnected } from "../Webservice/store.js";
-
-  let disableButton = false;
-  isWebSocketConnected.subscribe((isConnected) => {
-    disableButton = !isConnected;
-  });
 
   export let loginState: string = null;
   let dispatch = createEventDispatcher();
@@ -53,38 +47,14 @@
 <div class="grid grid-cols-1 gap-4 ">
   <div class="ml-4 mr-4 grid grid-cols-1 gap-4">
     <h1 class="text-center text-lg font-bold">Chose Game Mode</h1>
-    <ModernDurakButton
-      disabled={disableButton}
-      buttonText="Quick"
-      onClick={quickPressed}
-    />
-    <ModernDurakButton
-      disabled={disableButton}
-      buttonText="Ranked"
-      onClick={rankedPressed}
-    />
-    <ModernDurakButton
-      disabled={disableButton}
-      buttonText="Puzzle"
-      onClick={puzzlePressed}
-    />
-    <ModernDurakButton
-      disabled={disableButton}
-      buttonText="Custom"
-      onClick={customPressed}
-    />
+    <ModernDurakButton buttonText="Quick" onClick={quickPressed} />
+    <ModernDurakButton buttonText="Ranked" onClick={rankedPressed} />
+    <ModernDurakButton buttonText="Puzzle" onClick={puzzlePressed} />
+    <ModernDurakButton buttonText="Custom" onClick={customPressed} />
     {#if loginState}
-      <ModernDurakButton
-        disabled={disableButton}
-        buttonText="Logout"
-        onClick={logout}
-      />
+      <ModernDurakButton buttonText="Logout" onClick={logout} />
     {:else}
-      <ModernDurakButton
-        disabled={disableButton}
-        buttonText="Login"
-        onClick={login}
-      />
+      <ModernDurakButton buttonText="Login" onClick={login} />
     {/if}
   </div>
 </div>
