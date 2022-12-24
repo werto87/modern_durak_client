@@ -1,5 +1,7 @@
 import { writable } from "svelte/store";
+export const isWebSocketConnected=writable(false);
 export const messageStore = writable("");
+
 
 function webSocketAddress() {
   console.log(process.env);
@@ -12,6 +14,7 @@ export const webSocket = webSocketAddress();
 
 // Connection opened
 webSocket.addEventListener("open", function (event) {
+  isWebSocketConnected.set(true);
   console.log("It's open");
 });
 webSocket.addEventListener("error", function (event) {
@@ -21,6 +24,9 @@ webSocket.addEventListener("error", function (event) {
 // Listen for messages
 webSocket.addEventListener("message", function (event) {
   messageStore.update((messageStore) => [...messageStore, event.data]);
+});
+webSocket.addEventListener("close", function (event) {
+  isWebSocketConnected.set(false);
 });
 
 export const sendMessageToWebsocket = (message) => {
