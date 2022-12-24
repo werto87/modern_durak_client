@@ -3,7 +3,6 @@
   import { v4 as uuidv4 } from "uuid";
   import { sendMessageToWebsocket } from "../Webservice/store.js";
   import ModernDurakButton from "../component/ModernDurakButton.svelte";
-  import Card from "../component/Card.svelte";
   import { isWebSocketConnected } from "../Webservice/store.js";
 
   let disableButton = false;
