@@ -26,7 +26,7 @@ webSocket.addEventListener("message", function (event) {
   messageStore.update((messageStore) => [...messageStore, event.data]);
 });
 webSocket.addEventListener("close", function (event) {
-  alert("Connection lost reload to start a new game");
+  alert("Connection lost. Refresh to try to start a new game");
   isWebSocketConnected.set(false);
 });
 
