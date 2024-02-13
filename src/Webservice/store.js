@@ -5,10 +5,11 @@ export const messageStore = writable("");
 
 function webSocketAddress() {
   console.log(process.env);
-  return process.env.NODE_ENV === "production" ||
-    process.env.CONNECT_TO_PRODUCTION === "true"
-    ? new WebSocket("wss://modern-durak.com/wss")
-    : new WebSocket("wss://localhost:55555");
+  // return process.env.NODE_ENV === "production" ||
+  //   process.env.CONNECT_TO_PRODUCTION === "true"
+  //   ? new WebSocket("wss://modern-durak.com/wss")
+  //   :
+  return  new WebSocket("wss://localhost:55555");
 }
 export const webSocket = webSocketAddress();
 
