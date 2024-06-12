@@ -4,8 +4,7 @@
   "private": true,
   "scripts": {
     "build": "rollup -c",
-    "dev": "rollup -c -w",
-    "connect-to-production": "rollup -c -w --environment CONNECT_TO_PRODUCTION",
+    "watch": "rollup -c -w",
     "start": "sirv public --no-clear  --host 0.0.0.0",
     "check": "svelte-check --tsconfig ./tsconfig.json"
   },

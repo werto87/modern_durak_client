@@ -92,8 +92,8 @@ export default {
     production && terser(),
 
     injectProcessEnv({
-      NODE_ENV: production?'production':'dev',
-      CONNECT_TO_PRODUCTION: process.env.CONNECT_TO_PRODUCTION
+      NODE_ENV: production ? 'production' : 'dev',
+      CONNECT_TO: process.env.CONNECT_TO
     }),
   ],
   watch: {
