@@ -1,4 +1,4 @@
-name: ci
+name: modern-durak
 
 on:
   push:
@@ -20,13 +20,13 @@ jobs:
           # GitHub token to push Docker image to GitHub Packages
           github-token: ${{ secrets.GITHUB_TOKEN }}
           # Docker Image name
-          image-name: modern-durak-client
+          image-name: modern-durak-client-modern-durak
           # Docker Image tag
           image-tag: latest
           # Extract git-tag from repository
           extract-git-tag: false
           # Dockerfile name
-          dockerfile: Dockerfile
+          dockerfile: Dockerfile-modern-durak
           # Path to build context
           build-context: .
           # Pull the image before buiding it
