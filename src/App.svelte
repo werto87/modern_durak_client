@@ -32,7 +32,7 @@
       console.log(
         "Message from server is not valid." +
           "It should have exactly one '|' symbol message: " +
-          event.data
+          event.data,
       );
     }
   });
@@ -95,7 +95,7 @@
       intro: {},
       dismissable: false,
       theme: {
-        "font-size": "1.5em",
+        "font-size": "0.75rem",
         "--toastColor": "#cb2d6f",
         "--toastProgressBackground": "#cb2d6f",
       },
@@ -109,7 +109,7 @@
       intro: {},
       dismissable: false,
       theme: {
-        "font-size": "1.5em",
+        "font-size": "0.75rem",
         "--toastColor": "#4ed93f",
         "--toastProgressBackground": "#4ed93f",
         opacity: 1,
