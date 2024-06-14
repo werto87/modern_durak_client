@@ -69,41 +69,44 @@
   const maxUserCountChanged = () => {
     const maxUserObject = { maxUserSize: maxUserSizeArray[0] };
     sendMessageToWebsocket(
-      "SetMaxUserSizeInCreateGameLobby|" + JSON.stringify(maxUserObject)
+      "SetMaxUserSizeInCreateGameLobby|" + JSON.stringify(maxUserObject),
     );
   };
 
   const createGameOption = (deck) => {
-    return (
-      "GameOption|" +
-      JSON.stringify({
-        gameOption: {
-          maxCardValue: cardsInDeckArray[0] / 4,
-          typeCount: GameOption.gameOption.typeCount,
-          numberOfCardsPlayerShouldHave:
-            GameOption.gameOption.numberOfCardsPlayerShouldHave,
-          roundToStart: GameOption.gameOption.roundToStart,
-          trump: null,
-          customCardDeck:
-            deckOptionSelected === 0
-              ? null
-              : deck
+    const gameOption = JSON.stringify({
+      gameOption: {
+        maxCardValue: cardsInDeckArray[0] / 4,
+        typeCount: GameOption.gameOption.typeCount,
+        numberOfCardsPlayerShouldHave:
+          GameOption.gameOption.numberOfCardsPlayerShouldHave,
+        roundToStart: GameOption.gameOption.roundToStart,
+        trump: null,
+        customCardDeck:
+          deckOptionSelected === 0
+            ? null
+            : deck
               ? deck
               : GameOption.gameOption.customCardDeck
-              ? GameOption.gameOption.customCardDeck
-              : [],
-          cardsInHands: null,
-        },
-        timerOption: {
-          timerType: timerOptions[timerOptionSelected].value,
-          timeAtStartInSeconds: timeAtStartInSecondsArray[0],
-          timeForEachRoundInSeconds: timeForEachRoundInSecondsArray[0],
-        },
-        computerControlledPlayerCount: computerControlledOpponentArray
-          ? computerControlledOpponentArray[0]
-          : 0,
-        opponentCards: opponentCardsOptions[opponentCardsOptionsSelected].value,
-      })
+                ? GameOption.gameOption.customCardDeck
+                : [],
+        cardsInHands: null,
+      },
+      timerOption: {
+        timerType: timerOptions[timerOptionSelected].value,
+        timeAtStartInSeconds: timeAtStartInSecondsArray[0],
+        timeForEachRoundInSeconds: timeForEachRoundInSecondsArray[0],
+      },
+      computerControlledPlayerCount: computerControlledOpponentArray
+        ? computerControlledOpponentArray[0]
+        : 0,
+      opponentCards: opponentCardsOptions[opponentCardsOptionsSelected].value,
+    });
+    return (
+      "GameOptionAsString|" +
+      '{"gameOptionAsString" :' +
+      JSON.stringify(gameOption) +
+      "}"
     );
   };
 
@@ -171,12 +174,12 @@
             })
           ) {
             sendMessageToWebsocket(
-              createGameOption(JSON.parse(values.createDeckArray))
+              createGameOption(JSON.parse(values.createDeckArray)),
             );
           } else {
             toast.push(
               "Please check if all Cards in the Array are valid Card Objects",
-              { target: "Error" }
+              { target: "Error" },
             );
           }
         } else {
@@ -193,7 +196,7 @@
   });
 </script>
 
-<div class="grid grid-cols-1 gap-4 ">
+<div class="grid grid-cols-1 gap-4">
   {#if UsersInGameLobby}
     <h1 class="text-center text-lg font-bold">Create Game</h1>
     <label for="maxUserCount">Max User Count</label>

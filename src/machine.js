@@ -143,9 +143,9 @@ export const toggleMachine = createMachine({
                 (unusedButNeededSoEventGetsSetWithTheCorrectValue, event) => {
                   toast.push(
                     "Your rating changed from " +
-                      event.oldRating +
-                      " to " +
-                      event.newRating,
+                    event.oldRating +
+                    " to " +
+                    event.newRating,
                     { target: "Message" }
                   );
                 },
@@ -200,18 +200,19 @@ export const toggleMachine = createMachine({
                     "diamonds",
                     "clubs",
                   ]).slice(0, 1);
+                  const test = '{"gameOption":{"maxCardValue":9,"typeCount":4,"numberOfCardsPlayerShouldHave":3,"roundToStart":1,"trump":"' +
+                    trump +
+                    '","customCardDeck":' +
+                    JSON.stringify(cardsToCreateGame) +
+                    ',"cardsInHands":null},"timerOption":{"timerType":"noTimer","timeAtStartInSeconds":0,"timeForEachRoundInSeconds":0},"computerControlledPlayerCount":1,"opponentCards":"showOpponentCards"}';
                   sendMessageToWebsocket(
-                    "GameOption|" +
-                      '{"gameOption":{"maxCardValue":9,"typeCount":4,"numberOfCardsPlayerShouldHave":3,"roundToStart":1,"trump":"' +
-                      trump +
-                      '","customCardDeck":' +
-                      JSON.stringify(cardsToCreateGame) +
-                      ',"cardsInHands":null},"timerOption":{"timerType":"noTimer","timeAtStartInSeconds":0,"timeForEachRoundInSeconds":0},"computerControlledPlayerCount":1,"opponentCards":"showOpponentCards"}'
+                    "GameOptionAsString|" +
+                    '{"gameOptionAsString" :' + JSON.stringify(test) + '}'
                   );
                 },
               ],
             },
-            GameOption: {
+            GameOptionAsString: {
               actions: [
                 () => {
                   sendMessageToWebsocket("CreateGame|{}");
@@ -243,10 +244,12 @@ export const toggleMachine = createMachine({
                   event.users.forEach((element) => {
                     users.push(element.UserInGameLobby.accountName);
                   });
+                  const durakGameOption = JSON.parse(event.gameOptionAsString.gameOptionAsString);
+                  delete event.gameOptionAsString;
+                  event["gameOption"] = durakGameOption;
                   context.props[event.type] = event;
-                  context.props["isCreateGameLobbyAdmin"] =
-                    users[0] == context.accountName;
-                  if (event.durakGameOption.gameOption.customCardDeck == null) {
+                  context.props["isCreateGameLobbyAdmin"] = users[0] == context.accountName;
+                  if (durakGameOption.gameOption.customCardDeck == null) {
                     context.props["deckOptionSelected"] = 0;
                   } else {
                     context.props["deckOptionSelected"] = 1;
@@ -287,25 +290,26 @@ export const toggleMachine = createMachine({
                 },
               ],
             },
-            GameOption: {
+            GameOptionAsString: {
               actions: [
                 (context, event) => {
-                  context.props[event.type] = event;
-                  if (event.gameOption.customCardDeck == null) {
+                  const durakGameOption = JSON.parse(event.gameOptionAsString);
+                  context.props["GameOption"] = durakGameOption;
+                  if (durakGameOption.gameOption.customCardDeck == null) {
                     context.props["deckOptionSelected"] = 0;
                   } else {
                     context.props["deckOptionSelected"] = 1;
                   }
-                  if (event.timerOption.timerType == "resetTimeOnNewRound") {
+                  if (durakGameOption.timerOption.timerType == "resetTimeOnNewRound") {
                     context.props["timerOptionSelected"] = 1;
                   } else if (
-                    event.timerOption.timerType == "addTimeOnNewRound"
+                    durakGameOption.timerOption.timerType == "addTimeOnNewRound"
                   ) {
                     context.props["timerOptionSelected"] = 2;
                   } else {
                     context.props["timerOptionSelected"] = 0;
                   }
-                  if (event.opponentCards == "showNumberOfOpponentCards") {
+                  if (durakGameOption.opponentCards == "showNumberOfOpponentCards") {
                     context.props["opponentCardsOptionsSelected"] = 0;
                   } else {
                     context.props["opponentCardsOptionsSelected"] = 1;
@@ -497,3 +501,5 @@ export const toggleMachine = createMachine({
     },
   },
 });
+
+
