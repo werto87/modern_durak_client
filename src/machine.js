@@ -248,11 +248,26 @@ export const toggleMachine = createMachine({
                   delete event.gameOptionAsString;
                   event["gameOption"] = durakGameOption;
                   context.props[event.type] = event;
+                  context.props["GameOption"] = durakGameOption;
                   context.props["isCreateGameLobbyAdmin"] = users[0] == context.accountName;
                   if (durakGameOption.gameOption.customCardDeck == null) {
                     context.props["deckOptionSelected"] = 0;
                   } else {
                     context.props["deckOptionSelected"] = 1;
+                  }
+                  if (durakGameOption.timerOption.timerType == "resetTimeOnNewRound") {
+                    context.props["timerOptionSelected"] = 1;
+                  } else if (
+                    durakGameOption.timerOption.timerType == "addTimeOnNewRound"
+                  ) {
+                    context.props["timerOptionSelected"] = 2;
+                  } else {
+                    context.props["timerOptionSelected"] = 0;
+                  }
+                  if (durakGameOption.opponentCards == "showNumberOfOpponentCards") {
+                    context.props["opponentCardsOptionsSelected"] = 0;
+                  } else {
+                    context.props["opponentCardsOptionsSelected"] = 1;
                   }
                 },
               ],
