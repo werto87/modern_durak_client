@@ -13,6 +13,7 @@ import WaitingForGame from "./WaitingForGame/WaitingForGame.svelte";
 import { sendMessageToWebsocket } from "./Webservice/store.js";
 import { debugDeck36, shuffleArray } from "./Util/Util";
 import About from "./About/About.svelte";
+import LeaderBoard from "./LeaderBoard/LeaderBoard.svelte";
 const matchMakingState = (isRanked) => {
   return {
     on: {
@@ -133,6 +134,7 @@ export const toggleMachine = createMachine({
         LandingPage: {
           on: {
             About: "About",
+            LeaderBoard: "LeaderBoard",
             Custom: "Lobby",
             Quick: "Quick",
             Ranked: "Ranked",
@@ -166,6 +168,17 @@ export const toggleMachine = createMachine({
           },
           entry: assign({
             component: (ctx) => (ctx.component = About),
+            popUp: (ctx) => (ctx.popUp = null),
+            props: (ctx) => (ctx.props = {}),
+            popUpProps: (ctx) => (ctx.popUpProps = {}),
+          }),
+        },
+        LeaderBoard: {
+          on: {
+            Cancel: "LandingPage",
+          },
+          entry: assign({
+            component: (ctx) => (ctx.component = LeaderBoard),
             popUp: (ctx) => (ctx.popUp = null),
             props: (ctx) => (ctx.props = {}),
             popUpProps: (ctx) => (ctx.popUpProps = {}),

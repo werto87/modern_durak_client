@@ -47,6 +47,12 @@
   const about = () => {
     dispatch("stateMachineEvent", "About");
   };
+  const reportIssueAskQuestion = () => {
+    window.open(`https://github.com/werto87/modern_durak`, "_blank");
+  };
+  const viewLeaderBoard = () => {
+    dispatch("stateMachineEvent", "LeaderBoard");
+  };
 </script>
 
 {#if open}
@@ -70,9 +76,12 @@
       <ModernDurakButton buttonText="About" onClick={about} />
       <ModernDurakButton
         buttonText="Report Issue / Ask Question"
-        onClick={logout}
+        onClick={reportIssueAskQuestion}
       />
-      <ModernDurakButton buttonText="View Leaderboard" onClick={logout} />
+      <ModernDurakButton
+        buttonText="View Leaderboard"
+        onClick={viewLeaderBoard}
+      />
       {#if loginState}
         <ModernDurakButton buttonText="Logout" onClick={logout} />
       {:else}
