@@ -3,7 +3,9 @@
   import { v4 as uuidv4 } from "uuid";
   import { sendMessageToWebsocket } from "../Webservice/store.js";
   import ModernDurakButton from "../component/ModernDurakButton.svelte";
+  import { Hamburger } from "svelte-hamburgers";
 
+  let open;
   export let loginState: string = null;
   let dispatch = createEventDispatcher();
   const quickPressed = () => {
@@ -46,7 +48,21 @@
 
 <div class="grid grid-cols-1 gap-4 ">
   <div class="ml-4 mr-4 grid grid-cols-1 gap-4">
-    <h1 class="text-center text-lg font-bold">Chose Game Mode</h1>
+    <div class="mt-2 flex">
+      <div class="w-12 " />
+      <div class="flex grow items-center text-lg font-bold">
+        <h1 class="grow text-center text-lg font-bold">Chose Game Mode</h1>
+      </div>
+      <div class="w-12 overflow-clip">
+        <Hamburger
+          bind:open
+          --color="#0e3b93"
+          --layer-width="30px"
+          --layer-height="5px"
+          --padding="0px"
+        />
+      </div>
+    </div>
     <ModernDurakButton buttonText="Quick" onClick={quickPressed} />
     <ModernDurakButton buttonText="Ranked" onClick={rankedPressed} />
     <ModernDurakButton buttonText="Puzzle" onClick={puzzlePressed} />
