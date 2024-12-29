@@ -12,7 +12,7 @@ import { toast } from "@zerodevx/svelte-toast";
 import WaitingForGame from "./WaitingForGame/WaitingForGame.svelte";
 import { sendMessageToWebsocket } from "./Webservice/store.js";
 import { debugDeck36, shuffleArray } from "./Util/Util";
-
+import About from "./About/About.svelte";
 const matchMakingState = (isRanked) => {
   return {
     on: {
@@ -132,6 +132,7 @@ export const toggleMachine = createMachine({
       states: {
         LandingPage: {
           on: {
+            About: "About",
             Custom: "Lobby",
             Quick: "Quick",
             Ranked: "Ranked",
@@ -157,6 +158,17 @@ export const toggleMachine = createMachine({
             popUp: (ctx) => (ctx.popUp = null),
             popUpProps: (ctx) => (ctx.popUpProps = {}),
             props: (ctx) => (ctx.props = { loginState: ctx.loginState }),
+          }),
+        },
+        About: {
+          on: {
+            Cancel: "LandingPage",
+          },
+          entry: assign({
+            component: (ctx) => (ctx.component = About),
+            popUp: (ctx) => (ctx.popUp = null),
+            props: (ctx) => (ctx.props = {}),
+            popUpProps: (ctx) => (ctx.popUpProps = {}),
           }),
         },
         LandingPageLogin: {

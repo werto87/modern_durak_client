@@ -44,33 +44,64 @@
   const logout = () => {
     sendMessageToWebsocket("LogoutAccount|{}");
   };
+  const about = () => {
+    dispatch("stateMachineEvent", "About");
+  };
 </script>
 
-<div class="grid grid-cols-1 gap-4 ">
-  <div class="ml-4 mr-4 grid grid-cols-1 gap-4">
-    <div class="mt-2 flex">
-      <div class="w-12 " />
-      <div class="flex grow items-center text-lg font-bold">
-        <h1 class="grow text-center text-lg font-bold">Chose Game Mode</h1>
+{#if open}
+  <div class="grid grid-cols-1 gap-4 ">
+    <div class="ml-4 mr-4 grid grid-cols-1 gap-4">
+      <div class="mt-2 flex">
+        <div class="w-12 " />
+        <div class="flex grow items-center text-lg font-bold">
+          <h1 class="grow text-center text-lg font-bold">Menu</h1>
+        </div>
+        <div class="w-12 overflow-clip">
+          <Hamburger
+            bind:open
+            --color="#0e3b93"
+            --layer-width="30px"
+            --layer-height="5px"
+            --padding="0px"
+          />
+        </div>
       </div>
-      <div class="w-12 overflow-clip">
-        <Hamburger
-          bind:open
-          --color="#0e3b93"
-          --layer-width="30px"
-          --layer-height="5px"
-          --padding="0px"
-        />
-      </div>
+      <ModernDurakButton buttonText="About" onClick={about} />
+      <ModernDurakButton
+        buttonText="Report Issue / Ask Question"
+        onClick={logout}
+      />
+      <ModernDurakButton buttonText="View Leaderboard" onClick={logout} />
+      {#if loginState}
+        <ModernDurakButton buttonText="Logout" onClick={logout} />
+      {:else}
+        <ModernDurakButton buttonText="Login" onClick={login} />
+      {/if}
     </div>
-    <ModernDurakButton buttonText="Quick" onClick={quickPressed} />
-    <ModernDurakButton buttonText="Ranked" onClick={rankedPressed} />
-    <ModernDurakButton buttonText="Puzzle" onClick={puzzlePressed} />
-    <ModernDurakButton buttonText="Custom" onClick={customPressed} />
-    {#if loginState}
-      <ModernDurakButton buttonText="Logout" onClick={logout} />
-    {:else}
-      <ModernDurakButton buttonText="Login" onClick={login} />
-    {/if}
   </div>
-</div>
+{:else}
+  <div class="grid grid-cols-1 gap-4 ">
+    <div class="ml-4 mr-4 grid grid-cols-1 gap-4">
+      <div class="mt-2 flex">
+        <div class="w-12 " />
+        <div class="flex grow items-center text-lg font-bold">
+          <h1 class="grow text-center text-lg font-bold">Chose Game Mode</h1>
+        </div>
+        <div class="w-12 overflow-clip">
+          <Hamburger
+            bind:open
+            --color="#0e3b93"
+            --layer-width="30px"
+            --layer-height="5px"
+            --padding="0px"
+          />
+        </div>
+      </div>
+      <ModernDurakButton buttonText="Quick" onClick={quickPressed} />
+      <ModernDurakButton buttonText="Ranked" onClick={rankedPressed} />
+      <ModernDurakButton buttonText="Puzzle" onClick={puzzlePressed} />
+      <ModernDurakButton buttonText="Custom" onClick={customPressed} />
+    </div>
+  </div>
+{/if}
