@@ -1,8 +1,10 @@
 <script>
     import ModernDurakButton from "../component/ModernDurakButton.svelte";
     import { createEventDispatcher } from "svelte";
+    import { sendMessageToWebsocket } from "../Webservice/store.js";
     let dispatch = createEventDispatcher();
     const cancel = () => {
+        sendMessageToWebsocket("UnSubscribeGetTopRatedPlayers|{}");
         dispatch("stateMachineEvent", "Cancel");
     };
     export let players = [];
@@ -12,13 +14,32 @@
     <div class="ml-4 mr-4 grid grid-cols-1 gap-4">
         <h1 class="grow text-center text-lg font-bold">Leader Board</h1>
 
-        {#each players as player}
-            <div>
-                {player.RatedPlayer.name}
-                {player.RatedPlayer.rating}
-            </div>
-        {/each}
-
+        <table class="min-w-full table-auto border-collapse">
+            <thead>
+                <tr class="bg-gray-100">
+                    <th
+                        class="text-gray-700 px-4 py-2 text-left text-sm font-semibold"
+                        >Name</th
+                    >
+                    <th
+                        class="text-gray-700 px-4 py-2 text-left text-sm font-semibold"
+                        >Rating</th
+                    >
+                </tr>
+            </thead>
+            <tbody>
+                {#each players as player}
+                    <tr class="border-b">
+                        <td class="px-4 py-2 text-sm text-greenCardValue"
+                            >{player.RatedPlayer.name}</td
+                        >
+                        <td class="px-4 py-2 text-sm text-greenCardValue"
+                            >{player.RatedPlayer.rating}</td
+                        >
+                    </tr>
+                {/each}
+            </tbody>
+        </table>
         <div class="grid grid-cols-1 gap-4 ">
             <ModernDurakButton
                 onClick={cancel}
