@@ -176,6 +176,16 @@ export const toggleMachine = createMachine({
         LeaderBoard: {
           on: {
             Cancel: "LandingPage",
+            TopRatedPlayers: {
+              actions: [
+                (context, event) => {
+                    console.log(context)
+                    console.log(event.players)
+                    context.props["players"] = event.players;
+                 
+                },
+              ],
+            },
           },
           entry: assign({
             component: (ctx) => (ctx.component = LeaderBoard),

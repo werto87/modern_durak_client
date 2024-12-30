@@ -52,6 +52,7 @@
   };
   const viewLeaderBoard = () => {
     dispatch("stateMachineEvent", "LeaderBoard");
+    sendMessageToWebsocket('GetTopRatedPlayers|{"playerCount":10}');
   };
 </script>
 
