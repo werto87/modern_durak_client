@@ -57,6 +57,11 @@
     sendMessageToWebsocket('SubscribeGetTopRatedPlayers|{"playerCount":10}');
     sendMessageToWebsocket('GetTopRatedPlayers|{"playerCount":10}');
   };
+  const viewLoggedInPlayers = () => {
+    dispatch("stateMachineEvent", "LoggedInPlayers");
+    sendMessageToWebsocket('SubscribeGetLoggedInPlayers|{"playerCount":10}');
+    sendMessageToWebsocket('GetLoggedInPlayers|{"playerCount":10}');
+  };
 </script>
 
 {#if open}
@@ -99,6 +104,10 @@
       <ModernDurakButton
         buttonText="View Leaderboard"
         onClick={viewLeaderBoard}
+      />
+      <ModernDurakButton
+        buttonText="View logged in Players"
+        onClick={viewLoggedInPlayers}
       />
       {#if loginState}
         <ModernDurakButton buttonText="Logout" onClick={logout} />

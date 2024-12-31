@@ -14,6 +14,7 @@ import { sendMessageToWebsocket } from "./Webservice/store.js";
 import { debugDeck36, shuffleArray } from "./Util/Util";
 import About from "./About/About.svelte";
 import LeaderBoard from "./LeaderBoard/LeaderBoard.svelte";
+import LoggedInPlayers from "./LoggedInPlayers/LoggedInPlayers.svelte";
 const matchMakingState = (isRanked) => {
   return {
     on: {
@@ -135,6 +136,7 @@ export const toggleMachine = createMachine({
           on: {
             About: "About",
             LeaderBoard: "LeaderBoard",
+            "LoggedInPlayers": "LoggedInPlayers",
             Custom: "Lobby",
             Quick: "Quick",
             Ranked: "Ranked",
@@ -189,6 +191,28 @@ export const toggleMachine = createMachine({
           },
           entry: assign({
             component: (ctx) => (ctx.component = LeaderBoard),
+            popUp: (ctx) => (ctx.popUp = null),
+            props: (ctx) => (ctx.props = {}),
+            popUpProps: (ctx) => (ctx.popUpProps = {}),
+          }),
+          
+        },
+        LoggedInPlayers: {
+          on: {
+            Cancel: "LandingPage",
+            LoggedInPlayers: {
+              actions: [
+                (context, event) => {
+                  console.log(context)
+                  console.log(event.players)
+                  context.props["players"] = event.players;
+                 
+                },
+              ],
+            },
+          },
+          entry: assign({
+            component: (ctx) => (ctx.component = LoggedInPlayers),
             popUp: (ctx) => (ctx.popUp = null),
             props: (ctx) => (ctx.props = {}),
             popUpProps: (ctx) => (ctx.popUpProps = {}),
