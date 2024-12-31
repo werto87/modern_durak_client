@@ -7,6 +7,8 @@
 
   let open;
   export let loginState: string = null;
+  export let accountName: string = null;
+
   let dispatch = createEventDispatcher();
   const quickPressed = () => {
     if (!loginState) {
@@ -62,8 +64,19 @@
     <div class="ml-4 mr-4 grid grid-cols-1 gap-4">
       <div class="mt-2 flex">
         <div class="w-12 " />
-        <div class="flex grow items-center text-lg font-bold">
-          <h1 class="grow text-center text-lg font-bold">Menu</h1>
+        <div class="grid grow grid-cols-1">
+          {#if loginState}
+            {#if loginState == "guest"}
+              <h1 class="grow text-center text-lg font-bold">
+                Logged in as Guest
+              </h1>
+            {/if}
+            <h1 class="grow text-center text-lg font-bold">
+              {accountName}
+            </h1>
+          {:else}
+            <h1 class="grow text-center text-lg font-bold">Please log in</h1>
+          {/if}
         </div>
         <div class="w-12 overflow-clip">
           <Hamburger
@@ -75,6 +88,9 @@
           />
         </div>
       </div>
+      {#if !loginState}
+        <ModernDurakButton buttonText="Login" onClick={login} />
+      {/if}
       <ModernDurakButton buttonText="About" onClick={about} />
       <ModernDurakButton
         buttonText="Report Issue / Ask Question"
@@ -86,8 +102,6 @@
       />
       {#if loginState}
         <ModernDurakButton buttonText="Logout" onClick={logout} />
-      {:else}
-        <ModernDurakButton buttonText="Login" onClick={login} />
       {/if}
     </div>
   </div>

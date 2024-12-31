@@ -159,7 +159,7 @@ export const toggleMachine = createMachine({
             component: (ctx) => (ctx.component = LandingPage),
             popUp: (ctx) => (ctx.popUp = null),
             popUpProps: (ctx) => (ctx.popUpProps = {}),
-            props: (ctx) => (ctx.props = { loginState: ctx.loginState }),
+            props: (ctx) => (ctx.props = { loginState: ctx.loginState,accountName: ctx.accountName }),
           }),
         },
         About: {
@@ -506,6 +506,7 @@ export const toggleMachine = createMachine({
                   context.accountName = event.accountName;
                   context.loginState = "registered";
                   context.props["loginState"] = context.loginState;
+                  context.props["accountName"] = context.accountName;
                 },
               ],
             },
@@ -524,6 +525,7 @@ export const toggleMachine = createMachine({
                   context.accountName = event.accountName;
                   context.loginState = "guest";
                   context.props["loginState"] = context.loginState;
+                  context.props["accountName"] = context.accountName;
                 },
               ],
             },
@@ -539,9 +541,10 @@ export const toggleMachine = createMachine({
             LogoutAccountSuccess: {
               actions: [
                 (context) => {
-                  context.accountName = null;
+                  context.accountName =  null;
                   context.loginState = null;
                   context.props["loginState"] = context.loginState;
+                  context.props["accountName"] = context.accountName;
                 },
               ],
             },
