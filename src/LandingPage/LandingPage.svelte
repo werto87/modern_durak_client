@@ -59,8 +59,8 @@
   };
   const viewLoggedInPlayers = () => {
     dispatch("stateMachineEvent", "LoggedInPlayers");
-    sendMessageToWebsocket('SubscribeGetLoggedInPlayers|{"playerCount":10}');
-    sendMessageToWebsocket('GetLoggedInPlayers|{"playerCount":10}');
+    sendMessageToWebsocket('SubscribeGetLoggedInPlayers|{"playerCount":1337}');
+    sendMessageToWebsocket('GetLoggedInPlayers|{"playerCount":1337}');
   };
 </script>
 
